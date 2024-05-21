@@ -1,0 +1,32 @@
+.days-container{
+    display: flex;
+    flex-direction: column;
+min-height: inherit;
+background-color: skyblue;
+justify-content: center;
+align-items: center;
+}
+
+.input-container{
+min-height :50%;
+font-size: 1.5em;
+}
+input{
+    font-size: 1em;
+}
+
+.days-form{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    gap :20px;
+}
+.save-btn{
+    align-self: center;
+    width: 50%;
+    font-size: 1em;
+}
+
+.save-btn:hover{
+    background-color: green;
+}

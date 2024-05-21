@@ -1,0 +1,17 @@
+<!-- add validation and restrict date selection to today or later -->
+
+<div class="days-container">
+<form class="days-form">
+    <div class="input-container">
+        <label for="date">Select a date </label>
+        <input type="date" name="date" [(ngModel)]="date" required (change)="checkDate()"  [min]="minDate"/>
+    </div>
+    
+    <button type="submit" id="submitBtn" class="save-btn" (click)="saveDate()" [disabled]="isDisabled">Save</button>
+</form>
+
+{{date}}
+{{isDisabled}}
+{{minDate}}
+
+</div>
