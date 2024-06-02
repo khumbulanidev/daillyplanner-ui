@@ -1,1 +1,119 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    min-height: 100vh;
+}
+body{
+    min-height: 100vh;
+    background-color: seashell;
+}
+
+/* App root */
+app-root{
+    min-height: 100vh;
+    display: block;
+}
+
+app-days{
+    min-height: 86vh;
+}
+app-daylist{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    background-color: skyblue;
+}
+app-footer{
+    height : 7vh;
+    background-color: black;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+
+app-popup-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: black;
+    border: 1px solid green;
+    position: fixed;
+    top:0;
+    min-height: 100vh;
+    opacity: 0.5;
+}
+app-toast{
+    width: 20%;
+    min-height: 15vh;
+    max-height: 22vh;
+    position:fixed;
+    bottom: 0;
+    right: 0;
+}
+
+app-view{
+    width: 100%;
+    min-height: 87vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+app-home{
+    background-color: skyblue;
+    min-height: 87vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* .toast-container{
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid green;
+    background-color: white;
+    padding-bottom: 10px;
+    color: green;
+    background-color: white; 
+} */
+
+.show-toast{
+    width: 20%;
+    min-height: 10vh;
+    max-height: 22vh;
+    position:fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right :10px
+}
+
+.green-toast{
+    color: green;
+    border: 3px solid green;
+}
+.red-toast {
+    color: red;
+    border: 3px solid red;
+}
+
+
+.hide-toast{
+    display:none;
+}
