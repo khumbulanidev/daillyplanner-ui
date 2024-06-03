@@ -1,0 +1,14 @@
+<div class="modal-container">
+    <div class="closeBtn">
+        <i class="fa-solid fa-x" (click)="closePopup('cancelled')"></i> 
+    </div>
+<div class="modal-body">
+{{message}}
+</div>
+<div class="modal-footer">
+<button class="okBtn" (click)="deleteDate(id)">Ok</button>
+<button class="cancelBtn" (click)="closePopup('cancelled')">Cancel</button>
+</div>
+
+</div>
+
