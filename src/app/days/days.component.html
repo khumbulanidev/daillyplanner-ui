@@ -15,3 +15,5 @@
 {{minDate}}
 
 </div>
+<p-toast position="bottom-right" key="br" />
+<app-toast (closePopupEvent)="closeToast()"  [toastMessage]="toastMsg"  [ngClass]="isToastVisible ? isGreen ? 'show-toast green-toast' : 'show-toast red-toast' : 'hide-toast' "></app-toast>

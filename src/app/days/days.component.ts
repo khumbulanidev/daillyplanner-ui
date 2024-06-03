@@ -2,40 +2,53 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../services/http-service/http.service';
 import { LoggerService } from '../services/logger/logger.service';
-import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { ToastComponent } from "../toast/toast.component";
+import { NgClass } from '@angular/common';
+import { PageReloadService } from '../services/reload-service/page-reload.service';
 
 @Component({
-  selector: 'app-days',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './days.component.html',
-  styleUrl: './days.component.css'
+    selector: 'app-days',
+    standalone: true,
+    templateUrl: './days.component.html',
+    styleUrl: './days.component.css',
+    providers: [MessageService],
+    imports: [FormsModule, ToastModule, ButtonModule, RippleModule, ToastComponent, NgClass]
 })
 export class DaysComponent {
+
 date :any;
 isDisabled:boolean=true;
 minDate = Date();
+toastMsg: any;
+isToastVisible: boolean=false;
+isGreen: boolean=true;
 
-constructor(private httpService : HttpService, private logger : LoggerService){
+constructor(private httpService : HttpService, private logger : LoggerService,
+  private pageReloadService :PageReloadService){
   
 }
 saveDate(){
   //validate date
-
-  //save the date
-  // this.httpService.getDays().subscribe({
-
-  //   next: days=> this.logger.log(days) ,
-  //   error : err => this.logger.error(err)
-  // });
-
   this.httpService.saveDay({"id":0,"date":this.date}).subscribe({
-    next : res => this.logger.log(res), 
-    error :err=> this.logger.error(err)
+    next : res => {
+      this.logger.log(res);
+      this.showToast("Save was successfull. ");
+    }, 
+    error :err=> {
+      this.logger.error(err)
+      this.isGreen=false;
+      //show the day already exist message
+      this.showToast(err.message);
+    }
 
   })
 
 }
+ 
 checkDate(){
 if(Date.parse(this.date)){
   //enable button
@@ -49,4 +62,17 @@ else{
 }
 
 }
+
+closeToast() {
+  this.isToastVisible=false;
+  }
+
+  showToast(msg: string) {
+    this.toastMsg = msg;
+    this.isToastVisible=true;
+    window.setTimeout(()=>{this.isToastVisible=false;
+      this.pageReloadService.reloadPage();
+    },3000);
+    }
+
 }
