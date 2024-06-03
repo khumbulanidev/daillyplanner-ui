@@ -8,6 +8,7 @@ import { LoggerService } from '../logger/logger.service';
   providedIn: 'root'
 })
 export class HttpService {
+
   private url: string ='http://localhost:8080/api/v1/days';
 
   constructor(private http : HttpClient, private logger : LoggerService) { }
@@ -17,5 +18,8 @@ export class HttpService {
   saveDay(day : DayDto){
     this.logger.log(day);
     return this.http.post(this.url+"/save",day);
+  }
+  deleteDay(id:number) {
+    return this.http.delete(this.url+"/delete/"+id);
   }
 }
