@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';  
 
 @Component({
   selector: 'app-toast',
@@ -9,4 +10,12 @@ import { Component } from '@angular/core';
 })
 export class ToastComponent {
 
+@Input()
+toastMessage:string="toast message";
+@Output()
+closePopupEvent=new EventEmitter<string>();
+
+closePopup() {
+ this.closePopupEvent.emit('close');
+}
 }
