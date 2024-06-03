@@ -1,0 +1,25 @@
+<div class="view-container">
+    <div class="input-div">
+        <div class="label-container">
+    <label for="id">Id : </label>
+    </div>
+    <div class="input-container">
+        <input type="number" id="id" readonly [value]="id">
+    </div>
+   
+    </div>
+    <div class="input-div">
+        <div class="label-container">
+            <label for="date">Date : </label>
+        </div>
+       <div class="input-container">
+        <input type="date"  readonly [value]="date" >
+       </div>
+       
+
+    </div>
+    <div class="back-container">
+       <button class="backBtn" (click)="toDaysPage()"><i class="fa-solid fa-arrow-left"> Back</i></button> 
+    </div>
+
+</div>
