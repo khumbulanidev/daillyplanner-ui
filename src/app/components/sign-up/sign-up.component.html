@@ -1,0 +1,35 @@
+<form class="sign-up-container" [formGroup]="signUpForm" (ngSubmit)="signUp()">
+    <div class="input-group">
+        <label for="firstname">Firstname : </label>
+        <input type="text" formControlName="firstname"/>
+        @if(firstname?.invalid && (firstname?.touched || firstname?.dirty)){
+        <div class="error">Firstname is required</div>
+        }
+    </div>
+
+    <div class="input-group">
+        <label for="lastname">Lastname : </label>
+        <input type="text" formControlName="lastname"/>
+        @if(lastname?.invalid && (lastname?.touched || lastname?.dirty)){
+        <div class="error">Lastname is required</div>
+        }
+        
+    </div>
+
+    <div class="input-group">
+        <label for="email">Email : </label>
+        <input type="email" placeholder="test@hotmail.com" formControlName="email"/>
+        @if(email?.invalid && (email?.touched || email?.dirty)){
+            {{email?.invalid && (email?.touched || email?.dirty)}}
+        <div class="error">Email is required</div>
+        }
+        
+    </div>
+
+    <div class="input-group">
+        <label for="phone">Phone : </label>
+        <input type="tel" placeholder="optional" formControlName="phone" />
+    </div>
+
+    <button type="submit" class="signUpBtn" >Sign up</button>
+</form>
