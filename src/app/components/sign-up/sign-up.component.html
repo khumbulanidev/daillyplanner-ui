@@ -17,6 +17,11 @@
     </div>
 
     <div class="input-group">
+        <label for="phone">Phone : </label>
+        <input type="tel" placeholder="optional" formControlName="phone" />
+    </div>
+
+     <div class="input-group">
         <label for="email">Email : </label>
         <input type="email" placeholder="test@hotmail.com" formControlName="email"/>
         @if(email?.invalid && (email?.touched || email?.dirty)){
@@ -27,8 +32,12 @@
     </div>
 
     <div class="input-group">
-        <label for="phone">Phone : </label>
-        <input type="tel" placeholder="optional" formControlName="phone" />
+        <label for="password">Password : </label>
+        <input type="password" placeholder="password" formControlName="password"/>
+        @if(password?.invalid && (password?.touched || password?.dirty)){
+        <div class="error">password is required</div>
+        }
+        
     </div>
 
     <button type="submit" class="signUpBtn" >Sign up</button>
