@@ -1,0 +1,46 @@
+<div class="add-task-container">
+    <div class="date-container">
+        {{date}} 
+    </div>
+    <form class="form-container" #form="ngForm" ngNativeValidate>
+
+        <div class="input-container">
+            <label for="date"> Date :</label>
+    <input type="date" [value]="date | datePipe"  name="date"  readonly>
+        </div>
+
+        <div class="input-container">
+            <label for="name"> Name :</label>
+            <input type="text" name="name" [(ngModel)]="task.name" required>
+        </div>
+
+        <div class="input-container">
+            <label for="comments"> Comments :</label>
+            <input type="comments" name="comments" [(ngModel)]="task.comments">
+
+        </div>
+
+        <div class="input-container">
+            <label for="quantity"> Quantity :</label>
+            <input type="number" name="quantity" [(ngModel)]="task.quantity">
+        </div>
+
+        <div class="input-container">
+            <label for="done"> Done :</label>
+            <select name="done" formControlName="done">
+                @for(doneItem of yesNo; track doneItem){
+                    <option  [ngValue]="doneItem">{{doneItem}}</option>
+                }
+               
+            </select>
+        </div>
+        <div class="input-container">
+
+            <button class="btnSave">Save</button>
+            <button class="btnBack" (click)="backToTasks()">Back</button>
+        </div>
+
+
+    </form>
+
+</div>
