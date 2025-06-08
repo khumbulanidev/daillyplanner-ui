@@ -42,3 +42,9 @@ input{
     color: red;
     font-size: 0.8em;
 }
+
+.main-error{
+    color: red;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}

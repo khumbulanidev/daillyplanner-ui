@@ -1,4 +1,7 @@
 <form class="sign-up-container" [formGroup]="signUpForm" (ngSubmit)="signUp()">
+    @if(signUpForm.invalid){
+        <div class="main-error">{{errorMessage}}</div>
+        }
     <div class="input-group">
         <label for="firstname">Firstname : </label>
         <input type="text" formControlName="firstname"/>
@@ -35,10 +38,10 @@
         <label for="password">Password : </label>
         <input type="password" placeholder="password" formControlName="password"/>
         @if(password?.invalid && (password?.touched || password?.dirty)){
-        <div class="error">password is required</div>
+        <div class="error">password is required and should be at least 8 characters</div>
         }
         
     </div>
-
+<!-- [disabled]="signUpForm.invalid" -->
     <button type="submit" class="signUpBtn" >Sign up</button>
 </form>
