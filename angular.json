@@ -26,9 +26,13 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/tablet.css",
+              "src/desktop.css",
+              "src/mobile.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "./node_modules/primeng/resources/primeng.min.css"
+              "./node_modules/primeng/resources/primeng.min.css",
+              "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
