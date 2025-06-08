@@ -1,1 +1,57 @@
-<p>tasks works!</p>
+<div class="tasks-container">
+    
+    <div class="button-container">
+        <button class="btnAddDay" (click)="addTask()"><i class="fa-solid fa-plus"></i></button>
+    </div>
+
+    <p-table [value]="tasks" [tableStyle]="{ 'min-width': '70vw' }" 
+     styleClass="p-datatable-gridlines p-datatable-striped" 
+     [paginator]="true"
+     [rows]="10"
+     [rowsPerPageOptions]="[10, 20,50,100]"
+     class="prime-table"
+     >
+      <ng-template pTemplate="header">
+          <tr>
+              <th pSortableColumn="id" style="width:5%">Id <p-sortIcon field="id" /></th>
+              <th  pSortableColumn="name" style="width:15%">Name <p-sortIcon field="name" /></th>
+              <th pSortableColumn="comments" style="width:10%">Comments <p-sortIcon field="comments" /></th>
+
+              <th pSortableColumn="quantity" style="width:10%">Quantity <p-sortIcon field="quantity" /></th>
+              <th  pSortableColumn="isDone" style="width:10%">Done <p-sortIcon field="isDone" /></th>
+              <th pSortableColumn="date" style="width:10%">Date<p-sortIcon field="date" /></th>
+
+              <th pSortableColumn="duration" style="width:10%">Duration <p-sortIcon field="duration" /></th>
+              <th pSortableColumn="dayId" style="width:10%">Day id <p-sortIcon field="dayId" /></th>
+              <th>View</th>
+              <th>Delete</th>
+
+             
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task>
+          <tr>
+              <td>{{ task.id }}</td>
+              <td>{{ task.name }}</td>
+              <td>{{ task.comments }}</td>
+
+              <td>{{ task.quantity }}</td>
+              <td>{{ task.done }}</td>
+              <td>{{ task.date }}</td>
+              <td>{{ task.duration }}</td>
+              <td>{{ task.dayId }}</td>
+
+              <td class="center"><i class="fa-regular fa-eye view" (click)="viewTask(task.id)"></i></td>
+              <td class="center"><i class="fa-solid fa-trash delete" (click)="deleteTask(task.id)"></i> </td>
+          </tr>
+      </ng-template>
+  </p-table>
+<div class="material-table-container">
+
+
+</div>
+</div>
+
+<app-popup-modal (hideModal)="closeModal($event)" [message]="deleteMsg" [id]="id" #popupModal [ngClass]="showModal  ? 'showPopupModal': 'hidePopupModal'"></app-popup-modal>
+
+<app-toast (closePopupEvent)="closeToast()"  [toastMessage]="toastMsg"  [ngClass]="isToastVisible ? isGreen ? 'show-toast green-toast' : 'show-toast red-toast' : 'hide-toast' "></app-toast>
