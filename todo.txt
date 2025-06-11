@@ -1,0 +1,72 @@
+on the day list 
+when you click on the task it should attach an id for the day and pull up tasks for that day based on the id
+task list page opens and pulls all the tasks for that day from the database
+
+add a task list component
+add table with all the tasks
+add a button to view the task, delete the task
+
+view a list of tasks for the day
+
+
+
+Home page 
+should have a welcome page describing the application
+login, sign up
+Sign up page
+Frontend
+add password field
+gray out sign up button
+
+-user service
+create a post method to save new user data
+add a signup method to the user component and save user data
+create a login post method that logs user in 
+create a user dto 
+
+add a show password icon to the password
+
+
+backend
+create a controller for user
+create a post method to sign up user
+create a login memthod to login user
+
+user service
+create signup method to save user information
+create a login method to log user in
+
+DTO
+create userDTO to receive and return user info
+
+Repository
+create a user Repository
+create a user Model class
+
+
+Dashboard
+show to do list for the current day
+have a data table 
+have button on top right to add an item to do for the day/ or another day
+user can view item and be able to edit it or delete
+
+Add to do item page
+one of the fields should be a calendar selection to allow you to select the day to add the item to
+fields
+day
+description
+comments
+done YES/NO
+
+
+Manage to do items
+Has calendar
+user selects date to be able to view a list of items for that date
+user can add item if day is in the future
+user can mark item as completed,
+user can add comments but cannot delete
+
+
+
+
+
