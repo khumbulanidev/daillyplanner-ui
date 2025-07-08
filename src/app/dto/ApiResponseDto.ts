@@ -4,5 +4,6 @@ export interface ApiResponseDto{
     httpStatus : any,
     responseCode : string,
     data : any,
-    exception : any
+    exception : any,
+    token : string
 }
