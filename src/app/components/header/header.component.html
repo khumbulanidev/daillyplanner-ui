@@ -1,0 +1,39 @@
+<nav>
+  {{user}}
+  <ul>
+    <li><a routerLink="home">Home</a></li>
+    <li><a routerLink="tasks">Task</a></li>
+    <li>
+    <div class="dropdown">
+      <a class="dropdownBtn">Days</a>
+      <div class="dropdown-content">
+        <a routerLink="days">All Days</a> 
+        <a routerLink="day">Add Day</a>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="dropdown">
+      <a class="dropdownBtn">Samples</a>
+      <div class="dropdown-content">
+        <a routerLink="img">Image example</a>
+        <a routerLink="side-menu">Side menu</a>
+        <a routerLink="bounce">Bouncing text</a>
+        <a routerLink="revision">Revision</a>
+      </div>
+    </div>
+  </li>
+
+
+  </ul>
+
+@if (isAuthenticated) {
+
+<div class="logout-contianer">
+<button class="btnLogout" (click)="logout()">Logout</button>
+</div>
+
+}
+
+</nav>
+
