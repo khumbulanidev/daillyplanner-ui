@@ -1,14 +1,38 @@
 <div class="login-form-container">
-    <form>
+ 
+  
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+    
+
         <div class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" placeholder="username" />
+             @if (loginError) {
+    <div class="login-error">
+    {{loginError}}
+  </div>
+}
         </div>
         <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="password" />
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="email" formControlName="email" />
         </div>
-        <button class="loginBtn">Login</button>
+          <div class="input-group">
+        <label for="password">Password : </label>
+        <div class="password-container"> 
+          <input [type]="inputType"  formControlName="password" placeholder="password" class="password-input" />
+            @if(!isPasswordVisible){
+            <span class="mdi-light--eye eye" (click)="togglePassword()"></span>
+            }
+            @else{
+            <span class="mdi-light--eye-off eye" (click)="togglePassword()"></span>
+            }
+           
+            </div>
+             @if(password?.invalid && (password?.touched || password?.dirty)){
+            <div class="error">{{passwordError}}</div>
+            }
+        
+    </div>
+        <button class="loginBtn" type="submit">Login</button>
         <span>Don't have an account ? <a routerLink = "/sign-up">Sign up</a></span>
     </form>
     

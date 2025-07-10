@@ -1,0 +1,31 @@
+.home-container{
+    width: 100%;
+    min-height: 87vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: grey;
+    font-size: 1.5em;
+}
+
+.left-container{
+font-style: italic;
+
+}
+.right-container{
+border-left : solid grey 1px;
+}
+
+
+.right-container, .left-container{
+display: flex;
+flex: 1;
+justify-content: center;
+align-items: center;
+min-height: inherit;
+}
+app-login-form{
+    min-height: inherit;
+    width: 100%;
+}
