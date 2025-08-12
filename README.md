@@ -25,3 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+Calendar is a used as a child component of the CalendarContainer. When the Calendar container the current month is shown on the screen and changing month and year will change the month being displayed on the screen.
+This uses ViewContainerRef to create a calendar at runtime and populate the days together with tasks for that day.

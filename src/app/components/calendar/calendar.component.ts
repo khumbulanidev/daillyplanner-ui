@@ -1,7 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { TaskDto } from '../../models/TaskDto';
-import { DayDto } from '../../models/DayDto';
 import { Day } from '../../models/day';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
 
@@ -11,108 +18,170 @@ import { DaylistService } from '../../services/daylist-service/daylist.service';
   imports: [],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CalendarComponent implements OnInit {
-
-
+export class CalendarComponent implements OnInit, OnChanges {
   router = inject(Router);
   dayService = inject(DaylistService);
+  changeDetector = inject(ChangeDetectorRef);
+
+  @Input()
+  year!: string;
+
+  @Input() // initialize month to current month
+  month!: string;
+
   daysOfWeek = [
     'Sunday',
     'Monday',
     'Tuesday',
-    'Wednsday',
+    'Wednesday',
     'Thursday',
     'Friday',
     'Saturday',
   ];
-  daysOfMonth : Day[] = [];
+  daysOfMonth: Day[] = [];
   dates: any[] = [];
   indexOfFirstDay = -1;
   currentDate: Date = new Date();
-//mark today in calendar
+  currentCalendarMonthYear = 'initial';
+  daysInMonth = 0;
+  months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  years: number[] = [];
+  allTotalsForTheMonth: any[] = [];
 
   ngOnInit(): void {
-    // check current month
-    this.getAllDaysOfTheMonth(this.currentDate.getMonth() + 1);
-    this.populateCalendar();
-  
-    //check how many days are there
-    //create arrays with dates from 1 to endOfMonth
+    this.getAllDaysOfTheMonth(
+      this.months.indexOf(this.month) + 1,
+      parseInt(this.year)
+    );
+
+    this.populateCalendar(
+      parseInt(this.year),
+      this.months.indexOf(this.month) + 1
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['year']) {
+      console.log('Year changed to ', this.year);
+    }
+
+    if (changes['month']) {
+      console.log('month changed to ', this.month);
+    }
   }
 
   getDaysInMonth(year: number, month: number): number {
     return new Date(year, month, 0).getDate();
   }
 
-  populateCalendar() {
+  populateCalendar(year: number, month: number) {
     this.currentDate = new Date();
-    let day = this.currentDate.getDate();
-    let month = this.currentDate.getMonth(); //
-    let year = this.currentDate.getFullYear();
-    let firstDayOfMonth = new Date(year, month, 1).toLocaleDateString(
+
+    //account for january
+    let firstDayOfMonth = new Date(year, month - 1, 1).toLocaleDateString(
       undefined,
       { weekday: 'long' }
     );
+
     this.indexOfFirstDay = this.daysOfWeek.indexOf(firstDayOfMonth);
-    
-    let daysInMonth = this.getDaysInMonth(year, month);
-    //this is for the days from Monday to Sunday
+
+    this.daysInMonth = this.getDaysInMonth(year, month);
+    this.populateTotals();
     for (let i = 0; i < this.indexOfFirstDay; i++) {
-      this.dates.push({day : 0, numberOfTasks :0});
+      this.dates.push({ day: 0, numberOfTasks: 0 });
     }
     //for numerical dates
-    for (let i = 1; i <= daysInMonth; i++) {
-
-      this.dates.push({day : i, numberOfTasks : this.getNumberOfTasks(i)});
+    for (let i = 1; i <= this.daysInMonth; i++) {
+      this.dates.push({ day: i, numberOfTasks: this.getNumberOfTasks(i) });
     }
-    console.log(this.currentDate.getDay());
   }
 
   openTasks(day: number) {
-  console.log(this.currentDate)
-  this.router.navigate(['date', this.currentDate.getMonth() + 1 + '-' + day + '-' + this.currentDate.getFullYear()]);
+    this.router.navigate([
+      'date',
+      this.currentDate.getMonth() + 1 + '-' + day + '-' + this.month,
+    ]);
   }
 
   getNumberOfTasks(day: number): number {
-    //get current month
-    //get current year
-    let filteredDays: Day[] = []
+    let filteredDays: Day[] = [];
+    for (const element of this.daysOfMonth) {
+      let dateString = element.date + '';
+      let splitDate = dateString.split('-');
 
-    for(const element of this.daysOfMonth){
-      console.log('Day ',element)
-       console.log('Day date ',element.date)
-
-       let dateString = element.date+""
-       let splitDate = dateString.split('-')
-       console.log(splitDate)
-       //convert date to Date
-     
-      if(parseInt(splitDate[2]) == day){
-        filteredDays.push(element)
+      if (parseInt(splitDate[2]) == day) {
+        filteredDays = [...filteredDays, element];
         break;
       }
     }
-  //d.lenght - 
-   if(filteredDays.length > 0){
-    return filteredDays[0].tasks.length
-   }else{
-return 0;
-   }
- 
-}
 
-getAllDaysOfTheMonth(month : number){
-   //get all the tasks for the month grouped by day
-   console.log('days of month ', this.currentDate.getFullYear());
-     this.dayService.getDaysOfMonth(month, this.currentDate.getFullYear() ).subscribe({
-      next : response => {
+    if (filteredDays.length > 0) {
+      return filteredDays[0].tasks.length;
+    } else {
+      return 0;
+    }
+  }
+
+  getAllDaysOfTheMonth(month: number, year: number) {
+    //get all the tasks for the month grouped by day
+    let yearParam = year;
+    if (!year) {
+      yearParam = this.currentDate.getFullYear();
+      console.log('inside if statement');
+    }
+
+    this.dayService.getDaysOfMonth(month, yearParam).subscribe({
+      next: (response) => {
         this.daysOfMonth = response;
-        console.log('days of month ', this.daysOfMonth);
-      }, 
-      error : error => {
-        console.log("Error", error);
-      }
-    })
-}
+        console.log('All days of the month retrieved', this.daysOfMonth);
+        this.populateTotals();
+      },
+      error: (error) => {
+        console.log('Error', error);
+      },
+    });
+  }
+  populateMonth() {}
+
+  populateTotals() {
+    for (let i = 1; i <= this.daysInMonth; i++) {
+      //create an array that has all days in month and assoicated totals
+      this.allTotalsForTheMonth = [
+        ...this.allTotalsForTheMonth,
+        { day: i, tasks: 0 },
+      ];
+      //this.allTotalsForTheMonth.push({day : i, tasks : 0})
+    }
+    for (const element of this.daysOfMonth) {
+      let dateString = element.date + '';
+      let splitDate = dateString.split('-');
+      let day = parseInt(splitDate[2]);
+      this.allTotalsForTheMonth[day] = {
+        day: day,
+        tasks: element.tasks.length,
+      };
+    }
+    this.changeDetector.detectChanges();
+  }
+
+  initializeComponent(month: number, year: number) {
+    this.getAllDaysOfTheMonth(month + 1, year);
+    this.populateCalendar(year, month);
+  }
 }

@@ -1,4 +1,8 @@
+
 <div class="calendar-container">
+    <div class="month-container">
+        {{currentCalendarMonthYear}} 
+    </div>
     <div class="grid-container">
         @for( day of daysOfWeek; track $index){
         <div class="grid-item">
@@ -20,18 +24,18 @@
                 {{date.day}}
             </div>
             <div class="quantity-container">
-                {{getNumberOfTasks(date.day)}}
+                {{allTotalsForTheMonth[date.day].tasks}} tasks
             </div>
 
         </div>
         }
         @else {
         <div class="grid-item" (click)="openTasks(date.day)">
-              <div class="date-container">
+            <div class="date-container">
                 {{date.day}}
             </div>
             <div class="quantity-container">
-                {{getNumberOfTasks(date.day)}}
+                {{allTotalsForTheMonth[date.day].tasks}} tasks
             </div>
         </div>
         }
