@@ -56,7 +56,7 @@ login(){
       this.authenticationService.login(this.getFormData()).subscribe({
         next : (response)=> {
           console.log('Login response ', response);
-          this.router.navigateByUrl('/dashboard')
+          //this.router.navigateByUrl('/today')
           this.toastService.success(LOGIN_SUCCESS,'Sucess');
           
         },
