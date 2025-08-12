@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit, OnChanges {
   @Input()
   year!: string;
 
-  @Input() // initialize month to current month
+  @Input()
   month!: string;
 
   daysOfWeek = [

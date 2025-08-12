@@ -17,7 +17,7 @@
 
         </div>
         }
-        @else if(date.day == currentDate.getDate()){
+        @else if(date.day == currentDate.getDate() && months.indexOf(month) == (currentDate.getMonth()) && year == currentDate.getFullYear()+'' ){
 
         <div class=" current-date" (click)="openTasks(date.day)">
             <div class="date-container">
