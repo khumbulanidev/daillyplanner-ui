@@ -29,7 +29,7 @@ isToastVisible: boolean=false;
 isGreen: boolean=true;
 
 constructor(private httpService : HttpService, private logger : LoggerService,
-  private pageReloadService :PageReloadService){
+  private pageReloadService : PageReloadService){
   
 }
 saveDate(){

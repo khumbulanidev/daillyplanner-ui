@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../services/task-service/task.service';
 import { LoggerService } from '../services/logger/logger.service';
@@ -9,6 +9,8 @@ import { NgClass } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { PopupModalComponent } from '../popup-modal/popup-modal.component';
 
+//when a user logs in tasks for the day should be loaded if any
+//if none a message showing no tasks should show
 
 @Component({
   selector: 'app-tasks',
@@ -19,15 +21,22 @@ import { PopupModalComponent } from '../popup-modal/popup-modal.component';
 })
 export class TasksComponent {
 
+  //services
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+  logger = inject(LoggerService);
+  pageReloadService = inject(PageReloadService);
+  taskService = inject(TaskService);
+
   showModal: boolean=false;
   deleteMsg: string="Are you sure you want to delete this item";
   isToastVisible: boolean= false;
   toastMsg: string="Item delete successfully";
-isGreen: boolean=true;
+  isGreen: boolean=true;
 
   id : any=0;
   tasks: any[]=[];
-  constructor(private activatedRoute : ActivatedRoute, private taskService : TaskService, private logger : LoggerService, private pageReloadService : PageReloadService, private router: Router){
+  constructor(){
     this.activatedRoute.paramMap.subscribe(params=>{
       this.id=params.get('id');
     }
