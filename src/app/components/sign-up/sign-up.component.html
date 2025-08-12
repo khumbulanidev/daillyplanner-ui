@@ -36,12 +36,20 @@
 
     <div class="input-group">
         <label for="password">Password : </label>
-        <input type="password" placeholder="password" formControlName="password"/>
-        @if(password?.invalid && (password?.touched || password?.dirty)){
-        <div class="error">password is required and should be at least 8 characters</div>
-        }
-        
+        <div class="password-container"> 
+          <input [type]="inputType"  formControlName="password" placeholder="password" class="password-input" />
+            @if(!isPasswordVisible){
+            <span class="mdi-light--eye eye" (click)="togglePassword()"></span>
+            }
+            @else{
+            <span class="mdi-light--eye-off eye" (click)="togglePassword()"></span>
+            }
+           
+            </div>
+             @if(password?.invalid && (password?.touched || password?.dirty)){
+            <div class="error">{{passwordError}}</div>
+            }
+            {{password?.invalid}}
     </div>
-<!-- [disabled]="signUpForm.invalid" -->
     <button type="submit" class="signUpBtn" >Sign up</button>
 </form>
