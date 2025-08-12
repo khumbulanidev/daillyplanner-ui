@@ -50,4 +50,13 @@ nav{
     position: relative;
     display: inline-block;
   }
-  
+  app-daily-planner-bar{
+    transform: rotate(45deg);
+    display: block;
+    position:fixed;
+    width: 20vw;
+    right: 0;
+    top: 0;
+  }
+
+ 
