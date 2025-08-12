@@ -154,13 +154,12 @@ table {
     margin-top: 10px;
     
   }
-  .btnAddDay{
+  /* .btnAddDay{
     font-size: 2rem;
     color : blue;
     border-radius: 50%;
     border: none;
-    /* background-color:blue; */
-  }
+  } */
 
   .btnAddDay:hover{
     color:green;
@@ -211,3 +210,7 @@ min-height: 86vh;
     min-height: inherit;
     display: flex;
   }
+
+ app-calendar{
+  min-height: inherit;
+ }
