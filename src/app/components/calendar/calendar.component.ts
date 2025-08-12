@@ -115,7 +115,7 @@ export class CalendarComponent implements OnInit, OnChanges {
   openTasks(day: number) {
     this.router.navigate([
       'date',
-      this.currentDate.getMonth() + 1 + '-' + day + '-' + this.month,
+      this.currentDate.getMonth() + 1 + '-' + day + '-' + this.year,
     ]);
   }
 
