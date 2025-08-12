@@ -13,6 +13,6 @@ export class UserService {
   http = inject(HttpClient)
 
   signUp(user : UserDto):Observable<ApiResponseDto>{
-    return this.http.post<ApiResponseDto>(BASE_URL + USER_API,user);
+    return this.http.post<ApiResponseDto>(BASE_URL + USER_API, user);
   }
 }
