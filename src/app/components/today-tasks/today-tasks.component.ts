@@ -29,6 +29,7 @@ export class TodayTasksComponent implements OnInit {
   dayService = inject(DaylistService);
   pageReloadService = inject(PageReloadService);
   activatedRoute = inject(ActivatedRoute);
+  dayListService = inject(DaylistService)
   
   dayDto!: DayDto;
   dateString : any;
@@ -41,6 +42,7 @@ export class TodayTasksComponent implements OnInit {
   
    this.dateString = this.activatedRoute.snapshot.paramMap.get('date');
    let date = new Date(this.dateString);
+   this.dayListService.setPreviousDateSubject(this.dateString);
     this.getTasksForToday(this.dateString);
     //this.getDay();
   }
@@ -49,6 +51,7 @@ export class TodayTasksComponent implements OnInit {
     this.dayService.getDay(new Date()).subscribe({
       next : response =>{
         this.dayDto = response;
+        
         console.log('Today ', this.dayDto)
       },
       error : error =>{
@@ -68,6 +71,8 @@ export class TodayTasksComponent implements OnInit {
   }
 
   viewTask(taskId : number) {
+    //set value of previous date 
+    this.dayListService.setPreviousDateSubject(this.dateString)
     this.router.navigate(['add-task', taskId]);
 
   }
