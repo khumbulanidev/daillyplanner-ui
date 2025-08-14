@@ -1,4 +1,7 @@
 <form class="sign-up-container" [formGroup]="signUpForm" (ngSubmit)="signUp()">
+    @if(signUpForm.invalid){
+        <div class="main-error">{{errorMessage}}</div>
+        }
     <div class="input-group">
         <label for="firstname">Firstname : </label>
         <input type="text" formControlName="firstname"/>
@@ -33,12 +36,20 @@
 
     <div class="input-group">
         <label for="password">Password : </label>
-        <input type="password" placeholder="password" formControlName="password"/>
-        @if(password?.invalid && (password?.touched || password?.dirty)){
-        <div class="error">password is required</div>
-        }
-        
+        <div class="password-container"> 
+          <input [type]="inputType"  formControlName="password" placeholder="password" class="password-input" />
+            @if(!isPasswordVisible){
+            <span class="mdi-light--eye eye" (click)="togglePassword()"></span>
+            }
+            @else{
+            <span class="mdi-light--eye-off eye" (click)="togglePassword()"></span>
+            }
+           
+            </div>
+             @if(password?.invalid && (password?.touched || password?.dirty)){
+            <div class="error">{{passwordError}}</div>
+            }
+            {{password?.invalid}}
     </div>
-
     <button type="submit" class="signUpBtn" >Sign up</button>
 </form>

@@ -1,0 +1,29 @@
+
+
+ 
+ 
+  /* .hidden-container{
+    display: none;
+    
+    width: 80%;
+    border: solid 1px;
+  }
+  .btnAddDay:hover + .hidden-container {
+    display: flex;
+    justify-content: flex-end;
+  } */
+  .btnAddDay:hover{
+   color: green;
+  }
+
+  mat-paginator {
+    order: 2;
+  }
+
+  [class="center"]{
+    text-align: center;
+  }
+ .hidePopupModal{
+  display: none;
+ }
+

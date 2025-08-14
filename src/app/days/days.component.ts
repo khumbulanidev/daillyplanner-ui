@@ -9,6 +9,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ToastComponent } from "../toast/toast.component";
 import { NgClass } from '@angular/common';
 import { PageReloadService } from '../services/reload-service/page-reload.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-days',
@@ -28,7 +29,7 @@ isToastVisible: boolean=false;
 isGreen: boolean=true;
 
 constructor(private httpService : HttpService, private logger : LoggerService,
-  private pageReloadService :PageReloadService){
+  private pageReloadService : PageReloadService){
   
 }
 saveDate(){
@@ -38,11 +39,12 @@ saveDate(){
       this.logger.log(res);
       this.showToast("Save was successfull. ");
     }, 
-    error :err=> {
+    error :err => {
       this.logger.error(err)
+      this.logger.log("Error message :"+ err.error.message)
       this.isGreen=false;
       //show the day already exist message
-      this.showToast(err.message);
+      this.showToast(err.error.message);
     }
 
   })
@@ -71,7 +73,7 @@ closeToast() {
     this.toastMsg = msg;
     this.isToastVisible=true;
     window.setTimeout(()=>{this.isToastVisible=false;
-      this.pageReloadService.reloadPage();
+      //this.pageReloadService.reloadPage();
     },3000);
     }
 

@@ -1,0 +1,100 @@
+.calendar-container{
+    display: flex;
+    flex-direction: column;
+    min-height: inherit;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.grid-container{
+
+    display: grid;
+    min-height: 50vh;
+    width: 50%;
+    grid-template-columns: repeat(7, 1fr); 
+    grid-template-rows: 2em auto auto auto auto auto auto;
+    /* for having a collapsed border effect */
+    gap: 1px;
+
+}
+
+.grid-item, .grid-item-blank, .current-date{
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* for having a collapsed border effect */
+    outline: solid 1px black;
+}
+
+.current-date{
+    background-color: blue;
+    color: white;
+}
+
+.date-container{
+height: 80%;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+border-collapse: collapse;
+}
+
+.quantity-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    font-size: 0.7em;
+    margin-right: 1em;
+    color: green;
+}
+
+
+
+
+.grid-item:hover, .current-date:hover{
+    background-color: skyblue;
+    color: white;
+}
+
+.current-date > .quantity-container{
+    color: white;
+}
+
+/* sets margin between calendar and month */
+.month-container{
+    margin-bottom: 2em;
+}
+
+.drop-down-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+    width: 100%;
+    gap: 2em;
+}
+
+.drop-down-item{
+    display: flex;
+    flex-direction: column;
+    min-width: 15%;
+}
+select{
+    border-radius: 1em;
+    height: 2em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.drop-down-item > button{
+min-width: none;
+border-radius: 2em;
+background-color: green;
+color: white;
+height: 2em;
+}

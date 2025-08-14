@@ -1,0 +1,45 @@
+
+<div class="calendar-container">
+    <div class="month-container">
+        {{currentCalendarMonthYear}} 
+    </div>
+    <div class="grid-container">
+        @for( day of daysOfWeek; track $index){
+        <div class="grid-item">
+            {{day}}
+        </div>
+        }
+
+        @for( date of dates; track $index){
+
+        @if(date.day == 0){
+        <div class="grid-item-blank">
+
+        </div>
+        }
+        @else if(date.day == currentDate.getDate() && months.indexOf(month) == (currentDate.getMonth()) && year == currentDate.getFullYear()+'' ){
+
+        <div class=" current-date" (click)="openTasks(date.day)">
+            <div class="date-container">
+                {{date.day}}
+            </div>
+            <div class="quantity-container">
+                {{allTotalsForTheMonth[date.day].tasks}} tasks
+            </div>
+
+        </div>
+        }
+        @else {
+        <div class="grid-item" (click)="openTasks(date.day)">
+            <div class="date-container">
+                {{date.day}}
+            </div>
+            <div class="quantity-container">
+                {{allTotalsForTheMonth[date.day].tasks}} tasks
+            </div>
+        </div>
+        }
+        }
+
+    </div>
+</div>
