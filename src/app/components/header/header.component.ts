@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { Subscription } from 'rxjs';
 import { User } from '../../models/user';
 import { Router, RouterModule } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -27,7 +28,9 @@ ngOnInit(): void {
    
    this.user = user;
    console.log('User in header ', user);
-   this.isAuthenticated ? this.router.navigateByUrl('/dashboard') : this.router.navigateByUrl('/login')
+   let date = new Date();
+   let dateString = date.getMonth() + 1 +"-"+ date.getDate() + "-"+ date.getFullYear();
+   this.isAuthenticated ? this.router.navigate(['/date', dateString]) : this.router.navigateByUrl('/login')
   })
 }
 

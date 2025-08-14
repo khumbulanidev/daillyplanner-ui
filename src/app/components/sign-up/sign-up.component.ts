@@ -1,22 +1,29 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, PatternValidator, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
-import { ALL_FIELDS_REQUIRED, SIGN_UP_ERROR } from '../../constants/DailyPlannerConstants';
+import { ALL_FIELDS_REQUIRED, SIGN_UP_ERROR, PASSWORD_REQUIREMENT } from '../../constants/DailyPlannerConstants';
 import { UserDto } from '../../dto/user-dto';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { PasswordInputComponent } from '../password-input/password-input.component';
+import { PasswordValidatorService } from '../../services/password-validator-service/password-validator.service';
  
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PasswordInputComponent],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
 export class SignUpComponent{
 
+passwordValidatorService = inject(PasswordValidatorService);
   errorMessage = '';
+  passwordError = PASSWORD_REQUIREMENT;
+  isPasswordVisible :boolean = false;
+  inputType : string = "password";
+
   toastService = inject(ToastrService);
   userService = inject(UserService);
   router = inject(Router)
@@ -26,9 +33,35 @@ signUpForm = new FormGroup({
   lastname : new FormControl('',[Validators.required, Validators.minLength(3)]),
   phone : new FormControl(''),
   email : new FormControl('', [Validators.required, Validators.email]),
-  password : new FormControl('',[Validators.required, Validators.minLength(8)])
+  password : new FormControl('',[Validators.required, Validators.minLength(8), this.passwordValidatorService.strongPasswordValidator()])
   //,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^a-zA-Zds])")
+  //+ match one or more
+  //g global it will match all in the string
+  //i ignore case
+  //without g matches the first occurance
+  //? 0 or 1
+  //* 0 or more
+  //. 
+  //\ escape character
+  // \w match any word character
+  // \s match white space
+  // {min, max} to match min and max number of characters
+  // [] match any characters inside brackets
+  //[a-zA-Z] will match any lower or uppercase characters
+  // () group characters to check
+  //| or
+  //$ match end of statement
+  //
+
+
 });
+
+
+
+handlePasswordEvent(formControl : FormControl){
+this.passwordControl(formControl);
+
+}
 
 
 
@@ -48,6 +81,9 @@ get email(){
 
 get password(){
   return this.signUpForm.get('password');
+}
+ passwordControl(formControl : FormControl){
+  this.signUpForm.setControl('password', formControl);
 }
 
 
@@ -98,9 +134,8 @@ get passwordVal(){
 
       this.userService.signUp(this.getFormData()).subscribe({
         next : (response)=> {
-          console.log('Sign up response ',response);
+          console.log('Sign up response ', response);
           this.toastService.success('Sign up successful','Sucess');
-          
         },
         error : (error)=>{
           console.error("Error occured ", error?.error?.message ?? error)
@@ -141,12 +176,16 @@ get passwordVal(){
 
 
 
-// togglePassword() {
-//   if (this.checkBox.nativeElement.type === "password") {
-//     this.checkBox.nativeElement.type = "text";
-//   } else {
-//     this.checkBox.nativeElement.type = "password";
-//   }
-// }
+togglePassword(){
+
+if(this.isPasswordVisible){
+this.inputType = 'password';
+this.isPasswordVisible = false;
+}
+else{
+this.inputType = 'text';
+this.isPasswordVisible = true;
+}
+}
   
 }

@@ -1,24 +1,9 @@
-<nav>
-  <ul>
-    <li><a routerLink="home">Home</a></li>
-    <li><a routerLink="task">Task</a></li>
-    <li>
-    <div class="dropdown">
-      <a class="dropdownBtn">Days</a>
-      <div class="dropdown-content">
-        <a routerLink="days">All Days</a> 
-        <a routerLink="day">Add Day</a>
-      </div>
-    </div>
-  </li>
-
-
-  </ul>
-</nav>
+<app-header></app-header>
 
 <div class="router-outlet-container">
   <router-outlet></router-outlet>
 </div>
+<app-daily-planner-bar></app-daily-planner-bar>
 <app-footer>
   
 </app-footer>

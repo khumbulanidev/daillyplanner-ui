@@ -1,0 +1,17 @@
+
+    @media only screen  and (max-width: 480px){
+        body{
+            background-color: green !important;   
+        }
+
+       
+       
+       
+        app-home{
+            background-color: yellowgreen !important;
+           
+        }
+    
+    }
+    
+   

@@ -1,0 +1,28 @@
+ <div class="drop-down-container">
+        <div class="drop-down-item">
+            <label for="month">
+                Select month
+            </label>
+            <select name="month" #month (change)="onMonthChange(month.value)">
+                @for(month of months; track $index){
+                <option>
+                    {{month}}
+                </option>
+                }
+            </select>
+        </div>
+
+        <div class="drop-down-item">
+            <label for="month">
+                Select year
+            </label>
+            <select name="year" #year (change)="onYearChange(year.value)" >
+                @for(year of years; track $index){
+                <option>
+                    {{year}}
+                </option>
+                }
+            </select>
+        </div>
+    </div>
+<ng-container #dynamicCalendar>  </ng-container>

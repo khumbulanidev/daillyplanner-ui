@@ -12,22 +12,22 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent {
  
 //check if user is logged in and if so direct to home page
-authenticationService = inject(AuthenticationService);
-router = inject(Router);
-  user: User | null  = null;
+// authenticationService = inject(AuthenticationService);
+// router = inject(Router);
+//   user: User | null  = null;
 
- ngOnInit(): void {
-  this.authenticationService.userSubject.subscribe(
-    user =>{
-      this.user = user
-    }
+//  ngOnInit(): void {
+//   this.authenticationService.userSubject.subscribe(
+//     user =>{
+//       this.user = user
+//     }
 
-  )
-  if(this.user){
-    this.router.navigateByUrl("/home")
-  }
-  }
+//   )
+//   if(this.user){
+//     this.router.navigateByUrl("/days")
+//   }
+  //}
 }

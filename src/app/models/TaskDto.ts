@@ -1,9 +1,11 @@
+
+
 export interface TaskDto {
-  id: number;
-  duration: string;
+  id : number;
+  dateId: number;
+  duration: number;
   name: string;
   comments: string;
-  quantity: number;
   done: boolean;
   date: Date;
   dayId: number;

@@ -13,7 +13,6 @@ min-height: 86vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: solid 1px black;
     width: 40%;
     height: 40vh;
     gap: 10px;
@@ -23,27 +22,28 @@ min-height: 86vh;
     display: flex;
     gap: 10px;
     justify-content: center;
-   
-
 }
 label{
    flex : 1;
    margin-left : 4px;
 }
-input , select{
+input , select, textarea{
     flex : 2;
-    border-radius: 3px;
+    border-radius: 1em;
     margin-right: 5px;
     padding: 5px;
+    border: 1px solid grey;
+}
+textarea{
+    height: 5em;
 }
 .btnSave{
-    background-color: blue;
     width: 20%;
-    
-}
-.btnSave:hover{
     background-color: green;
 }
+/* .btnSave:hover{
+    background-color: green;
+} */
 
 .btnBack{
     background-color: green;
@@ -64,6 +64,12 @@ input , select{
 .date-container{
     width: 100%;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-container{
     display: flex;
     justify-content: center;
     align-items: center;

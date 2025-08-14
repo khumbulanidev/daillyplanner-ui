@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -30,6 +31,11 @@ import { Router } from '@angular/router';
 })
 export class DaylistComponent implements OnInit, AfterViewInit {
 
+
+    httpService = inject(HttpService);
+     logger = inject(LoggerService);
+     router = inject(Router);
+     pageReloadService = inject(PageReloadService);
 
 
   @ViewChild('popupContainer')
@@ -62,10 +68,7 @@ isToastVisible=false;
 isGreen: boolean=true;
  
   constructor(
-    private httpService: HttpService,
-    private logger: LoggerService,
-    private router: Router,
-    private pageReloadService : PageReloadService,
+   
    
   ) {
     
