@@ -74,6 +74,7 @@ export class CalendarComponent implements OnInit, OnChanges {
       parseInt(this.year),
       this.months.indexOf(this.month) + 1
     );
+    this.currentCalendarMonthYear =  this.month + ' '+  this.year
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -7,7 +7,7 @@ import { LoggerService } from '../../services/logger/logger.service';
 import { TaskService } from '../../services/task-service/task.service';
 import { YesNo } from '../../enums/yesno';
 import { ToastrService } from 'ngx-toastr';
-import { ERROR_IN_SAVING_TASK, ERROR_MESSAGE, SUCCESS, TASK_SAVED_SUCCESSFULLY } from '../../constants/DailyPlannerConstants';
+import { ERROR_IN_SAVING_TASK, ERROR_MESSAGE, SUCCESS, TASK_SAVED_SUCCESSFULLY, TASK_UPDATED_SUCCESSFULLY } from '../../constants/DailyPlannerConstants';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
 
 @Component({
@@ -96,14 +96,13 @@ export class AddTaskComponent implements OnInit{
         id: 0
       };
 
+      //update
       if(this.id > 0){
-//update
-      //taskDto.dayId = this.task.dayId;  
-      //check if date has changed
       taskDto.id = this.id;
       this.taskService.updateTask(taskDto).subscribe({
       next : response =>{
-      this.toastService.success(TASK_SAVED_SUCCESSFULLY, SUCCESS)
+      this.toastService.success(TASK_UPDATED_SUCCESSFULLY, SUCCESS)
+      this.router.navigate(['/date', this.previousDate])
       },
       error : err =>{
       this.toastService.error(err.error.message, ERROR_MESSAGE)
