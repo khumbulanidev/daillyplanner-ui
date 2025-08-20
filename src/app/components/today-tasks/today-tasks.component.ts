@@ -29,6 +29,7 @@ export class TodayTasksComponent implements OnInit {
   dayService = inject(DaylistService);
   pageReloadService = inject(PageReloadService);
   activatedRoute = inject(ActivatedRoute);
+  dayListService = inject(DaylistService)
   
   dayDto!: DayDto;
   dateString : any;
@@ -36,11 +37,14 @@ export class TodayTasksComponent implements OnInit {
   taskService = inject(TaskService);
 
   taskList: TaskDto[] = [];
+  taskDayHeading = 'Tasks for today'
 
   ngOnInit(): void {
   
    this.dateString = this.activatedRoute.snapshot.paramMap.get('date');
    let date = new Date(this.dateString);
+   this.taskDayHeading = 'Tasks for ' + this.dateString;
+   this.dayListService.setPreviousDateSubject(this.dateString);
     this.getTasksForToday(this.dateString);
     //this.getDay();
   }
@@ -52,6 +56,7 @@ export class TodayTasksComponent implements OnInit {
         console.log('Today ', this.dayDto)
       },
       error : error =>{
+        this.toastService.error('Error ',error)
         console.log('Error occured ', error)
       }
    });
@@ -68,6 +73,8 @@ export class TodayTasksComponent implements OnInit {
   }
 
   viewTask(taskId : number) {
+    //set value of previous date 
+    this.dayListService.setPreviousDateSubject(this.dateString)
     this.router.navigate(['add-task', taskId]);
 
   }
@@ -77,6 +84,8 @@ export class TodayTasksComponent implements OnInit {
 
       next : response =>{
       this.toastService.success('Task deleted successfully', SUCCESS)
+       this.getTasksForToday(this.dateString);
+      //this.router.navigate(['date',this.dateString])
       },
 
       error : error =>{
@@ -92,6 +101,7 @@ getTasksForToday(date : string){
   {
     next : response =>{
   this.taskList = response
+  console.log("Task list  ", this.taskList);
     },
     error : error =>{
       console.log("Error occured ", error)

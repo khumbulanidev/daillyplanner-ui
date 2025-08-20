@@ -7,7 +7,8 @@ import { LoggerService } from '../../services/logger/logger.service';
 import { TaskService } from '../../services/task-service/task.service';
 import { YesNo } from '../../enums/yesno';
 import { ToastrService } from 'ngx-toastr';
-import { ERROR_IN_SAVING_TASK, ERROR_MESSAGE, SUCCESS, TASK_SAVED_SUCCESSFULLY } from '../../constants/DailyPlannerConstants';
+import { ERROR_IN_SAVING_TASK, ERROR_MESSAGE, SUCCESS, TASK_SAVED_SUCCESSFULLY, TASK_UPDATED_SUCCESSFULLY } from '../../constants/DailyPlannerConstants';
+import { DaylistService } from '../../services/daylist-service/daylist.service';
 
 @Component({
   selector: 'app-add-task',
@@ -26,6 +27,7 @@ export class AddTaskComponent implements OnInit{
   activatedRoute = inject(ActivatedRoute);
   logger = inject(LoggerService);
   locationService = inject(Location);
+  dayListService = inject(DaylistService)
 
   savedTask!: TaskDto;
   id: any;
@@ -34,7 +36,7 @@ export class AddTaskComponent implements OnInit{
   errorMessage = ''
   selectedValue: YesNo = YesNo.No;
   yesNo = [YesNo.Yes, YesNo.No];
-
+  previousDate : string = '';
   
   task: TaskDto = {
     duration: 0,
@@ -56,6 +58,7 @@ export class AddTaskComponent implements OnInit{
   }
   
   ngOnInit(): void {
+    this.dayListService.previousDateSubject.subscribe(val => this.previousDate = val)
     if(this.id && this.id > 0){
       this.taskService.getTaskById(this.id).subscribe({
         next : response =>{
@@ -74,8 +77,7 @@ export class AddTaskComponent implements OnInit{
   }
 
   backToTasks() {
-    //need date instead of id
-  // this.locationService.back()
+  this.router.navigate(['/date', this.previousDate]) 
   }
 
   saveTask(form: NgForm) {
@@ -94,14 +96,13 @@ export class AddTaskComponent implements OnInit{
         id: 0
       };
 
+      //update
       if(this.id > 0){
-//update
-      //taskDto.dayId = this.task.dayId;  
-      //check if date has changed
       taskDto.id = this.id;
       this.taskService.updateTask(taskDto).subscribe({
       next : response =>{
-      this.toastService.success(TASK_SAVED_SUCCESSFULLY, SUCCESS)
+      this.toastService.success(TASK_UPDATED_SUCCESSFULLY, SUCCESS)
+      this.router.navigate(['/date', this.previousDate])
       },
       error : err =>{
       this.toastService.error(err.error.message, ERROR_MESSAGE)

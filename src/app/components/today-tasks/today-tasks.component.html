@@ -1,6 +1,8 @@
 
-<div class="app-list-container">
-    
+<div class="task-list-container">
+    <div class="date-container">
+          {{taskDayHeading}}
+    </div>
     <div class="button-container">
          <span class="ep--circle-plus btnAddDay" (click)="addTask()"></span> 
     </div>
@@ -14,13 +16,13 @@
      >
       <ng-template pTemplate="header">
           <tr>
-              <th pSortableColumn="id" style="width:15%">Id <p-sortIcon field="id" /></th>
-               <th  pSortableColumn="name" style="width:15%">Name <p-sortIcon field="name" /></th>
-              <th  pSortableColumn="duration" style="width:15%">Duration <p-sortIcon field="duration" /></th>
-              <th pSortableColumn="comments" style="width:30%">Comments<p-sortIcon field="comments" /></th>
-              <th pSortableColumn="isDone" style="width:10%">Done</th>
+              <th pSortableColumn="id" style="width:5%">Id <p-sortIcon field="id" /></th>
+               <th  pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
+              <th  pSortableColumn="duration" style="width:10%">Duration <p-sortIcon field="duration" /></th>
+              <th pSortableColumn="comments" style="width:55%">Comments<p-sortIcon field="comments" /></th>
+              <th pSortableColumn="isDone" style="width:5%">Done</th>
              
-              <th pSortableColumn="dayId" style="width:10%">Day Id</th>
+              <th pSortableColumn="dayId" style="width:5%">Day Id</th>
               <th>View</th>
               <th>Delete</th>
           </tr>
