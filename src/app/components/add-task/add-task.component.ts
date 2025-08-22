@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TaskDto } from '../../models/TaskDto';
-import {Location} from '@angular/common';
+import { Location} from '@angular/common';
 import { LoggerService } from '../../services/logger/logger.service';
 import { TaskService } from '../../services/task-service/task.service';
 import { YesNo } from '../../enums/yesno';
@@ -17,9 +17,7 @@ import { DaylistService } from '../../services/daylist-service/daylist.service';
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css',
 })
-export class AddTaskComponent implements OnInit{
-
- 
+export class AddTaskComponent implements OnInit {
   //services
   taskService = inject(TaskService);
   router = inject(Router);
@@ -27,61 +25,64 @@ export class AddTaskComponent implements OnInit{
   activatedRoute = inject(ActivatedRoute);
   logger = inject(LoggerService);
   locationService = inject(Location);
-  dayListService = inject(DaylistService)
+  dayListService = inject(DaylistService);
 
+  //get date from activated route and use it to populate date
   savedTask!: TaskDto;
   id: any;
-  taskId : any;
+  taskId: any;
   dateString: string = '';
-  errorMessage = ''
+  errorMessage = '';
   selectedValue: YesNo = YesNo.No;
   yesNo = [YesNo.Yes, YesNo.No];
-  previousDate : string = '';
-  
+  previousDate: string = '';
+
   task: TaskDto = {
     duration: 0,
-    name: '',
+    name: 'example',
     comments: '',
     done: this.selectedValue == YesNo.Yes,
     date: new Date(),
     dayId: 0,
     dateId: 0,
-    id: 0
+    id: 0,
   };
   buttonLabel: string = 'Save';
 
   constructor() {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.id = params.get('id');
- 
     });
   }
-  
+
   ngOnInit(): void {
-    this.dayListService.previousDateSubject.subscribe(val => this.previousDate = val)
-    if(this.id && this.id > 0){
+    this.dayListService.previousDateSubject.subscribe(
+      (val) => (this.previousDate = val)
+    );
+
+    this.task.date = this.formatDate(this.previousDate);
+    console.log('date is ', this.task);
+    if (this.id && this.id > 0) {
       this.taskService.getTaskById(this.id).subscribe({
-        next : response =>{
-          console.log(response)
-          //assign response to dto
+        next: (response) => {
+          console.log('task ', response);
           this.task = response;
           this.buttonLabel = 'Update';
-          this.toastService.success(JSON.stringify(response), SUCCESS)
+          this.toastService.success(JSON.stringify(response), SUCCESS);
         },
-        error : err =>{
-          console.error(err)
-          this.toastService.error(err, ERROR_MESSAGE)
-        }
+        error: (err) => {
+          console.error(err);
+          this.toastService.error(err, ERROR_MESSAGE);
+        },
       });
     }
   }
 
   backToTasks() {
-  this.router.navigate(['/date', this.previousDate]) 
+    this.router.navigate(['/date', this.previousDate]);
   }
 
   saveTask(form: NgForm) {
-    
     if (form.valid) {
       const taskFormValue = form.value;
       console.log('task from ', taskFormValue);
@@ -93,44 +94,57 @@ export class AddTaskComponent implements OnInit{
         date: taskFormValue.date,
         dayId: 0,
         dateId: 0,
-        id: 0
+        id: 0,
       };
 
       //update
-      if(this.id > 0){
-      taskDto.id = this.id;
-      this.taskService.updateTask(taskDto).subscribe({
-      next : response =>{
-      this.toastService.success(TASK_UPDATED_SUCCESSFULLY, SUCCESS)
-      this.router.navigate(['/date', this.previousDate])
-      },
-      error : err =>{
-      this.toastService.error(err.error.message, ERROR_MESSAGE)
+      if (this.id > 0) {
+        taskDto.id = this.id;
+        this.taskService.updateTask(taskDto).subscribe({
+          next: (response) => {
+            this.toastService.success(TASK_UPDATED_SUCCESSFULLY, SUCCESS);
+            this.router.navigate(['/date', this.previousDate]);
+          },
+          error: (err) => {
+            this.toastService.error(err.error.message, ERROR_MESSAGE);
+          },
+        });
+      } else {
+        this.taskService.saveTask(taskDto).subscribe({
+          next: (response) => {
+            this.savedTask = response;
+            this.toastService.success(TASK_SAVED_SUCCESSFULLY, SUCCESS);
+            let dstring = taskDto.date.toString().split('-');
+            if (dstring[0].length == 4) {
+              this.router.navigate([
+                '/date/',
+                dstring[1] + '-' + dstring[2] + '-' + dstring[0],
+              ]);
+            } else this.router.navigate(['/date/', taskDto.date]);
+          },
+          error: (error) => {
+            console.log(ERROR_IN_SAVING_TASK, error);
+            this.toastService.error(error.error.message, ERROR_MESSAGE);
+          },
+        });
       }
-    })
-      }else{
-
-      this.taskService.saveTask(taskDto).subscribe({
-        next: (response) => {
-          this.savedTask = response;
-          this.toastService.success(TASK_SAVED_SUCCESSFULLY, SUCCESS)
-          let dstring = taskDto.date.toString().split('-')
-          if(dstring[0].length == 4){
-      
-            this.router.navigate(['/date/', dstring[1]+'-'+dstring[2]+'-'+dstring[0]]);
-          }else
-          this.router.navigate(['/date/',taskDto.date ]);
-        },
-        error: (error) => {
-          console.log(ERROR_IN_SAVING_TASK, error);
-          this.toastService.error(error.error.message, ERROR_MESSAGE)
-        },
-      });
-    }
-    }
-    else{
+    } else {
       this.errorMessage = 'Enter all required fields.';
     }
+  }
+
+  formatDate(date: string): string {
+    let splitDate = date.split('-');
+    let month = splitDate[0];
+    let day = splitDate[1];
+    if (month.length == 1) {
+      month = 0 + '' + month;
+    }
+    if (day.length == 1) {
+      day = 0 + '' + day;
+    }
+    let formatedDateString = splitDate[2] + '-' + month + '-' + day;
+    return formatedDateString;
   }
 }
 
