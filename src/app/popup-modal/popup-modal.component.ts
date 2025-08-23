@@ -1,9 +1,11 @@
-import { Component, Input, Output } from '@angular/core';
+
+import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../services/http-service/http.service';
 import { LoggerService } from '../services/logger/logger.service';
-import { EventEmitter } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-popup-modal',
   standalone: true,
@@ -16,9 +18,10 @@ export class PopupModalComponent {
 
   popupModal:any;
   popupContainer:any;
-  constructor(private httpService : HttpService, private logger : LoggerService, private messageService: MessageService){
+  httpService = inject(HttpService)
+  logger = inject(LoggerService)
+  messageService = inject(MessageService)
 
-  }
 
 @Input()
 message:string='';
@@ -27,12 +30,11 @@ id!:number;
 
 @Output()
 hideModal= new EventEmitter<string>();
+@Output()
+deleteEvent = new EventEmitter<number>();
 
 deletedDate:any;
-//button functions
-//call delete function
-//close the confirmation box
-// close the pop up container 
+//make the delete generic so it can be used by any component that wants to delete
 deleteDate(id:number) {
   console.log('id is ',id)
    this.httpService.deleteDay(id).subscribe({
@@ -49,6 +51,15 @@ deleteDate(id:number) {
    closePopup(msg:string) {
     this.hideModal.emit(msg);
   }
+
+  deleteItem(id:number){
+    this.deleteEvent.emit(id);
+    this.closePopup("Deleted");
+
+  }
+
+//
+
 
 
 }

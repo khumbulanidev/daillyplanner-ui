@@ -109,6 +109,19 @@ isGreen: boolean=true;
    
   }
 
+  delete(id:number) {
+  console.log('id is ',id)
+   this.httpService.deleteDay(id).subscribe({
+     next: (data) => {
+       this.deletedDate = data;
+       //close pop up
+       this.closeModal('itemDeleted');//closePopup
+       //open success message
+     },
+     error: (err) => this.logger.error(err)
+   });
+   }
+
   closeModal($event: string) {
     console.log('inside close modal in parent component : ',$event)
     if($event === 'itemDeleted'){

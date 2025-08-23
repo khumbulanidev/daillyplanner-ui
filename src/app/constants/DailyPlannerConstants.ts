@@ -12,7 +12,9 @@ export const ALL_FIELDS_REQUIRED = 'Fill out all required fields';
 export const PASSWORD_REQUIREMENT = 'Password is required and should be at least 8 characters';
 export const LOGIN_SUCCESS = 'Login successful';
 export const TASK_SAVED_SUCCESSFULLY = 'Task saved successfully';
+export const TASK_UPDATED_SUCCESSFULLY = 'Task updated successfully';
 export const ERROR_IN_SAVING_TASK ='Add Task : Error inside save task : ';
+export const CONFIRM_DELETE = 'Are you sure you want to delete this item ?'
 
 //URLs
 export const BASE_URL = 'http://localhost:9200/';
