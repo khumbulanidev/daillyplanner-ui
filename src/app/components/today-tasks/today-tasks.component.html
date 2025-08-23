@@ -36,9 +36,9 @@
              
               <td>{{ task.done | donePipe}}</td> 
               <td>{{ task.dayId}}</td> 
-               <!-- <td class="center"><i class="fa-solid fa-list-check" (click)="taskList(day.id)"></i></td>  -->
              <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewTask(task.id)"></i></td> 
-              <td class="center icons"><i class="fa-solid fa-trash delete" (click)="deleteTask(task.id)"></i> </td>
+            
+              <td class="center icons"><i class="fa-solid fa-trash delete" (click)="openConfirmation(task.id)"></i> </td>
        </tr>
       </ng-template>
  </p-table> 
@@ -47,4 +47,6 @@
 
 </div>
 </div>
+
+<app-popup-modal (hideModal)="closeModal($event)" (deleteEvent)="deleteTask($event)" [message]="msg" [id]="taskId" #popupModal [ngClass]="showModal  ? 'showPopupModal': 'hidePopupModal'"></app-popup-modal>
 

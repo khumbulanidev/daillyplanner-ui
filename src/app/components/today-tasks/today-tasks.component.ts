@@ -11,16 +11,19 @@ import { DaylistService } from '../../services/daylist-service/daylist.service';
 import { DayDto } from '../../models/DayDto';
 import { DonePipe } from "../../pipes/done.pipe";
 import { ToastrService } from 'ngx-toastr';
-import { ERROR_MESSAGE, SUCCESS } from '../../constants/DailyPlannerConstants';
+import { ERROR_MESSAGE, SUCCESS, CONFIRM_DELETE } from '../../constants/DailyPlannerConstants';
+import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+  import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-today-tasks',
   standalone: true,
-  imports: [TableModule, DonePipe],
+  imports: [TableModule, DonePipe, PopupModalComponent, CommonModule],
   templateUrl: './today-tasks.component.html',
   styleUrl: './today-tasks.component.css',
 })
 export class TodayTasksComponent implements OnInit {
+
   
   httpService = inject(HttpService);
   toastService = inject(ToastrService);
@@ -29,15 +32,22 @@ export class TodayTasksComponent implements OnInit {
   dayService = inject(DaylistService);
   pageReloadService = inject(PageReloadService);
   activatedRoute = inject(ActivatedRoute);
-  dayListService = inject(DaylistService)
+  dayListService = inject(DaylistService);
+   taskService = inject(TaskService);
+
+  showModal: boolean = false;
+  activeClass: string = 'hidePopupModal';
   
   dayDto!: DayDto;
   dateString : any;
 
-  taskService = inject(TaskService);
-
+  msg = CONFIRM_DELETE;
+ 
+taskId : number = 0;
   taskList: TaskDto[] = [];
-  taskDayHeading = 'Tasks for today'
+  taskDayHeading = 'Tasks for today';
+
+// id: number;
 
   ngOnInit(): void {
   
@@ -63,6 +73,7 @@ export class TodayTasksComponent implements OnInit {
   }
 
   addTask() {
+  this.dayListService.previousDateSubject.next(this.dateString);
     if(!this.dayDto){
       this.router.navigate(['add-task', 0])
       return;
@@ -78,9 +89,11 @@ export class TodayTasksComponent implements OnInit {
     this.router.navigate(['add-task', taskId]);
 
   }
-  deleteTask(taskId: number) {
-
-    this.taskService.deleteById(taskId).subscribe({
+  deleteTask($event: number) {
+//show popup modal and have user confirm delete
+console.log('id is ', $event)
+ if($event > 0){
+this.taskService.deleteById($event).subscribe({
 
       next : response =>{
       this.toastService.success('Task deleted successfully', SUCCESS)
@@ -93,6 +106,8 @@ export class TodayTasksComponent implements OnInit {
         this.toastService.error(error.error.message, ERROR_MESSAGE)
       }
     })
+ }
+    
   }
 
 
@@ -110,4 +125,27 @@ getTasksForToday(date : string){
  );
 }
 
+  closeModal($event: string) {
+    console.log('inside close modal in parent component : ',$event)
+    if($event === 'itemDeleted'){
+
+      this.showModal=false;
+      //show toast
+      
+      this.toastService.success('Task deleted successfully', SUCCESS)
+   
+    }
+    else{
+      this.showModal=false;
+    }
+    }
+
+
+    openConfirmation(taskId: number) {
+this.taskId = taskId;
+  //popupModal
+  this.showModal = true;
 }
+}
+
+
