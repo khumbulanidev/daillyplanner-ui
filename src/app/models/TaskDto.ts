@@ -7,6 +7,6 @@ export interface TaskDto {
   name: string;
   comments: string;
   done: boolean;
-  date: Date;
+  date: any;
   dayId: number;
 }

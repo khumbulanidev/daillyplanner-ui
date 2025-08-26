@@ -1,10 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TaskDto } from '../../models/TaskDto';
 import { LoggerService } from '../logger/logger.service';
-import { NonNullableFormBuilder } from '@angular/forms';
-import { Task } from 'zone.js/lib/zone-impl';
 import { BASE_URL, TASK_URL } from '../../constants/DailyPlannerConstants';
 
 @Injectable({
