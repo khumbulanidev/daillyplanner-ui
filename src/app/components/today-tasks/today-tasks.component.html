@@ -33,8 +33,12 @@
               <td>{{ task.name }}</td>
               <td>{{ task.duration }}</td>
               <td>{{ task.comments }}</td>
-             
-              <td>{{ task.done | donePipe}}</td> 
+              <td class="centered-td"><select name="done"
+                (change)="updateTask(task)">
+                @for(item of selection; track $index){
+                    <option [selected]="task.done == item">{{item | donePipe}}</option>
+                }
+                </select></td> 
               <td>{{ task.dayId}}</td> 
              <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewTask(task.id)"></i></td> 
             
