@@ -21,8 +21,6 @@
               <th  pSortableColumn="duration" style="width:10%">Duration <p-sortIcon field="duration" /></th>
               <th pSortableColumn="comments" style="width:55%">Comments<p-sortIcon field="comments" /></th>
               <th pSortableColumn="isDone" style="width:5%">Done</th>
-             
-              <th pSortableColumn="dayId" style="width:5%">Day Id</th>
               <th>View</th>
               <th>Delete</th>
           </tr>
@@ -39,7 +37,6 @@
                     <option [selected]="task.done == item">{{item | donePipe}}</option>
                 }
                 </select></td> 
-              <td>{{ task.dayId}}</td> 
              <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewTask(task.id)"></i></td> 
             
               <td class="center icons"><i class="fa-solid fa-trash delete" (click)="openConfirmation(task.id)"></i> </td>
