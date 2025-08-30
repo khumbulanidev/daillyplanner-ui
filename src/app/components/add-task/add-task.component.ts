@@ -46,6 +46,7 @@ export class AddTaskComponent implements OnInit {
     dayId: 0,
     dateId: 0,
     id: 0,
+    userId: 0
   };
   buttonLabel: string = 'Save';
 
@@ -95,6 +96,7 @@ export class AddTaskComponent implements OnInit {
         dayId: 0,
         dateId: 0,
         id: 0,
+        userId: 0
       };
 
       //update

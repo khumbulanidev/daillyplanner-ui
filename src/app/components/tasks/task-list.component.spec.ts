@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DaylistComponent } from './daylist.component';
+import { TaskListComponent } from './task-list.component';
 
-describe('DaylistComponent', () => {
-  let component: DaylistComponent;
-  let fixture: ComponentFixture<DaylistComponent>;
+describe('TodayTasksComponent', () => {
+  let component: TaskListComponent;
+  let fixture: ComponentFixture<TaskListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DaylistComponent]
+      imports: [TaskListComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(DaylistComponent);
+    fixture = TestBed.createComponent(TaskListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
