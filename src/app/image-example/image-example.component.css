@@ -1,0 +1,12 @@
+.image-example{
+    width: 100%;
+    background-color: green;
+    transition: background-color 10s;
+}
+img{
+    max-width: 100%;
+    filter: saturate(2) blur(2px) brightness(50%) opacity(50%);
+}
+.image-example:hover{
+    background-color: red;
+}

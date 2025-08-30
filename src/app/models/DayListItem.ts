@@ -1,5 +1,5 @@
 export interface DayListItem{
     id : number;
     date: Date;
-    numberOfTasks:number;
+    tasks:number;
 }

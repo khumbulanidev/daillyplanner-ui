@@ -12,13 +12,11 @@ import { DaylistComponent } from './components/daylist/daylist.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
-import { TodayTasksComponent } from './components/today-tasks/today-tasks.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
+import { TaskListComponent } from './components/tasks/task-list.component';
 import { CalendarContainerComponent } from './components/calendar-container/calendar-container.component';
 
 export const routes: Routes = [
-{path : "date/:date", component : TodayTasksComponent},
-{path : "calendar" , component : CalendarComponent},
+{path : "date/:date", component : TaskListComponent},
 {path : "calendars" , component : CalendarContainerComponent},
 {path : "login", component : LoginComponent},
 {path : "home" , component: HomeComponent},

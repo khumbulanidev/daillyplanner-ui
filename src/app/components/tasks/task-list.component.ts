@@ -12,17 +12,17 @@ import { DayDto } from '../../models/DayDto';
 import { DonePipe } from '../../pipes/done.pipe';
 import { ToastrService } from 'ngx-toastr';
 import {ERROR_MESSAGE, SUCCESS, CONFIRM_DELETE} from '../../constants/DailyPlannerConstants';
-import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+import { PopupModalComponent } from '../popup-modal/popup-modal.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-today-tasks',
   standalone: true,
   imports: [TableModule, DonePipe, PopupModalComponent, CommonModule],
-  templateUrl: './today-tasks.component.html',
-  styleUrl: './today-tasks.component.css',
+  templateUrl: './task-list.component.html',
+  styleUrl: './task-list.component.css',
 })
-export class TodayTasksComponent implements OnInit {
+export class TaskListComponent implements OnInit {
   httpService = inject(HttpService);
   toastService = inject(ToastrService);
   logger = inject(LoggerService);

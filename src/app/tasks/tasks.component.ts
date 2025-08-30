@@ -7,7 +7,7 @@ import { PageReloadService } from '../services/reload-service/page-reload.servic
 import { TableModule } from 'primeng/table';
 import { NgClass } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
-import { PopupModalComponent } from '../popup-modal/popup-modal.component';
+import { PopupModalComponent } from '../components/popup-modal/popup-modal.component';
 
 //when a user logs in tasks for the day should be loaded if any
 //if none a message showing no tasks should show
