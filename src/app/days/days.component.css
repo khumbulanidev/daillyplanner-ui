@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   min-height: inherit;
-  background-color: skyblue;
   justify-content: center;
   align-items: center;
 }
@@ -25,6 +24,9 @@ input {
   align-self: center;
   width: 50%;
   font-size: 1em;
+  border-radius: 1em;
+  background-color: #0d6efd ;
+  color : white;
 }
 
 .save-btn:hover {

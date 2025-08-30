@@ -1,7 +1,7 @@
 <div class="app-list-container">
     
     <div class="button-container">
-        <button class="btnAddDay" (click)="addDay()"><i class="fa-solid fa-plus"></i></button>
+         <span class="ep--circle-plus btnAddDay" (click)="addDay()"></span>  
     </div>
 
     <p-table [value]="dayList" [tableStyle]="{ 'min-width': '70vw' }" 
@@ -25,7 +25,7 @@
           <tr>
               <td>{{ day.id }}</td>
               <td>{{ day.date }}</td>
-              <td>{{ day.tasks }}</td>
+              <td>{{ day.numberOfTasks }}</td>
               <td class="center"><i class="fa-solid fa-list-check" (click)="taskList(day.date)"></i></td>
               <td class="center"><i class="fa-regular fa-eye view" (click)="viewDay(day.id, day.date)"></i></td>
               <td class="center"><i class="fa-solid fa-trash delete" (click)="deleteDate(day.id)"></i> </td>
