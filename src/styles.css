@@ -26,7 +26,6 @@ app-daylist{
     justify-content: center;
     align-items: center;
     width:100%;
-    background-color: skyblue;
 }
 app-footer{
     height : 7vh;
@@ -177,12 +176,7 @@ table {
     position: fixed;
     z-index: 7;
   }
-  .test{
-    height: 25vh;;
-  }
-  .hide-toast{
-    display: none;
-  }
+  
   p-table{
     min-height: 50vh;
     overflow: auto;
@@ -222,3 +216,18 @@ min-height: 86vh;
   align-items: center;
 min-height: inherit;
  }
+
+
+ .ep--circle-plus {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath fill='%23000' d='M352 480h320a32 32 0 1 1 0 64H352a32 32 0 0 1 0-64'/%3E%3Cpath fill='%23000' d='M480 672V352a32 32 0 1 1 64 0v320a32 32 0 0 1-64 0'/%3E%3Cpath fill='%23000' d='M512 896a384 384 0 1 0 0-768a384 384 0 0 0 0 768m0 64a448 448 0 1 1 0-896a448 448 0 0 1 0 896'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
