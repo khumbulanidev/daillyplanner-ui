@@ -1,76 +1,81 @@
 /* You can add global styles to this file, and also import other style files */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-html{
-    min-height: 100vh;
+
+html {
+  min-height: 100vh;
 }
-body{
-    min-height: 100vh;
+
+body {
+  min-height: 100vh;
 }
 
 /* App root */
-app-root{
-    min-height: 100vh;
-    display: block;
+app-root {
+  min-height: 100vh;
+  display: block;
 }
 
-app-days{
-    min-height: 86vh;
+app-days {
+  min-height: 86vh;
 }
-app-daylist{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    background-color: skyblue;
+
+app-daylist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
-app-footer{
-    height : 7vh;
-    background-color: black;
-    display: flex;
-    color: white;
-    justify-content: center;
-    align-items: center;
+
+app-footer {
+  height: 7vh;
+  background-color: black;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 
-app-popup-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-color: black;
-    border: 1px solid green;
-    position: fixed;
-    top:0;
-    min-height: 100vh;
-    opacity: 0.5;
-}
-app-toast{
-    width: 20%;
-    min-height: 15vh;
-    max-height: 22vh;
-    position:fixed;
-    bottom: 0;
-    right: 0;
+app-popup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: black;
+  border: 1px solid green;
+  position: fixed;
+  top: 0;
+  min-height: 100vh;
+  opacity: 0.5;
 }
 
-app-view{
-    width: 100%;
-    min-height: 87vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+app-toast {
+  width: 20%;
+  min-height: 15vh;
+  max-height: 22vh;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
-app-home{
-    min-height: 87vh;
-    display: flex;
-    flex-direction: column;
+
+app-view {
+  width: 100%;
+  min-height: 87vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+app-home {
+  min-height: 87vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* .toast-container{
@@ -87,138 +92,151 @@ app-home{
     background-color: white; 
 } */
 
-.show-toast{
-    width: 20%;
-    min-height: 10vh;
-    max-height: 22vh;
-    position:fixed;
-    bottom: 0;
-    right: 0;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    margin-right :10px
+.show-toast {
+  width: 20%;
+  min-height: 10vh;
+  max-height: 22vh;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 10px
 }
 
-.green-toast{
-    color: green;
-    border: 3px solid green;
+.green-toast {
+  color: green;
+  border: 3px solid green;
 }
+
 .red-toast {
-    color: red;
-    border: 3px solid red;
+  color: red;
+  border: 3px solid red;
 }
 
 
-.hide-toast{
-    display:none;
-}
-app-tasks{
-    min-height: inherit;
+.hide-toast {
+  display: none;
 }
 
-.router-outlet-container{
-    min-height: 86vh;
+app-tasks {
+  min-height: inherit;
+}
+
+.router-outlet-container {
+  min-height: 86vh;
 }
 
 
 table {
-    width: 100%;
-   order: 1;
-  }
-  .material-table-container{
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    /* border: solid 1px; */
-    margin-bottom: 20px;
-    margin-top: 10px;
-    
-  }
-  .app-list-container{
-    width: 100%;
-    display: flex;
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
-  }
-  .button-container{
-    display: flex;
-    /* border: solid 1px; */
-    width: 80%;
-    justify-content:flex-end;
-    align-items: flex-end;
-    margin-top: 10px;
-    
-  }
-  /* .btnAddDay{
+  width: 100%;
+  order: 1;
+}
+
+.material-table-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  /* border: solid 1px; */
+  margin-bottom: 20px;
+  margin-top: 10px;
+
+}
+
+.app-list-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.button-container {
+  display: flex;
+  /* border: solid 1px; */
+  width: 80%;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 10px;
+
+}
+
+/* .btnAddDay{
     font-size: 2rem;
     color : blue;
     border-radius: 50%;
     border: none;
   } */
 
-  .btnAddDay:hover{
-    color:green;
-  }
+.btnAddDay:hover {
+  color: green;
+}
 
-  .showPopupModal{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-    position: fixed;
-    z-index: 7;
-  }
-  .test{
-    height: 25vh;;
-  }
-  .hide-toast{
-    display: none;
-  }
-  p-table{
-    min-height: 50vh;
-    overflow: auto;
-  }
-app-image-example{
-min-height: 86vh;
-  }
-  app-side-menu{
-    min-height : 87vh;
-  }
-  app-bouncing-text{
-    min-height: inherit;
-    display: flex;
-    flex-direction: column;
-  }
-
-  app-revision{
-    min-height: 86vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-   app-sign-up{
-    background-color: white;
-    min-height: inherit;
-    display: flex;
-  }
-
- app-calendar{
-  min-height: inherit;
- }
-
-
- app-today-tasks{
+.showPopupModal {
   display: flex;
-  justify-content:  center;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-min-height: inherit;
- }
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  z-index: 7;
+}
+
+.test {
+  height: 25vh;
+  ;
+}
+
+.hide-toast {
+  display: none;
+}
+
+p-table {
+  min-height: 50vh;
+  overflow: auto;
+}
+
+app-image-example {
+  min-height: 86vh;
+}
+
+app-side-menu {
+  min-height: 87vh;
+}
+
+app-bouncing-text {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+app-revision {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-sign-up {
+  background-color: white;
+  min-height: inherit;
+  display: flex;
+}
+
+app-calendar {
+  min-height: inherit;
+}
+
+
+app-today-tasks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: inherit;
+}
