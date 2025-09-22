@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user!: User | null;
 
   ngOnInit(): void {
+    //if user is logged in show logout button else not
     this.sub = this.authService.userSubject.subscribe((user) => {
       this.isAuthenticated = !!user;
 
@@ -28,9 +29,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       let date = new Date();
       let dateString =
         date.getMonth() + 1 + '-' + date.getDate() + '-' + date.getFullYear();
-      this.isAuthenticated
-        ? this.router.navigate(['/date', dateString])
-        : this.router.navigateByUrl('/login');
+      // this.isAuthenticated
+      //   ? this.router.navigateByUrl('/')// ? this.router.navigate(['/date', dateString])
+      //   : this.router.navigateByUrl('/login');
     });
   }
 

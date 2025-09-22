@@ -56,8 +56,16 @@ login(){
       this.authenticationService.login(this.getFormData()).subscribe({
         next : (response)=> {
           console.log('Login response ', response);
+          localStorage.setItem('reqTok', JSON.stringify(response.token));
+          localStorage.setItem('refTok',  JSON.stringify(response?.data?.refreshToken?.refreshToken));
+          localStorage.setItem('email',JSON.stringify(response.data.email));
           //this.router.navigateByUrl('/today')
+          let date = new Date(response.data.tokenExpirationDate)
+          let today = new Date();
           this.toastService.success(LOGIN_SUCCESS,'Sucess');
+             let dateString =
+        today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
+          this.router.navigate(['/date', dateString])
           
         },
         error : (error)=>{

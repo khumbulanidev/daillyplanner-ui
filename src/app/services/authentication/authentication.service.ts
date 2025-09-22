@@ -5,20 +5,12 @@ import { LOGIN_API, BASE_URL } from '../../constants/DailyPlannerConstants';
 import { LoginDto } from '../../dto/LoginDto';
 import { ApiResponseDto } from '../../dto/ApiResponseDto';
 import { User } from '../../models/user';
-import { AuthenticationResponseDto } from '../../dto/AuthenticationResponseDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  //emit user when user logs in or logs out
-// initialUser : User = {
-//   email: '',
-//   _token: '',
-//   tokenExpirationDate: new Date(),
-//   token: null
-// }
 userSubject = new BehaviorSubject<User | null>(null);
 user = this.userSubject.asObservable();
 
@@ -31,13 +23,14 @@ user = this.userSubject.asObservable();
   login(loginDto : LoginDto):Observable<ApiResponseDto>{
   return this.httpClient.post<ApiResponseDto>(BASE_URL +LOGIN_API,loginDto).pipe(tap(response => {
     
-    this.handleAuthentication(response.data.email, response.data.token, response.data.tokenExpirationDate);
+    this.handleAuthentication(response.data.email, response.data.token, response.data.tokenExpirationDate, response.data.refreshToken,false);
   }));
   }
 
-  handleAuthentication(email : string, token: string, expiresIn: number){
-       const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, token, expirationDate);
+  handleAuthentication(email : string, token: string, expiresIn: number, refreshToken: string, isTokenExpired : boolean){
+       //const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+  const expirationDate = new Date(expiresIn );
+    const user = new User(email, token, expirationDate, refreshToken, isTokenExpired);
     this.userSubject.next(user);
   }
 }
