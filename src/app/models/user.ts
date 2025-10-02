@@ -1,3 +1,4 @@
+import { RefreshToken } from "./RefreshToken";
 
 
 export class User {
@@ -5,7 +6,7 @@ export class User {
     public email: string,
     private _token: string,
     private tokenExpirationDate: Date,
-    private _refreshToken: string,
+    private _refreshToken: RefreshToken,
     private _isTokenExpired: boolean
   ) {}
 
@@ -30,4 +31,6 @@ export class User {
   set isTokenExpired(isTokenExpired: boolean) {
     this._isTokenExpired = isTokenExpired;
   }
+
+  
 }

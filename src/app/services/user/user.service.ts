@@ -23,7 +23,9 @@ export class UserService {
   public $tokenUpdated = new Subject<boolean>();
   $isRefreshRequestSent = new BehaviorSubject<boolean>(false);
   $isTokenExpired = new BehaviorSubject<boolean>(false);
+
   constructor() {
+
     this.$refreshToken.subscribe((response: any) => {
       console.log('Refresh token received');
       let email = localStorage.getItem('email');
@@ -35,9 +37,6 @@ export class UserService {
           let refreshObj = { email: email, refreshToken: refreshTok };
           this.refreshToken(refreshObj).subscribe({
             next: (response) => {
-              //set new token
-              // const user = new User(email, token, expirationDate, refreshToken, isTokenExpired);
-              //     this.userSubject.next(user);
               let user = this.authenticationService.userSubject.getValue();
 
               if (
@@ -87,7 +86,7 @@ export class UserService {
     this.$isTokenExpired.next(true);
   }
 
-  setRefreshToken(refreshToken : boolean){
+  sendRefreshToken(refreshToken : boolean){
     this.$refreshToken.next(refreshToken);
   }
   setTokenRefreshed(isTokenRefreshRequestSent : boolean){
