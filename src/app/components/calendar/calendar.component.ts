@@ -11,6 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { Day } from '../../models/day';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-calendar',
@@ -24,6 +25,7 @@ export class CalendarComponent implements OnInit, OnChanges {
   router = inject(Router);
   dayService = inject(DaylistService);
   changeDetector = inject(ChangeDetectorRef);
+  userService = inject(UserService)
 
   @Input()
   year!: string;
@@ -64,8 +66,25 @@ export class CalendarComponent implements OnInit, OnChanges {
   years: number[] = [];
   allTotalsForTheMonth: any[] = [];
 
+constructor(){
+
+   this.userService.$tokenUpdated.subscribe(
+       data =>{
+        console.log('inside calendar constructor ')
+          if(data ){
+  this.initializeCalendar()
+          }
+      }
+    )
+ 
+}
   ngOnInit(): void {
-    this.getAllDaysOfTheMonth(
+   this.initializeCalendar()
+   
+  }
+
+  initializeCalendar(){
+     this.getAllDaysOfTheMonth(
       this.months.indexOf(this.month) + 1,
       parseInt(this.year)
     );
@@ -76,7 +95,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     );
     this.currentCalendarMonthYear =  this.month + ' '+  this.year
   }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['year']) {
       console.log('Year changed to ', this.year);
@@ -114,9 +132,11 @@ export class CalendarComponent implements OnInit, OnChanges {
   }
 
   openTasks(day: number) {
+    
+    console.log(day)
     this.router.navigate([
       'date',
-      this.currentDate.getMonth() + 1 + '-' + day + '-' + this.year,
+      this.months.indexOf(this.month) + 1 + '-' + day + '-' + this.year,
     ]);
   }
 

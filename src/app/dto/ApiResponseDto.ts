@@ -5,5 +5,7 @@ export interface ApiResponseDto{
     responseCode : string,
     data : any,
     exception : any,
-    token : string
+    token : string,
+    refreshToken: any,
+    tokenExpirationDate?: number
 }

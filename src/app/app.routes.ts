@@ -16,6 +16,7 @@ import { TaskListComponent } from './components/tasks/task-list.component';
 import { CalendarContainerComponent } from './components/calendar-container/calendar-container.component';
 
 export const routes: Routes = [
+    
 {path : "date/:date", component : TaskListComponent},
 {path : "calendars" , component : CalendarContainerComponent},
 {path : "login", component : LoginComponent},

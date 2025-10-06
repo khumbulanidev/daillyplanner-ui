@@ -1,8 +1,13 @@
+import { RefreshToken } from "./RefreshToken";
+
+
 export class User {
   constructor(
     public email: string,
     private _token: string,
-    private tokenExpirationDate: Date
+    private tokenExpirationDate: Date,
+    private _refreshToken: RefreshToken,
+    private _isTokenExpired: boolean
   ) {}
 
   get token() {
@@ -12,8 +17,20 @@ export class User {
     }
     return this._token;
   }
+  get refreshToken() {
+    return this._refreshToken;
+  }
 
-  get expirationDate(){
+  get expirationDate() {
     return this.tokenExpirationDate;
   }
+
+  get isTokenExpired() {
+    return this._isTokenExpired;
+  }
+  set isTokenExpired(isTokenExpired: boolean) {
+    this._isTokenExpired = isTokenExpired;
+  }
+
+  
 }

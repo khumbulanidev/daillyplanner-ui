@@ -1,5 +1,7 @@
+import { TaskDto } from "./TaskDto";
+
 export interface DayListItem{
-    id : number;
+    id: number;
     date: Date;
-    tasks:number;
+    tasks: number;
 }

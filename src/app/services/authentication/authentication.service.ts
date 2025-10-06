@@ -1,43 +1,73 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import { LOGIN_API, BASE_URL } from '../../constants/DailyPlannerConstants';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { LOGIN_API, BASE_URL, REFRESH_TOKEN } from '../../constants/DailyPlannerConstants';
 import { LoginDto } from '../../dto/LoginDto';
 import { ApiResponseDto } from '../../dto/ApiResponseDto';
 import { User } from '../../models/user';
-import { AuthenticationResponseDto } from '../../dto/AuthenticationResponseDto';
+import { RefreshToken } from '../../models/RefreshToken';
+import { RefreshTokenDto } from '../../dto/RefreshTokenDto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService {
 
-  //emit user when user logs in or logs out
-// initialUser : User = {
-//   email: '',
-//   _token: '',
-//   tokenExpirationDate: new Date(),
-//   token: null
-// }
-userSubject = new BehaviorSubject<User | null>(null);
-user = this.userSubject.asObservable();
+  userSubject = new BehaviorSubject<User | null>(null);
+  user = this.userSubject.asObservable();
+  tokenExpired$ : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-  httpClient  = inject(HttpClient);
+  httpClient = inject(HttpClient);
 
-  changeUser(user: User){
+  changeUser(user: User | null) {
     this.userSubject.next(user);
   }
 
-  login(loginDto : LoginDto):Observable<ApiResponseDto>{
-  return this.httpClient.post<ApiResponseDto>(BASE_URL +LOGIN_API,loginDto).pipe(tap(response => {
-    
-    this.handleAuthentication(response.data.email, response.data.token, response.data.tokenExpirationDate);
-  }));
+  login(loginDto: LoginDto): Observable<ApiResponseDto> {
+    return this.httpClient
+      .post<ApiResponseDto>(BASE_URL + LOGIN_API, loginDto)
+      .pipe(
+        tap((response) => {
+          this.handleAuthentication(
+            response.data.email,
+            response.data.token,
+            response.data.tokenExpirationDate,
+            response.data.refreshToken,
+            false
+          );
+        })
+      );
   }
 
-  handleAuthentication(email : string, token: string, expiresIn: number){
-       const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, token, expirationDate);
+  handleAuthentication(
+    email: string,
+    token: string,
+    expiresIn: number,
+    refreshToken: RefreshToken,
+    isTokenExpired: boolean
+  ) {
+    const expirationDate = new Date(expiresIn);
+    const user = new User(
+      email,
+      token,
+      expirationDate,
+      refreshToken,
+      isTokenExpired
+    );
     this.userSubject.next(user);
   }
+
+
+    getAccessToken() {
+    return this.userSubject.value?.token;
+  }
+
+    refreshToken(refreshToken: RefreshTokenDto): Observable<ApiResponseDto> {
+    return this.httpClient.post<ApiResponseDto>(
+      BASE_URL + REFRESH_TOKEN,
+      refreshToken
+    );
+  }
+
+ 
 }

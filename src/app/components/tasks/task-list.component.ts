@@ -54,6 +54,14 @@ export class TaskListComponent implements OnInit {
     this.getTasksForToday(this.dateString);
   }
 
+  formatDateString(dateStr : string): string{
+    let formattedDate = ''
+    //convert month to string value
+    //split date and convert
+
+    return formattedDate;
+  }
+
   getDay() {
     this.dayService.getDay(new Date()).subscribe({
       next: (response) => {

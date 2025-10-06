@@ -7,7 +7,7 @@
          <span class="ep--circle-plus btnAddDay" (click)="addTask()"></span> 
     </div>
 
-    <p-table [value]="taskList" [tableStyle]="{ 'min-width': '70vw' }" 
+    <p-table [value]="taskList" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }" 
     styleClass="p-datatable-gridlines p-datatable-striped" 
      [paginator]="true"
      [rows]="10"
@@ -22,7 +22,7 @@
               <th pSortableColumn="comments" style="width:55%">Comments<p-sortIcon field="comments" /></th>
               <th pSortableColumn="isDone" style="width:5%">Done</th>
              
-              <th pSortableColumn="dayId" style="width:5%">Day Id</th>
+              
               <th>View</th>
               <th>Delete</th>
           </tr>
@@ -39,7 +39,7 @@
                     <option [selected]="task.done == item">{{item | donePipe}}</option>
                 }
                 </select></td> 
-              <td>{{ task.dayId}}</td> 
+             
              <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewTask(task.id)"></i></td> 
             
               <td class="center icons"><i class="fa-solid fa-trash delete" (click)="openConfirmation(task.id)"></i> </td>
