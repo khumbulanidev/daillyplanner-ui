@@ -24,11 +24,6 @@ export const authenticationInteceptor: HttpInterceptorFn = (req, next) => {
   const user = authService.userSubject.value;
   const router = inject(Router);
 
-
-
-  
-
-
  if (!user || req.url.includes(LOGIN_API)  || req.url.includes(REFRESH_TOKEN) ){ // check what request it is 
   
     return next(req).pipe(

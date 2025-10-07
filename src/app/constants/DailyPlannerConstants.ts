@@ -20,6 +20,7 @@ export const CONFIRM_DELETE = 'Are you sure you want to delete this item ?'
 export const BASE_URL = 'http://localhost:9200/';
 export const TASK_URL = 'api/v1/tasks';
 export const LOGIN_API = 'api/v1/users/login';
+export const LOGOUT_API = 'api/v1/users/logout';
 export const USER_API = 'api/v1/users/sign-up';
 export const REFRESH_TOKEN = 'api/v1/users/refresh-token';
 export const DAY_API  = 'api/v1/days';

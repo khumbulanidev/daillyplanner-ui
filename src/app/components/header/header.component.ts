@@ -29,18 +29,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       let date = new Date();
       let dateString =
         date.getMonth() + 1 + '-' + date.getDate() + '-' + date.getFullYear();
-      // this.isAuthenticated
-      //   ? this.router.navigateByUrl('/')// ? this.router.navigate(['/date', dateString])
-      //   : this.router.navigateByUrl('/login');
+     
     });
   }
 
   logout() {
     this.isAuthenticated = false;
-    this.router.navigateByUrl('/home');
+   this.authService.logout();
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
+
+
 }
