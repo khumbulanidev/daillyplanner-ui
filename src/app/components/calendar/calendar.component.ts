@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { Day } from '../../models/day';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
 import { UserService } from '../../services/user/user.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-calendar',
@@ -26,7 +27,7 @@ export class CalendarComponent implements OnInit, OnChanges {
   dayService = inject(DaylistService);
   changeDetector = inject(ChangeDetectorRef);
   userService = inject(UserService)
-
+  authService = inject(AuthenticationService)
   @Input()
   year!: string;
 
@@ -67,15 +68,17 @@ export class CalendarComponent implements OnInit, OnChanges {
   allTotalsForTheMonth: any[] = [];
 
 constructor(){
+   if (this.authService.userSubject.value) {
+     this.userService.$tokenUpdated.subscribe((data) => {
+       console.log('inside calendar constructor ');
+       if (data) {
+         this.initializeCalendar();
+       }
+     });
+   }else{
+    this.authService.logout();
+   }
 
-   this.userService.$tokenUpdated.subscribe(
-       data =>{
-        console.log('inside calendar constructor ')
-          if(data ){
-  this.initializeCalendar()
-          }
-      }
-    )
  
 }
   ngOnInit(): void {
