@@ -36,6 +36,7 @@ export class AuthenticationService {
       .pipe(
         tap((response) => {
           this.handleAuthentication(
+            response.data.fullName,
             response.data.email,
             response.data.token,
             response.data.tokenExpirationDate,
@@ -47,6 +48,7 @@ export class AuthenticationService {
   }
 
   handleAuthentication(
+    fullName: string,
     email: string,
     token: string,
     expiresIn: number,
@@ -55,6 +57,7 @@ export class AuthenticationService {
   ) {
     const expirationDate = new Date(expiresIn);
     const user = new User(
+      fullName,
       email,
       token,
       expirationDate,

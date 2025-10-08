@@ -78,6 +78,7 @@ export const authenticationInteceptor: HttpInterceptorFn = (req, next) => {
               response.token != null
             ) {
               const userWithNewToken = new User(
+                user.fullName,//check this
                 user.email,
                 response.token,
                 new Date(response.tokenExpirationDate),

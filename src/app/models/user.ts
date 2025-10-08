@@ -3,6 +3,7 @@ import { RefreshToken } from "./RefreshToken";
 
 export class User {
   constructor(
+    private _fullName: string,
     public email: string,
     private _token: string,
     private tokenExpirationDate: Date,
@@ -30,6 +31,9 @@ export class User {
   }
   set isTokenExpired(isTokenExpired: boolean) {
     this._isTokenExpired = isTokenExpired;
+  }
+  get fullName(){
+    return this._fullName;
   }
 
   
