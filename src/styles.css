@@ -240,3 +240,11 @@ app-today-tasks {
   align-items: center;
   min-height: inherit;
 }
+
+
+app-dashboard{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
