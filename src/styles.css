@@ -247,4 +247,21 @@ app-dashboard{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: inherit;
+}
+
+app-card{
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 90%;
+    max-height: 90%;
+    display: flex;
+    box-shadow: 0.5em 0.5em grey;
+    
+}
+
+app-card:hover{
+  background-color: green;
+  color: white;
+  box-shadow: 0.7em 0.7em darkgreen;
 }
