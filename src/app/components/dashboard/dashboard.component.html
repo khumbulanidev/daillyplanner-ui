@@ -1,1 +1,6 @@
-<p>dashboard works!</p>
+<div class = "dashboard-container">
+@for(cardData of cardDataList; track $index){
+<app-card  [bodyData]="cardData.body"></app-card>
+}
+</div>
+
