@@ -257,6 +257,7 @@ app-card{
     max-height: 90%;
     display: flex;
     box-shadow: 0.5em 0.5em grey;
+    border-radius: 1em;
     
 }
 

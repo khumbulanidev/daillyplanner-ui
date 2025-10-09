@@ -79,7 +79,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
             today.getDate() +
             '-' +
             today.getFullYear();
-          this.router.navigate(['/date', dateString]);
+          // this.router.navigate(['/date', dateString]);
+          this.router.navigateByUrl('dashboard')
         },
         error: (error) => {
           console.log('error ' + error);
