@@ -1,5 +1,5 @@
 export interface Card{
-    header : string,
+    heading : string,
     body : string,
     footer : string
 }

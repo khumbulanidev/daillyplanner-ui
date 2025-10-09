@@ -1,7 +1,7 @@
 <div class="dashboard-header">{{welcomeMessage}}</div>
 <div class = "dashboard-container">
 @for(cardData of cardDataList; track $index){
-<app-card  [bodyData]="cardData.body"></app-card>
+<app-card  [bodyData]="cardData.body" (click)="openLink(cardData.link)"></app-card>
 }
 </div>
 
