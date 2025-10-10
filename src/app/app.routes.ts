@@ -4,7 +4,6 @@ import { DaysComponent } from './days/days.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ViewComponent } from './days/view/view.component';
 import { ImageExampleComponent } from './image-example/image-example.component';
-import { SideMenuComponent } from './side-menu/side-menu.component';
 import { RevisionComponent } from './revision/revision.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { BouncingTextComponent } from './components/bouncing-text/bouncing-text.component';
@@ -30,7 +29,6 @@ export const routes: Routes = [
 {path : "view/:id/:date" , component : ViewComponent},
 {path : "add-task/:id" , component : AddTaskComponent},
 {path: "img" , component : ImageExampleComponent},
-{path:"side-menu", component : SideMenuComponent},
 {path : "bounce" , component : BouncingTextComponent},
 {path : "revision" , component : RevisionComponent},
 {path : "sign-up" , component : SignUpComponent},
