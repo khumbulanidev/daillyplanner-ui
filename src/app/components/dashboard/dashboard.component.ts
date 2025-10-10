@@ -30,8 +30,9 @@ welcomeMessage: string =" Welcome : " + (this.authService.userSubject.value?.ful
 ngOnInit(): void {
    this.dashboardService.getOperations().subscribe({
     next : response =>{
-        this.cardDataList = response.map(a => { return {heading : '', body : a.operation , footer : '', link : a.link}});
-    },
+        this.cardDataList = response.map(a => { return {heading : '', body : a.operation , footer : '', link : a.link , position : a.position}}).sort((x, y)=>x.position - y.position);
+    console.log('Sorted List ', this.cardDataList)
+      },
     error : err =>{
       console.log('Error occurred retrieving operations : ', err)
       this.toastService.error(err.message,"Error occurred")
@@ -40,7 +41,13 @@ ngOnInit(): void {
   }
 
 openLink(link: string) {
-  
+  if(link == 'date'){
+    let today = new Date();
+    link = link+'/'+ (today.getMonth() + 1) + '-'+ today.getDate() + '-'+ today.getFullYear();
+  }
+  if(link){
+    link = 'construction'
+  }
  this.router.navigateByUrl(link)
 }
 

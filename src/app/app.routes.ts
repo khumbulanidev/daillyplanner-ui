@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TaskListComponent } from './components/tasks/task-list.component';
 import { CalendarContainerComponent } from './components/calendar-container/calendar-container.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { ConstructionComponent } from './components/construction/construction.component';
 
 export const routes: Routes = [
     
@@ -35,6 +36,7 @@ export const routes: Routes = [
 {path : "sign-up" , component : SignUpComponent},
 {path : "dashboard" , component : DashboardComponent},
 {path : "reports" , component : ReportsComponent},
+{path : "construction" , component : ConstructionComponent},
 {path : "" , component: LoginComponent}
 
 ];
