@@ -1,11 +1,9 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { UserService } from '../user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, throwError } from 'rxjs';
 import {
-  BASE_URL,
   ERROR_MESSAGE,
   ERROR_SENDING_REFRESH_REQUEST,
   LOGIN_API,
@@ -15,7 +13,6 @@ import {
 } from '../../constants/DailyPlannerConstants';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
-import { clear } from 'console';
 
 export const authenticationInteceptor: HttpInterceptorFn = (req, next) => {
 
@@ -78,6 +75,7 @@ export const authenticationInteceptor: HttpInterceptorFn = (req, next) => {
               response.token != null
             ) {
               const userWithNewToken = new User(
+                user.fullName,//check this
                 user.email,
                 response.token,
                 new Date(response.tokenExpirationDate),
