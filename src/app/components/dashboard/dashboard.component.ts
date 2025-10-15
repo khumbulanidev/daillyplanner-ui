@@ -45,7 +45,7 @@ openLink(link: string) {
     let today = new Date();
     link = link+'/'+ (today.getMonth() + 1) + '-'+ today.getDate() + '-'+ today.getFullYear();
   }
-  if(link){
+  if(link == '' || link == 'search'){
     link = 'construction'
   }
  this.router.navigateByUrl(link)

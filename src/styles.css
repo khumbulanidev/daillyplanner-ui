@@ -250,11 +250,13 @@ app-dashboard{
   min-height: inherit;
 }
 
+
+/* app-card */
 app-card{
     max-width: 100%;
     min-width: 100%;
-    min-height: 90%;
-    max-height: 90%;
+    min-height: 100%;
+    max-height: 100%;
     display: flex;
     box-shadow: 0.5em 0.5em grey;
     border-radius: 1em;
@@ -266,6 +268,14 @@ app-card:hover{
   color: white;
   box-shadow: 0.7em 0.7em darkgreen;
 }
+
+@media only screen and (max-width:600px){
+  app-card{
+    min-height : 100px;
+  }
+}
+
+
 
 app-construction{
   display: flex;
