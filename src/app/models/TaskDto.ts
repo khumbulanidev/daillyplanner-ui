@@ -9,5 +9,5 @@ export interface TaskDto {
   done: boolean;
   date: any;
   dayId: number;
-  userId: number;
+  email: string;
 }

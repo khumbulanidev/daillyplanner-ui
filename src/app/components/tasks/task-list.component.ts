@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import {ERROR_MESSAGE, SUCCESS, CONFIRM_DELETE} from '../../constants/DailyPlannerConstants';
 import { PopupModalComponent } from '../popup-modal/popup-modal.component';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-today-tasks',
@@ -32,6 +33,7 @@ export class TaskListComponent implements OnInit {
   activatedRoute = inject(ActivatedRoute);
   dayListService = inject(DaylistService);
   taskService = inject(TaskService);
+  authService = inject(AuthenticationService);
 
   showModal: boolean = false; //
   activeClass: string = 'hidePopupModal'; //
@@ -56,10 +58,8 @@ export class TaskListComponent implements OnInit {
 
   formatDateString(dateStr : string): string{
     let formattedDate = ''
-    //convert month to string value
-    //split date and convert
-
-    return formattedDate;
+ 
+    return formattedDate
   }
 
   getDay() {
@@ -97,7 +97,6 @@ export class TaskListComponent implements OnInit {
         next: (response) => {
           this.toastService.success('Task deleted successfully', SUCCESS);
           this.getTasksForToday(this.dateString);
-          //this.router.navigate(['date',this.dateString])
         },
 
         error: (error) => {
@@ -109,7 +108,8 @@ export class TaskListComponent implements OnInit {
   }
 
   getTasksForToday(date: string) {
-    this.taskService.getTasksForToday(date).subscribe({
+    let email =  this.authService.userSubject.value?.email ?? '';
+    this.taskService.getTasksForTodayByEmail(date,email).subscribe({
       next: (response) => {
         this.taskList = response;
         console.log('Task list  ', this.taskList);

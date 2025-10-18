@@ -25,7 +25,7 @@ export const authenticationInteceptor: HttpInterceptorFn = (req, next) => {
   
     return next(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log('error occured sending request ', error);
+        console.log('error occured sending request ', error.error);
         toastService.error(error.error.message ?? error.error, ERROR_MESSAGE);
         return throwError(() => error);
       })
@@ -80,7 +80,8 @@ export const authenticationInteceptor: HttpInterceptorFn = (req, next) => {
                 response.token,
                 new Date(response.tokenExpirationDate),
                 response.refreshToken,
-                false
+                false,
+                response.data.roles
               );
 
               authService.changeUser(userWithNewToken); 

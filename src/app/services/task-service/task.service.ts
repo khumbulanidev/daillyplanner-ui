@@ -31,6 +31,11 @@ export class TaskService {
     return this.http.get<TaskDto[]>(BASE_URL + TASK_URL + `/today/${date}`);
   }
 
+  getTasksForTodayByEmail(date : string, email: string): Observable<TaskDto[]> {
+    let day = new Date(date);
+    return this.http.get<TaskDto[]>(BASE_URL + TASK_URL + `/today/${email}/${date}`);
+  }
+
   saveTask(taskDto: TaskDto):Observable<TaskDto> {
     return this.http.post<TaskDto>(BASE_URL + TASK_URL + '/save', taskDto);
   }
