@@ -10,6 +10,7 @@ import { RefreshTokenDto } from '../../dto/RefreshTokenDto';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LogoutDto } from '../../dto/LogoutDto';
+import { Role } from '../../models/role';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +42,8 @@ export class AuthenticationService {
             response.data.token,
             response.data.tokenExpirationDate,
             response.data.refreshToken,
-            false
+            false,
+            response.data.roles
           );
         })
       );
@@ -53,7 +55,8 @@ export class AuthenticationService {
     token: string,
     expiresIn: number,
     refreshToken: RefreshToken,
-    isTokenExpired: boolean
+    isTokenExpired: boolean,
+    roles: Role[]
   ) {
     const expirationDate = new Date(expiresIn);
     const user = new User(
@@ -62,7 +65,8 @@ export class AuthenticationService {
       token,
       expirationDate,
       refreshToken,
-      isTokenExpired
+      isTokenExpired,
+      roles
     );
     this.userSubject.next(user);
   }

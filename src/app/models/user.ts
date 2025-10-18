@@ -1,4 +1,5 @@
 import { RefreshToken } from "./RefreshToken";
+import { Role } from "./role";
 
 
 export class User {
@@ -8,7 +9,8 @@ export class User {
     private _token: string,
     private tokenExpirationDate: Date,
     private _refreshToken: RefreshToken,
-    private _isTokenExpired: boolean
+    private _isTokenExpired: boolean,
+    private _roles: Role[]
   ) {}
 
   get token() {
@@ -34,6 +36,10 @@ export class User {
   }
   get fullName(){
     return this._fullName;
+  }
+
+  get roles(){
+    return this._roles;
   }
 
   

@@ -9,6 +9,7 @@ import { YesNo } from '../../enums/yesno';
 import { ToastrService } from 'ngx-toastr';
 import { ERROR_IN_SAVING_TASK, ERROR_MESSAGE, SUCCESS, TASK_SAVED_SUCCESSFULLY, TASK_UPDATED_SUCCESSFULLY } from '../../constants/DailyPlannerConstants';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-add-task',
@@ -26,6 +27,7 @@ export class AddTaskComponent implements OnInit {
   logger = inject(LoggerService);
   locationService = inject(Location);
   dayListService = inject(DaylistService);
+  authService = inject(AuthenticationService);
 
   //get date from activated route and use it to populate date
   savedTask!: TaskDto;
@@ -46,7 +48,7 @@ export class AddTaskComponent implements OnInit {
     dayId: 0,
     dateId: 0,
     id: 0,
-    userId: 0
+    email: ''
   };
   buttonLabel: string = 'Save';
 
@@ -91,12 +93,12 @@ export class AddTaskComponent implements OnInit {
         duration: taskFormValue.duration,
         name: taskFormValue.name,
         comments: taskFormValue.comments,
-        done: taskFormValue.done == YesNo.No ? false : true,
+        done: taskFormValue.done == YesNo.No ,
         date: taskFormValue.date,
         dayId: 0,
         dateId: 0,
         id: 0,
-        userId: 0
+        email: this.authService.userSubject.value?.email ?? ''
       };
 
       //update
@@ -151,7 +153,4 @@ export class AddTaskComponent implements OnInit {
 }
 
 
-//add view and delete
-//view use same add task component
-//gray out add button and enable if there is change to input
-//should have back button
+
