@@ -17,9 +17,7 @@ import { LoggerService } from '../../services/logger/logger.service';
 import { PageReloadService } from '../../services/reload-service/page-reload.service';
 import { ToastComponent } from '../../toast/toast.component';
 import { Router } from '@angular/router';
-import { PopupModalComponent } from '../popup-modal/popup-modal.component';
 import { DateFormatService } from '../../services/date-format/date-format.service';
-
 
 @Component({
   selector: 'app-daylist',

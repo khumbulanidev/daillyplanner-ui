@@ -24,7 +24,7 @@
           <tr>
               <td>{{ day.id }}</td>
               <td>{{ day.date }}</td>
-              <td>{{ day.tasks }}</td>
+              <td>{{ day.numberOfTasks }}</td>
               <td class="center"><i class="fa-solid fa-list-check" (click)="taskList(day.date)"></i></td>
               <td class="center"><i class="fa-regular fa-eye view" (click)="viewDay(day.id, day.date)"></i></td>
               <td class="center"><i class="fa-solid fa-trash delete" (click)="deleteDate(day.id)"></i> </td>
