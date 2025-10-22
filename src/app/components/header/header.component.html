@@ -5,7 +5,9 @@
     <!-- <li><a routerLink="tasks">Task</a></li> -->
     <!-- <li><a routerLink="calendar">Calendar</a></li> -->
     <li><a routerLink="calendars">Calendar</a></li>
+     @if(isAuthenticated){
     <li>
+     
     <div class="dropdown">
       <a class="dropdownBtn">Days</a>
       <div class="dropdown-content">

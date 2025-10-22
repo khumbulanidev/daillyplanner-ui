@@ -1,4 +1,4 @@
-.calendar-container{
+.calendar-container {
     display: flex;
     flex-direction: column;
     min-height: inherit;
@@ -7,19 +7,21 @@
 
 }
 
-.grid-container{
+.grid-container {
 
     display: grid;
     min-height: 50vh;
     width: 50%;
-    grid-template-columns: repeat(7, 1fr); 
+    grid-template-columns: repeat(7, 1fr);
     grid-template-rows: 2em auto auto auto auto auto auto;
     /* for having a collapsed border effect */
     gap: 1px;
 
 }
 
-.grid-item, .grid-item-blank, .current-date{
+.grid-item,
+.grid-item-blank,
+.current-date {
     font-style: italic;
     display: flex;
     flex-direction: column;
@@ -29,21 +31,21 @@
     outline: solid 1px black;
 }
 
-.current-date{
+.current-date {
     background-color: blue;
     color: white;
 }
 
-.date-container{
-height: 80%;
-display: flex;
-justify-content: center;
-align-items: center;
-width: 100%;
-border-collapse: collapse;
+.date-container {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.quantity-container{
+.quantity-container {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -56,21 +58,22 @@ border-collapse: collapse;
 
 
 
-.grid-item:hover, .current-date:hover{
+.grid-item:hover,
+.current-date:hover {
     background-color: skyblue;
     color: white;
 }
 
-.current-date > .quantity-container{
+.current-date>.quantity-container {
     color: white;
 }
 
 /* sets margin between calendar and month */
-.month-container{
+.month-container {
     margin-bottom: 2em;
 }
 
-.drop-down-container{
+.drop-down-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,22 +82,36 @@ border-collapse: collapse;
     gap: 2em;
 }
 
-.drop-down-item{
+.drop-down-item {
     display: flex;
     flex-direction: column;
     min-width: 15%;
 }
-select{
+
+select {
     border-radius: 1em;
     height: 2em;
     margin-top: 1em;
     text-align: center;
 }
 
-.drop-down-item > button{
-min-width: none;
-border-radius: 2em;
-background-color: green;
-color: white;
-height: 2em;
+.drop-down-item>button {
+    min-width: none;
+    border-radius: 2em;
+    background-color: green;
+    color: white;
+    height: 2em;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .calendar-container {
+        display: flex;
+        flex-direction: column;
+        min-height: inherit;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7em;
+    }
 }
