@@ -3,10 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { DaysComponent } from './days/days.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ViewComponent } from './days/view/view.component';
-import { ImageExampleComponent } from './image-example/image-example.component';
-import { RevisionComponent } from './revision/revision.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
-import { BouncingTextComponent } from './components/bouncing-text/bouncing-text.component';
 import { DaylistComponent } from './components/daylist/daylist.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -28,9 +25,6 @@ export const routes: Routes = [
 {path : "days",component : DaylistComponent },
 {path : "view/:id/:date" , component : ViewComponent},
 {path : "add-task/:id" , component : AddTaskComponent},
-{path: "img" , component : ImageExampleComponent},
-{path : "bounce" , component : BouncingTextComponent},
-{path : "revision" , component : RevisionComponent},
 {path : "sign-up" , component : SignUpComponent},
 {path : "dashboard" , component : DashboardComponent},
 {path : "reports" , component : ReportsComponent},
