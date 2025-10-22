@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { DayDto } from '../../models/DayDto';
 import { BASE_URL, DAY_API } from '../../constants/DailyPlannerConstants';
 import { Day } from '../../models/day';
+import { DayTaskDto } from '../../models/DayTaskDto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,9 @@ setPreviousDateSubject(date : string){
 
   getDaysOfMonth(month: number, year: number):Observable<Day[]>{
     return this.http.get<Day[]>(BASE_URL + DAY_API + '/' + month + '/' + year);
+  }
+
+   getDaysOfMonthForUser(month: number, year: number, email: string):Observable<DayTaskDto[]>{
+    return this.http.get<DayTaskDto[]>(BASE_URL + DAY_API + '/' + month + '/' + year + '/'+email);
   }
 }
