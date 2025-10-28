@@ -1,15 +1,15 @@
 <div class="add-task-container">
-    
-        @if(errorMessage){
-        <div class="message-container">
-            {{errorMessage}}
-        </div>
-        }
+
+    @if(errorMessage){
+    <div class="message-container">
+        {{errorMessage}}
+    </div>
+    }
     <form class="form-container" #taskForm="ngForm" ngNativeValidate (ngSubmit)="saveTask(taskForm)">
 
         <div class="input-container">
             <label for="date"> Date :</label>
-            <input type="date" [(ngModel)]="task.date" name="date" required >
+            <input type="date" [(ngModel)]="task.date" name="date" required>
         </div>
 
         <div class="input-container">
@@ -22,10 +22,62 @@
             <textarea type="comments" name="comments" [(ngModel)]="task.comments" placeholder="Comments"></textarea>
         </div>
 
-        <div class="input-container">
+        <!-- <div class="input-container">
             <label for="quantity"> Duration :</label>
             <input type="number" name="quantity" [(ngModel)]="task.duration" required min="0">
+        </div> -->
+        <div class="input-container">
+            <label for=""> Start time</label>
+            <div class="time-container">
+                <div class="time-container-item">
+                    <label for="start">Hour</label>
+                    <input type="number" name="
+                    startHour" [(ngModel)]="task.startHour" required min="0" max="12">
+                </div>
+
+                <div class="time-container-item">
+                    <label for="startMinute"> Minute</label>
+                    <input type="number" name="startMinute" [(ngModel)]="task.startMinute" required min="0" max="59">
+                </div>
+
+                <div class="time-container-item">
+                    <label for="amPmLabel"> AM/PM </label>
+                    <select name="amPmLabel" [(ngModel)]="selectedAmPm" >
+                        @for(item of amPM; track item){
+                        <option [value]="item">{{item}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
         </div>
+
+        <div class="input-container">
+            <label for=""> End time:</label>
+            <div class="time-container">
+                <div class="time-container-item">
+                    <label for="endHour">Hour </label>
+                    <input type="number" name="endHour" [(ngModel)]="task.endHour" required min="0" max="12">
+                </div>
+
+                <div class="time-container-item">
+                    <label for="endMinute"> Minute </label>
+                    <input type="number" name="endMinute" [(ngModel)]="task.endMinute" required min="0" max="59">
+                </div>
+
+                <div class="time-container-item">
+                         <label for="amPmLabel"> AM/PM </label>
+                    <select name="amPmLabel" [(ngModel)]="selectedAmPm">
+                        @for(item of amPM; track item){
+                        <option [value]="item">{{item}}</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+
+
+        </div>
+
 
         <div class="input-container">
             <label for="done"> Done :</label>
@@ -42,3 +94,5 @@
         </div>
     </form>
 </div>
+
+user should not be able to enter an end time before start <time datetime=""></time>

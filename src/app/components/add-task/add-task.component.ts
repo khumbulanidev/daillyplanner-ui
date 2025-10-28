@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ERROR_IN_SAVING_TASK, ERROR_MESSAGE, SUCCESS, TASK_SAVED_SUCCESSFULLY, TASK_UPDATED_SUCCESSFULLY } from '../../constants/DailyPlannerConstants';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AmPm } from '../../enums/ampm';
 
 @Component({
   selector: 'app-add-task',
@@ -36,7 +37,9 @@ export class AddTaskComponent implements OnInit {
   dateString: string = '';
   errorMessage = '';
   selectedValue: YesNo = YesNo.No;
+  selectedAmPm: AmPm =AmPm.AM;
   yesNo = [YesNo.Yes, YesNo.No];
+  amPM = [AmPm.AM, AmPm.PM];
   previousDate: string = '';
 
   task: TaskDto = {
@@ -48,7 +51,11 @@ export class AddTaskComponent implements OnInit {
     dayId: 0,
     dateId: 0,
     id: 0,
-    email: ''
+    email: '',
+    startHour: 0,
+    startMinute: 0,
+    endHour: 0,
+    endMinute: 0 
   };
   buttonLabel: string = 'Save';
 
