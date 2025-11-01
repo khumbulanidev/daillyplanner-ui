@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TaskDto } from '../../models/TaskDto';
@@ -29,6 +29,7 @@ export class AddTaskComponent implements OnInit {
   locationService = inject(Location);
   dayListService = inject(DaylistService);
   authService = inject(AuthenticationService);
+  changeDetector = inject(ChangeDetectorRef);
 
   //get date from activated route and use it to populate date
   savedTask!: TaskDto;
@@ -47,15 +48,13 @@ export class AddTaskComponent implements OnInit {
     name: 'example',
     comments: '',
     done: this.selectedValue == YesNo.Yes,
-    date: new Date(),
+    date: '',
     dayId: 0,
     dateId: 0,
     id: 0,
     email: '',
-    startHour: 0,
-    startMinute: 0,
-    endHour: 0,
-    endMinute: 0 
+    startTime: 0,
+    endTime: 0 
   };
   buttonLabel: string = 'Save';
 
@@ -64,8 +63,11 @@ export class AddTaskComponent implements OnInit {
       this.id = params.get('id');
     });
   }
-
+ 
   ngOnInit(): void {
+    console.log('date is ', this.task.date)
+ 
+    //uses date from page where the add task button is clicked from
     this.dayListService.previousDateSubject.subscribe(
       (val) => (this.previousDate = val)
     );
@@ -100,12 +102,15 @@ export class AddTaskComponent implements OnInit {
         duration: taskFormValue.duration,
         name: taskFormValue.name,
         comments: taskFormValue.comments,
-        done: taskFormValue.done == YesNo.No ,
+        done: !(taskFormValue.done == YesNo.No) ,
         date: taskFormValue.date,
         dayId: 0,
         dateId: 0,
         id: 0,
-        email: this.authService.userSubject.value?.email ?? ''
+        email: this.authService.userSubject.value?.email ?? '',
+        startTime: taskFormValue.startTime,
+        endTime: taskFormValue.endTime
+
       };
 
       //update
@@ -121,6 +126,9 @@ export class AddTaskComponent implements OnInit {
           },
         });
       } else {
+
+        console.log('start time', taskDto.startTime)
+        console.log('end time', taskDto.endTime)
         this.taskService.saveTask(taskDto).subscribe({
           next: (response) => {
             this.savedTask = response;

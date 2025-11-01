@@ -19,10 +19,10 @@
               <th pSortableColumn="id" style="width:5%">Id <p-sortIcon field="id" /></th>
                <th  pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
               <th  pSortableColumn="duration" style="width:10%">Duration <p-sortIcon field="duration" /></th>
-              <th pSortableColumn="comments" style="width:55%">Comments<p-sortIcon field="comments" /></th>
+              <th pSortableColumn="comments" style="width:40%">Comments<p-sortIcon field="comments" /></th>
+              <th pSortableColumn=" " style="width:7%">Start time</th>
+              <th pSortableColumn="endTime" style="width:8%">End time</th>
               <th pSortableColumn="isDone" style="width:5%">Done</th>
-             
-              
               <th>View</th>
               <th>Delete</th>
           </tr>
@@ -33,6 +33,8 @@
               <td>{{ task.name }}</td>
               <td>{{ task.duration }}</td>
               <td>{{ task.comments }}</td>
+              <td>{{ task.startTime }}</td>
+             <td>{{ task.endTime }}</td>
               <td class="centered-td"><select name="done"
                 (change)="updateTask(task)">
                 @for(item of selection; track $index){
