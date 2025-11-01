@@ -1,15 +1,15 @@
 <div class="add-task-container">
-    
-        @if(errorMessage){
-        <div class="message-container">
-            {{errorMessage}}
-        </div>
-        }
+
+    @if(errorMessage){
+    <div class="message-container">
+        {{errorMessage}}
+    </div>
+    }
     <form class="form-container" #taskForm="ngForm" ngNativeValidate (ngSubmit)="saveTask(taskForm)">
 
         <div class="input-container">
             <label for="date"> Date :</label>
-            <input type="date" [(ngModel)]="task.date" name="date" required >
+            <input type="date" [(ngModel)]="task.date" name="date" required>
         </div>
 
         <div class="input-container">
@@ -21,11 +21,17 @@
             <label for="comments"> Comments :</label>
             <textarea type="comments" name="comments" [(ngModel)]="task.comments" placeholder="Comments"></textarea>
         </div>
+        
+        <div class="input-container">
+                    <label for="startTime">Start time</label>
+                    <input type="time" name="startTime" [(ngModel)]="task.startTime"   >
+        </div>
 
         <div class="input-container">
-            <label for="quantity"> Duration :</label>
-            <input type="number" name="quantity" [(ngModel)]="task.duration" required min="0">
-        </div>
+                    <label for="endTime">End time </label>
+                    <input type="time" name="endTime" [(ngModel)]="task.endTime"  >
+            </div>
+
 
         <div class="input-container">
             <label for="done"> Done :</label>
@@ -42,3 +48,4 @@
         </div>
     </form>
 </div>
+

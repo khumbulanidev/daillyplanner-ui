@@ -1,54 +1,66 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Card } from '../../models/card';
-import { CardComponent } from "../card/card.component";
+import { CardComponent } from '../card/card.component';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { UserService } from '../../services/user/user.service';
 import { DashboardService } from '../../services/dashboard-service/dashboard.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DaylistService } from '../../services/daylist-service/daylist.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CardComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit{
-
-  
-
+export class DashboardComponent implements OnInit {
   authService = inject(AuthenticationService);
   userService = inject(UserService);
   dashboardService = inject(DashboardService);
-  toastService = inject(ToastrService)
+  toastService = inject(ToastrService);
   router = inject(Router);
+  dayListService = inject(DaylistService);
 
-cardDataList: any[] =[];
-welcomeMessage: string =" Welcome : " + (this.authService.userSubject.value?.fullName ?? ''); //add user first and last name
+  cardDataList: any[] = [];
+  welcomeMessage: string =
+    ' Welcome : ' + (this.authService.userSubject.value?.fullName ?? ''); //add user first and last name
 
-ngOnInit(): void {
-   this.dashboardService.getOperations().subscribe({
-    next : response =>{
-        this.cardDataList = response.map(a => { return {heading : '', body : a.operation , footer : '', link : a.link , position : a.position}}).sort((x, y)=>x.position - y.position);
-    console.log('Sorted List ', this.cardDataList)
+  ngOnInit(): void {
+    this.dashboardService.getOperations().subscribe({
+      next: (response) => {
+        this.cardDataList = response
+          .map((a) => {
+            return {
+              heading: '',
+              body: a.operation,
+              footer: '',
+              link: a.link,
+              position: a.position,
+            };
+          })
+          .sort((x, y) => x.position - y.position);
+        console.log('Sorted List ', this.cardDataList);
       },
-    error : err =>{
-      console.log('Error occurred retrieving operations : ', err)
-      this.toastService.error(err.message,"Error occurred")
-    }
-   });
+      error: (err) => {
+        console.log('Error occurred retrieving operations : ', err);
+        this.toastService.error(err.message, 'Error occurred');
+      },
+    });
   }
 
-openLink(link: string) {
-  if(link == 'date'){
+  openLink(link: string) {
     let today = new Date();
-    link = link+'/'+ (today.getMonth() + 1) + '-'+ today.getDate() + '-'+ today.getFullYear();
+    let dateString =
+      today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
+    this.dayListService.setPreviousDateSubject(dateString);
+    if (link == 'date') {
+      link = link + '/' + dateString;
+    }
+    if (link == '' || link == 'search') {
+      link = 'construction';
+    }
+    this.router.navigateByUrl(link);
   }
-  if(link == '' || link == 'search'){
-    link = 'construction'
-  }
- this.router.navigateByUrl(link)
-}
-
 }

@@ -27,12 +27,35 @@ label{
    flex : 1;
    margin-left : 4px;
 }
-input , select, textarea{
+input , select, textarea, .time-container{
     flex : 2;
     border-radius: 1em;
     margin-right: 5px;
     padding: 5px;
     border: 1px solid grey;
+}
+
+.time-container{
+  display: flex;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.time-container-item{
+  display: flex;
+  flex-direction: column;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size:  0.8em;
+}
+
+.time-container-item > input, select{
+width: 100%;
+
 }
 textarea{
     height: 5em;
