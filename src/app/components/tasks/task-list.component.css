@@ -44,3 +44,26 @@ select {
   justify-content: center;
   align-items: center;
 }
+
+.deleteBtn{
+  background-color: blue;
+  color: white;
+  width: 100px;
+  height: 1.5em;
+  border-radius: 1em;
+}
+
+.deleteBtn:hover{
+  background-color: green;
+  height: 2em;
+}
+
+.material-table-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.deleteBtnContainer{
+  display: flex;
+  justify-content: flex-end;
+}
