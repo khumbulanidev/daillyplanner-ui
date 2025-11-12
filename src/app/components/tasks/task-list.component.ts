@@ -28,7 +28,6 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   styleUrl: './task-list.component.css',
 })
 export class TaskListComponent implements OnInit {
-
   httpService = inject(HttpService);
   toastService = inject(ToastrService);
   logger = inject(LoggerService);
@@ -39,23 +38,23 @@ export class TaskListComponent implements OnInit {
   dayListService = inject(DaylistService);
   taskService = inject(TaskService);
   authService = inject(AuthenticationService);
-  changeDetection = inject(ChangeDetectorRef)
+  changeDetector = inject(ChangeDetectorRef);
 
-  showModal: boolean = false; //
-  activeClass: string = 'hidePopupModal'; //
+  showModal: boolean = false;
+  activeClass: string = 'hidePopupModal';
 
   dayDto!: DayDto;
   dateString: any;
   selection = [true, false];
   msg = CONFIRM_DELETE;
-  allCheckboxesChecked : boolean = false;
+  allCheckboxesChecked: boolean = false;
 
   taskId: number = 0;
   taskList: TaskDto[] = [];
   taskDayHeading = 'Tasks for today';
   tasksToDelete: TaskDto[] = [];
- isACheckboxChecked: boolean = false;
-allChecked: boolean = false;
+  isACheckboxChecked: boolean = false;
+  allChecboxChecked: boolean = false;
 
   ngOnInit(): void {
     this.dateString = this.activatedRoute.snapshot.paramMap.get('date');
@@ -100,13 +99,14 @@ allChecked: boolean = false;
     this.router.navigate(['add-task', taskId]);
   }
 
-  deleteTask($event: number) {
+  deleteTask($event: number[]) {
     console.log('id is ', $event);
-    if ($event > 0) {
-      this.taskService.deleteById($event).subscribe({
+    if ($event?.length == 1 && $event[0] > 0) {
+      this.taskService.deleteById($event[0]).subscribe({
         next: (response) => {
           this.toastService.success('Task deleted successfully', SUCCESS);
           this.getTasksForToday(this.dateString);
+          this.isACheckboxChecked = false;
         },
 
         error: (error) => {
@@ -114,6 +114,8 @@ allChecked: boolean = false;
           this.toastService.error(error.error.message, ERROR_MESSAGE);
         },
       });
+    }else{
+      this.deleteTasks();
     }
   }
 
@@ -140,8 +142,11 @@ allChecked: boolean = false;
     }
   }
 
-  openConfirmation(taskId: number) {
-    this.taskId = taskId;
+  openConfirmation(tasks: number[]) {
+    if(tasks.length == 1){
+     this.taskId = tasks[0];
+    }
+   
     this.showModal = true;
   }
 
@@ -167,14 +172,13 @@ allChecked: boolean = false;
     });
   }
 
-  onCheckboxChange(event: Event) {
+  onAllCheckboxChange(event: Event) {
     const isChecked = (event.target as HTMLInputElement).checked;
     console.log('Checkbox state changed:', isChecked);
 
     if (isChecked) {
       this.isACheckboxChecked = true;
-      //add all tasks to list
-      //check all checkboxes
+      this.allChecboxChecked = true;
       this.allCheckboxesChecked = true;
       this.tasksToDelete = [...this.taskList];
     } else {
@@ -184,50 +188,38 @@ allChecked: boolean = false;
     }
   }
 
-   onSingleCheckboxChange(event: Event, id : number) {
+  onSingleCheckboxChange(event: Event, id: number) {
     const isChecked = (event.target as HTMLInputElement).checked;
     console.log('Checkbox state changed:', isChecked);
 
     if (isChecked) {
       this.isACheckboxChecked = true;
-      let task = this.taskList.find(task=> task.id == id)
-      if(task){
+      let task = this.taskList.find((task) => task.id == id);
+      if (task) {
         this.tasksToDelete.push(task);
       }
-      
-    }
-    else{
-      this.tasksToDelete = this.tasksToDelete.filter(task => task.id != id);
-      if(this.tasksToDelete.length == 0){
+    } else {
+      this.tasksToDelete = this.tasksToDelete.filter((task) => task.id != id);
+      if (this.tasksToDelete.length == 0) {
         this.isACheckboxChecked = false;
-        this.allChecked = false; //? not working check box not being unchecked
-      }    
+        this.allChecboxChecked = false; //? not working check box not being unchecked
+        this.allCheckboxesChecked = false;
+      }
     }
   }
 
-
   deleteTasks() {
     this.taskService.deleteTasks(this.tasksToDelete).subscribe({
-      next : response =>{
-       this.toastService.success(
-          'Tasks deleted successfully',
-          SUCCESS
-        );
+      next: (response) => {
+        this.toastService.success('Tasks deleted successfully', SUCCESS);
+      this.getTasksForToday(this.dateString);
+      this.allChecboxChecked = false;
+      this.isACheckboxChecked = false;
       },
-      error : err =>{
-        console.log('error occurred delete tasks ', err)
-         this.toastService.error('Error occured', err.error);
-      }
-     
-    })
-    
+      error: (err) => {
+        console.log('error occurred delete tasks ', err);
+        this.toastService.error('Error occured', err.error);
+      },
+    });
+  }
 }
-}
-
-//on check box click add id to a list
-//on delete button click send a delete request to delete items in list
-//on click all button add all ids to list
-//on unchecking checkbox remove item from the list
-//if task list is empty gray out delete button
-//add delete confirmation dialog 
-//hide delete button and show it when checkboxes are checked

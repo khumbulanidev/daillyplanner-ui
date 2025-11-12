@@ -1,66 +1,58 @@
-
 <div class="task-list-container">
-    <div class="date-container">
-          {{taskDayHeading}}
-    </div>
-    <div class="button-container">
-         <span class="ep--circle-plus btnAddDay" (click)="addTask()"></span> 
-    </div>
-<div class="material-table-container">
-    <p-table [value]="taskList" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }" 
-    styleClass="p-datatable-gridlines p-datatable-striped" 
-     [paginator]="true"
-     [rows]="10"
-     [rowsPerPageOptions]="[10, 20, 50, 100]"
-     class="prime-table"
-     >
+  <div class="date-container">
+    {{taskDayHeading}}
+  </div>
+  <div class="button-container">
+    <span class="ep--circle-plus btnAddDay" (click)="addTask()"></span>
+  </div>
+  <div class="material-table-container">
+    <p-table [value]="taskList" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
+      styleClass="p-datatable-gridlines p-datatable-striped" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
       <ng-template pTemplate="header">
-          <tr>
-            <!-- when you click it checks all checkboxes -->
-            <th><input type="checkbox" name="selectAll" id="selectAllCheckbox" (change)="onCheckboxChange($event)"  [checked]="allChecked" /></th>  
-            
-              <th pSortableColumn="id" style="width:5%">Id <p-sortIcon field="id" /></th>
-               <th  pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
-              <th  pSortableColumn="duration" style="width:10%">Duration <p-sortIcon field="duration" /></th>
-              <th pSortableColumn="comments" style="width:40%">Comments<p-sortIcon field="comments" /></th>
-              <th pSortableColumn=" " style="width:7%">Start time</th>
-              <th pSortableColumn="endTime" style="width:8%">End time</th>
-              <th pSortableColumn="isDone" style="width:5%">Done</th>
-              <th>View</th>
-              <th>Delete</th>
-          </tr>
+        <tr>
+          <th><input type="checkbox" name="selectAll"  (change)="onAllCheckboxChange($event)"
+              [checked]="allChecboxChecked" /></th>
+          <th pSortableColumn="id" style="width:5%">Id <p-sortIcon field="id" /></th>
+          <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
+          <th pSortableColumn="duration" style="width:10%">Duration <p-sortIcon field="duration" /></th>
+          <th pSortableColumn="comments" style="width:40%">Comments<p-sortIcon field="comments" /></th>
+          <th style="width:7%">Start time</th>
+          <th style="width:8%">End time</th>
+          <th pSortableColumn="isDone" style="width:5%">Done</th>
+          <th>View</th>
+          <th>Delete</th>
+        </tr>
       </ng-template>
       <ng-template pTemplate="body" let-task>
-          <tr>
-            <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked"  (change)="onSingleCheckboxChange($event, task.id)"  /></td>  
-              <td>{{ task.id }}</td>
-              <td>{{ task.name }}</td>
-              <td>{{ task.duration }}</td>
-              <td>{{ task.comments }}</td>
-              <td>{{ task.startTime }}</td>
-             <td>{{ task.endTime }}</td>
-              <td class="centered-td"><select name="done"
-                (change)="updateTask(task)">
-                @for(item of selection; track $index){
-                    <option [selected]="task.done == item">{{item | donePipe}}</option>
-                }
-                </select></td> 
-             
-             <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewTask(task.id)"></i></td> 
-            
-              <td class="center icons"><i class="fa-solid fa-trash delete" (click)="openConfirmation(task.id)"></i> </td>
-       </tr>
+        <tr>
+          <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked"
+              (change)="onSingleCheckboxChange($event, task.id)" /></td>
+          <td>{{ task.id }}</td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.duration }}</td>
+          <td>{{ task.comments }}</td>
+          <td>{{ task.startTime }}</td>
+          <td>{{ task.endTime }}</td>
+          <td class="centered-td"><select name="done" (change)="updateTask(task)">
+              @for(item of selection; track $index){
+              <option [selected]="task.done == item">{{item | donePipe}}</option>
+              }
+            </select></td>
+
+          <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewTask(task.id)"></i></td>
+
+          <td class="center icons"><i class="fa-solid fa-trash delete" (click)="openConfirmation([task.id])"></i> </td>
+        </tr>
       </ng-template>
- </p-table> 
- @if(isACheckboxChecked){
-<div class="deleteBtnContainer"> <button class="deleteBtn" (click)="deleteTasks()">Delete</button></div>
- }
-
-
-
-
-</div>
+    </p-table>
+    <!-- add trash icon -->
+    @if(isACheckboxChecked){
+    <div class="deleteBtnContainer">
+       <button class="deleteBtn" (click)="openConfirmation([])">Delete</button></div>
+    }
+  </div>
 </div>
 
-<app-popup-modal (hideModal)="closeModal($event)" (deleteEvent)="deleteTask($event)" [message]="msg" [id]="taskId" #popupModal [ngClass]="showModal  ? 'showPopupModal': 'hidePopupModal'"></app-popup-modal>
-
+<app-popup-modal (hideModal)="closeModal($event)" (deleteEvent)="deleteTask($event)"  [message]="msg" [id]="taskId"
+  #popupModal [ngClass]="showModal  ? 'showPopupModal': 'hidePopupModal'"></app-popup-modal>
