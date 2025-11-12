@@ -11,6 +11,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { CalendarComponent } from '../calendar/calendar.component';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-calendar-container',
@@ -22,6 +23,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
 export class CalendarContainerComponent implements OnInit, AfterViewInit {
 
 
+userService = inject(UserService)
   viewContainerRef = inject(ViewContainerRef);
 
   @ViewChild('month')
@@ -55,13 +57,26 @@ currentDate = new Date();
   
 ngOnInit(): void {
     this.initializeYearArray();
+    this.userService.$tokenUpdated.subscribe(
+       data =>{
+        console.log('inside calendar constructor ')
+          if(data ){
+  this.initializeData()
+          }
+      }
+    )
   }
   
   ngAfterViewInit(): void {
+    this.initializeData();
+    this.changeDetector.detectChanges();
+  }
+
+  //
+  initializeData(){
     this.monthRef.nativeElement.value = this.months[this.currentDate.getMonth() ];
     this.yearRef.nativeElement.value = this.currentDate.getFullYear();
     this.initializeComponent();
-    this.changeDetector.detectChanges();
   }
 
   onYearChange(year: string) {

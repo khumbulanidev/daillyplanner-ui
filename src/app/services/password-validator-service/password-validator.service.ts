@@ -7,7 +7,9 @@ import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 export class PasswordValidatorService {
 
  strongPasswordValidator(): ValidatorFn {
+  
   return (control: AbstractControl): ValidationErrors | null => {
+    
     const value = control.value;
 
     if (!value) {

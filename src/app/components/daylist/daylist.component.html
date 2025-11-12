@@ -1,7 +1,6 @@
 <div class="app-list-container">
-    
-    <div class="button-container">
-        <button class="btnAddDay" (click)="addDay()"><i class="fa-solid fa-plus"></i></button>
+      <div class="button-container">
+         <span class="ep--circle-plus btnAddDay" (click)="addDay()"></span> 
     </div>
 
     <p-table [value]="dayList" [tableStyle]="{ 'min-width': '70vw' }" 

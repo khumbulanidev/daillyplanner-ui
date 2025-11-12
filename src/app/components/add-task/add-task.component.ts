@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TaskDto } from '../../models/TaskDto';
@@ -9,6 +9,8 @@ import { YesNo } from '../../enums/yesno';
 import { ToastrService } from 'ngx-toastr';
 import { ERROR_IN_SAVING_TASK, ERROR_MESSAGE, SUCCESS, TASK_SAVED_SUCCESSFULLY, TASK_UPDATED_SUCCESSFULLY } from '../../constants/DailyPlannerConstants';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AmPm } from '../../enums/ampm';
 
 @Component({
   selector: 'app-add-task',
@@ -26,6 +28,8 @@ export class AddTaskComponent implements OnInit {
   logger = inject(LoggerService);
   locationService = inject(Location);
   dayListService = inject(DaylistService);
+  authService = inject(AuthenticationService);
+  changeDetector = inject(ChangeDetectorRef);
 
   //get date from activated route and use it to populate date
   savedTask!: TaskDto;
@@ -34,7 +38,9 @@ export class AddTaskComponent implements OnInit {
   dateString: string = '';
   errorMessage = '';
   selectedValue: YesNo = YesNo.No;
+  selectedAmPm: AmPm =AmPm.AM;
   yesNo = [YesNo.Yes, YesNo.No];
+  amPM = [AmPm.AM, AmPm.PM];
   previousDate: string = '';
 
   task: TaskDto = {
@@ -42,10 +48,13 @@ export class AddTaskComponent implements OnInit {
     name: 'example',
     comments: '',
     done: this.selectedValue == YesNo.Yes,
-    date: new Date(),
+    date: '',
     dayId: 0,
     dateId: 0,
     id: 0,
+    email: '',
+    startTime: 0,
+    endTime: 0 
   };
   buttonLabel: string = 'Save';
 
@@ -54,8 +63,11 @@ export class AddTaskComponent implements OnInit {
       this.id = params.get('id');
     });
   }
-
+ 
   ngOnInit(): void {
+    console.log('date is ', this.task.date)
+ 
+    //uses date from page where the add task button is clicked from
     this.dayListService.previousDateSubject.subscribe(
       (val) => (this.previousDate = val)
     );
@@ -90,11 +102,15 @@ export class AddTaskComponent implements OnInit {
         duration: taskFormValue.duration,
         name: taskFormValue.name,
         comments: taskFormValue.comments,
-        done: taskFormValue.done == YesNo.No ? false : true,
+        done: !(taskFormValue.done == YesNo.No) ,
         date: taskFormValue.date,
         dayId: 0,
         dateId: 0,
         id: 0,
+        email: this.authService.userSubject.value?.email ?? '',
+        startTime: taskFormValue.startTime,
+        endTime: taskFormValue.endTime
+
       };
 
       //update
@@ -110,6 +126,9 @@ export class AddTaskComponent implements OnInit {
           },
         });
       } else {
+
+        console.log('start time', taskDto.startTime)
+        console.log('end time', taskDto.endTime)
         this.taskService.saveTask(taskDto).subscribe({
           next: (response) => {
             this.savedTask = response;
@@ -149,7 +168,4 @@ export class AddTaskComponent implements OnInit {
 }
 
 
-//add view and delete
-//view use same add task component
-//gray out add button and enable if there is change to input
-//should have back button
+

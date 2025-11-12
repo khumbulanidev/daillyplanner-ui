@@ -9,7 +9,7 @@ export const ERROR_MESSAGE ='Error occured :';
 export const SIGN_UP_ERROR = 'Complete all required fields before clicking sign up button';
 export const SIGN_UP_SUCCESS = 'User sign up successful';
 export const ALL_FIELDS_REQUIRED = 'Fill out all required fields';
-export const PASSWORD_REQUIREMENT = 'Password is required and should be at least 8 characters';
+export const PASSWORD_REQUIREMENT = 'Password should be at least 8 characters, have an uppercase, lowercase and number';
 export const LOGIN_SUCCESS = 'Login successful';
 export const TASK_SAVED_SUCCESSFULLY = 'Task saved successfully';
 export const TASK_UPDATED_SUCCESSFULLY = 'Task updated successfully';
@@ -20,8 +20,14 @@ export const CONFIRM_DELETE = 'Are you sure you want to delete this item ?'
 export const BASE_URL = 'http://localhost:9200/';
 export const TASK_URL = 'api/v1/tasks';
 export const LOGIN_API = 'api/v1/users/login';
+export const LOGOUT_API = 'api/v1/users/logout';
 export const USER_API = 'api/v1/users/sign-up';
+export const REFRESH_TOKEN = 'api/v1/users/refresh-token';
 export const DAY_API  = 'api/v1/days';
+export const OPERATION_URL = 'api/v1/operations'
+export const MISSING_EMAIL_OR_TOKEN_MESSAGE = "Missing email or refresh token whilst trying to refresh toke";
+export const SESSION_EXPIRED = "'Your session expired continue ? ";
+export const ERROR_SENDING_REFRESH_REQUEST = 'Error occured sending the refresh request';
 
 
  

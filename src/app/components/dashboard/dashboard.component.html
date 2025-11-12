@@ -1,1 +1,8 @@
-<p>dashboard works!</p>
+<div class = "dashboard-container">
+<div class="dashboard-header">{{welcomeMessage}}</div>
+<div class = "card-container">
+@for(cardData of cardDataList; track $index){
+<app-card  [bodyData]="cardData.body" (click)="openLink(cardData.link)"></app-card>
+}
+</div>
+</div>

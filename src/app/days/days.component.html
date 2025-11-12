@@ -1,19 +1,17 @@
 <!-- add validation and restrict date selection to today or later -->
 
 <div class="days-container">
-<form class="days-form">
-    <div class="input-container">
-        <label for="date">Select a date </label>
-        <input type="date" name="date" [(ngModel)]="date" required (change)="checkDate()"  [min]="minDate"/>
-    </div>
-    
-    <button type="submit" id="submitBtn" class="save-btn" (click)="saveDate()" [disabled]="isDisabled">Save</button>
-</form>
+    <form class="days-form">
+        <div class="input-container">
+            <label for="date">Select a date </label>
+            <input type="date" name="date" [(ngModel)]="date" required (change)="checkDate()" [min]="minDate" />
+        </div>
+        <div class="btn-container">
+            <button type="submit" id="submitBtn" class="save-btn" (click)="saveDate()"
+                [disabled]="isDisabled">Save</button>
+            <button class="backBtn" (click)="backToDayList()">Back</button>
+        </div>
 
-{{date}}
-{{isDisabled}}
-{{minDate}}
+    </form>
 
 </div>
-<p-toast position="bottom-right" key="br" />
-<app-toast (closePopupEvent)="closeToast()"  [toastMessage]="toastMsg"  [ngClass]="isToastVisible ? isGreen ? 'show-toast green-toast' : 'show-toast red-toast' : 'hide-toast' "></app-toast>

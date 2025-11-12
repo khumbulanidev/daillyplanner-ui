@@ -9,8 +9,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Day } from '../../models/day';
 import { DaylistService } from '../../services/daylist-service/daylist.service';
+import { UserService } from '../../services/user/user.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { DayTaskDto } from '../../models/DayTaskDto';
 
 @Component({
   selector: 'app-calendar',
@@ -24,7 +26,8 @@ export class CalendarComponent implements OnInit, OnChanges {
   router = inject(Router);
   dayService = inject(DaylistService);
   changeDetector = inject(ChangeDetectorRef);
-
+  userService = inject(UserService)
+  authService = inject(AuthenticationService)
   @Input()
   year!: string;
 
@@ -40,7 +43,7 @@ export class CalendarComponent implements OnInit, OnChanges {
     'Friday',
     'Saturday',
   ];
-  daysOfMonth: Day[] = [];
+  daysOfMonth: DayTaskDto[] = [];
   dates: any[] = [];
   indexOfFirstDay = -1;
   currentDate: Date = new Date();
@@ -64,8 +67,27 @@ export class CalendarComponent implements OnInit, OnChanges {
   years: number[] = [];
   allTotalsForTheMonth: any[] = [];
 
+constructor(){
+   if (this.authService.userSubject.value) {
+     this.userService.$tokenUpdated.subscribe((data) => {
+       console.log('inside calendar constructor ');
+       if (data) {
+         this.initializeCalendar();
+       }
+     });
+   }else{
+    this.authService.logout();
+   }
+
+ 
+}
   ngOnInit(): void {
-    this.getAllDaysOfTheMonth(
+   this.initializeCalendar()
+   
+  }
+
+  initializeCalendar(){
+     this.getAllDaysOfTheMonth(
       this.months.indexOf(this.month) + 1,
       parseInt(this.year)
     );
@@ -76,7 +98,6 @@ export class CalendarComponent implements OnInit, OnChanges {
     );
     this.currentCalendarMonthYear =  this.month + ' '+  this.year
   }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['year']) {
       console.log('Year changed to ', this.year);
@@ -103,41 +124,45 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.indexOfFirstDay = this.daysOfWeek.indexOf(firstDayOfMonth);
 
     this.daysInMonth = this.getDaysInMonth(year, month);
-    this.populateTotals();
+   
     for (let i = 0; i < this.indexOfFirstDay; i++) {
       this.dates.push({ day: 0, numberOfTasks: 0 });
     }
     //for numerical dates
     for (let i = 1; i <= this.daysInMonth; i++) {
-      this.dates.push({ day: i, numberOfTasks: this.getNumberOfTasks(i) });
+      let dayTaskDto = this.daysOfMonth.find(a => a.day == i);
+      this.dates.push({ day: i, numberOfTasks: dayTaskDto?.numberOfTasks ?? 0 });
     }
+     console.log('Number of tasks list inside populateCalendar', this.dates)
   }
 
   openTasks(day: number) {
+    
+    console.log(day)
     this.router.navigate([
       'date',
-      this.currentDate.getMonth() + 1 + '-' + day + '-' + this.year,
+      this.months.indexOf(this.month) + 1 + '-' + day + '-' + this.year,
     ]);
   }
 
-  getNumberOfTasks(day: number): number {
-    let filteredDays: Day[] = [];
-    for (const element of this.daysOfMonth) {
-      let dateString = element.date + '';
-      let splitDate = dateString.split('-');
+  // getNumberOfTasks(day: number): number {
+  //   let filteredDays: Day[] = [];
+  //   for (const element of this.daysOfMonth) {
+  //     let dateString = element.date + '';
+  //     let splitDate = dateString.split('-');
 
-      if (parseInt(splitDate[2]) == day) {
-        filteredDays = [...filteredDays, element];
-        break;
-      }
-    }
+  //     if (parseInt(splitDate[2]) == day) {
+  //       filteredDays = [...filteredDays, element];
+  //       break;
+  //     }
+  //   }
 
-    if (filteredDays.length > 0) {
-      return filteredDays[0].tasks.length;
-    } else {
-      return 0;
-    }
-  }
+  //   if (filteredDays.length > 0) {
+  //     return filteredDays[0].tasks.length;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
   getAllDaysOfTheMonth(month: number, year: number) {
     //get all the tasks for the month grouped by day
@@ -146,8 +171,8 @@ export class CalendarComponent implements OnInit, OnChanges {
       yearParam = this.currentDate.getFullYear();
       console.log('inside if statement');
     }
-
-    this.dayService.getDaysOfMonth(month, yearParam).subscribe({
+    let email = this.authService.userSubject.value?.email ?? '';
+    this.dayService.getDaysOfMonthForUser(month, yearParam, email).subscribe({
       next: (response) => {
         this.daysOfMonth = response;
         console.log('All days of the month retrieved', this.daysOfMonth);
@@ -161,24 +186,17 @@ export class CalendarComponent implements OnInit, OnChanges {
   populateMonth() {}
 
   populateTotals() {
-    for (let i = 1; i <= this.daysInMonth; i++) {
-      //create an array that has all days in month and assoicated totals
-      this.allTotalsForTheMonth = [
-        ...this.allTotalsForTheMonth,
-        { day: i, tasks: 0 },
-      ];
-      //this.allTotalsForTheMonth.push({day : i, tasks : 0})
-    }
+ //Month does not always start on a Sunday the first day displayed on calendar
+ //this offset accounts for the place holders in the dates array
+  let indexOffset = this.indexOfFirstDay - 1;
     for (const element of this.daysOfMonth) {
-      let dateString = element.date + '';
-      let splitDate = dateString.split('-');
-      let day = parseInt(splitDate[2]);
-      this.allTotalsForTheMonth[day] = {
-        day: day,
-        tasks: element.tasks.length,
+     
+      this.dates[element.day + indexOffset] = {
+        day: element.day,
+        numberOfTasks: element.numberOfTasks,
       };
     }
-    this.changeDetector.detectChanges();
+   this.changeDetector.detectChanges();
   }
 
   initializeComponent(month: number, year: number) {

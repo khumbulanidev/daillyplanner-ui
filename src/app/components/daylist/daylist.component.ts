@@ -12,13 +12,13 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { DayDto } from '../../models/DayDto';
 import { DayListItem } from '../../models/DayListItem';
-import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
 import { HttpService } from '../../services/http-service/http.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { PageReloadService } from '../../services/reload-service/page-reload.service';
 import { ToastComponent } from '../../toast/toast.component';
 import { Router } from '@angular/router';
 import { DateFormatService } from '../../services/date-format/date-format.service';
+import { PopupModalComponent } from '../popup-modal/popup-modal.component';
 
 @Component({
   selector: 'app-daylist',
@@ -86,7 +86,7 @@ export class DaylistComponent implements OnInit, AfterViewInit {
       next: (data) => {
         this.days = data;
         this.dayList = this.days.map((a) => {
-          return { id: a.id, date: a.date, numberOfTasks: 50 };
+          return { id: a.id, date: a.date, tasks: a.tasks?.length ?? 0 };
         });
       },
       error: (err) => {
