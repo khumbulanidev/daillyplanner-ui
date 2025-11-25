@@ -30,7 +30,7 @@ id!:number;
 @Output()
 hideModal= new EventEmitter<string>();
 @Output()
-deleteEvent = new EventEmitter<number>();
+deleteEvent = new EventEmitter<number[]>();
 
 deletedDate:any;
 
@@ -49,8 +49,8 @@ deleteDate(id:number) {
     this.hideModal.emit(msg);
   }
 
-  deleteItem(id:number){
-    this.deleteEvent.emit(id);
+  deleteItem(ids:number[]){
+    this.deleteEvent.emit(ids);
     this.closePopup("Deleted");
 
   }
