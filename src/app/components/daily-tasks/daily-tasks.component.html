@@ -1,1 +1,51 @@
-<p>daily-tasks works!</p>
+<!-- create a container that will hold buttons and table 
+add the table 
+add the add button 
+add the set days button -->
+
+<div class="daily-tasks-container">
+
+    <div class="button-container">
+    <span class="ep--circle-plus btnAddDay" (click)="addTask()"></span>
+  </div>
+
+ <p-table [value]="taskList" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
+      styleClass="p-datatable-gridlines p-datatable-striped" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th><input type="checkbox" name="selectAll"  (change)="onAllCheckboxChange($event)"
+              [checked]="allChecboxChecked" /></th>
+          <th pSortableColumn="id" style="width:5%">Id <p-sortIcon field="id" /></th>
+          <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
+          <th pSortableColumn="comments" style="width:40%">Comments<p-sortIcon field="comments" /></th>
+          <th style="width:7%">Start time</th>
+          <th style="width:8%">End time</th>
+          <th pSortableColumn="isDone" style="width:5%">Done</th>
+          <!-- <th>Save</th> -->
+          <th>Delete</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task>
+        <tr >
+          <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked"
+              (change)="onSingleCheckboxChange($event, task.id)" /></td>
+          <td>{{ task.id }}</td>
+          <td><input  type="text" />  </td>
+          <td><input  type="text" /></td>
+          <td><input  type="time" /></td>
+          <td><input  type="time" /></td>
+          <td>{{task.done}}</td>
+
+          <!-- <td class="center icons"><button class="saveBtn" (click)="saveTask(task.id)">Save</button></td> -->
+
+          <td class="center icons"><i class="fa-solid fa-trash delete" (click)="openConfirmation([task.id])"></i> </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+     @if(isACheckboxChecked && tasksToSave.length > 0){
+    <div class="deleteBtnContainer">
+       <button class="saveBtn" (click)="saveTasks()">Set days</button></div>
+    }
+</div>
