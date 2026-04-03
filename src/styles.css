@@ -289,3 +289,10 @@ app-daily-tasks{
   justify-content: center;
   align-items: center;
 }
+
+app-daily-tasks-table{
+  display: flex;
+  min-height:  inherit;
+  justify-content: center;
+  align-items: center;
+}
