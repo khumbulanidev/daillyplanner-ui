@@ -1,15 +1,18 @@
+
+
+
 <!-- create a container that will hold buttons and table 
 add the table 
 add the add button 
 add the set days button -->
 
 <div class="daily-tasks-container">
-
+{{tasks}}
     <div class="button-container">
-    <span class="ep--circle-plus btnAddDay" (click)="addTask()"></span>
+    <span class="ep--circle-plus btnAddDay" (click)="addATask()"></span>
   </div>
-
- <p-table [value]="taskList" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
+<form [formGroup]="formGroup"  (ngSubmit)="saveTasks()">
+ <p-table [value]="itemsArray.controls" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
       styleClass="p-datatable-gridlines p-datatable-striped" [paginator]="true" [rows]="10"
       [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
       <ng-template pTemplate="header">
@@ -26,23 +29,25 @@ add the set days button -->
           <th>Delete</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-task>
-        <tr >
+      <ng-template pTemplate="body" let-task let-i="rowIndex" >
+        <tr [formGroupName]="i">
+          
           <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked"
               (change)="onSingleCheckboxChange($event, task.id)" /></td>
-          <td>{{ task.id }}</td>
-          <td><input  type="text" />  </td>
-          <td><input  type="text" /></td>
-          <td><input  type="time" /></td>
-          <td><input  type="time" /></td>
-          <td>{{task.done}}</td>
-
+          <td><input  type="number" formControlName="id" /> </td>
+          <td><input  type="text" formControlName="name" />  </td>
+          <td><input  type="text" formControlName="comments" /></td>
+          <td><input  type="time" formControlName="startTime"/></td>
+          <td><input  type="time" formControlName="endTime" /></td>
+          <td>false</td>
+  
           <!-- <td class="center icons"><button class="saveBtn" (click)="saveTask(task.id)">Save</button></td> -->
-
-          <td class="center icons"><i class="fa-solid fa-trash delete" (click)="openConfirmation([task.id])"></i> </td>
+<!-- (click)="openConfirmation([task.id])" -->
+          <!-- <td class="center icons"><i class="fa-solid fa-trash delete" ></i> </td> -->
         </tr>
       </ng-template>
     </p-table>
+    </form>
 
      @if(isACheckboxChecked && tasksToSave.length > 0){
     <div class="deleteBtnContainer">
