@@ -6,6 +6,7 @@ import { LoggerService } from '../logger/logger.service';
 import { BASE_URL, TASK_URL } from '../../constants/DailyPlannerConstants';
 import { Task } from '../../models/task';
 import { TableBody } from 'primeng/table';
+import { DailyTaskDto } from '../../dto/DailyTaskDto';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,10 @@ export class TaskService {
 
   saveTask(taskDto: TaskDto):Observable<TaskDto> {
     return this.http.post<TaskDto>(BASE_URL + TASK_URL + '/save', taskDto);
+  }
+
+  saveAll(dailyTasksDto: DailyTaskDto):Observable<DailyTaskDto> {
+    return this.http.post<DailyTaskDto>(BASE_URL + TASK_URL + '/save-all', dailyTasksDto);
   }
 
   updateTask(taskDto: TaskDto): Observable<TaskDto> {

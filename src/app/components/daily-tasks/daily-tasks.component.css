@@ -39,3 +39,31 @@ input{
     height: 2em;
     border-radius: 1em;
 }
+
+.button-container{
+    display: flex;
+    align-items: flex-end;
+}
+
+.deleteBtn{
+    height: 2em;
+    background-color: red;
+    border-radius: 1.5em;
+    color: white;
+    padding: .5em;
+}
+
+
+.date-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2em;
+}
+
+.date-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

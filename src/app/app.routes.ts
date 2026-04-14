@@ -31,7 +31,7 @@ export const routes: Routes = [
 {path : "dashboard" , component : DashboardComponent},
 {path : "reports" , component : ReportsComponent},
 {path : "construction" , component : ConstructionComponent},
-{path : "daily-tasks", component : DailyTasksTableComponent},
+{path : "daily-tasks", component : DailyTasksComponent},
 
 {path : "" , component: LoginComponent}
 
