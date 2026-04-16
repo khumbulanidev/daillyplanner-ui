@@ -14,10 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { TaskService } from '../../services/task-service/task.service';
 import { DailyTaskDto } from '../../dto/DailyTaskDto';
-import { response } from 'express';
 
 //TODO number items in itemsArray.controls not being detected hence table is not paginating or showing more than 10 items
 //TODO get start and end date
+//TODO
 @Component({
   selector: 'app-daily-tasks',
   standalone: true,
@@ -43,20 +43,32 @@ export class DailyTasksComponent implements OnInit {
   isACheckboxChecked = false;
   allCheckboxesChecked = false;
   selectAllCheckBox: any;
-  minDate: string = '';
-  maxDate: string = '';
+  minStartDate: string = '';
+  maxStartDate: string = '';
+  minEndDate: string = '';
+  maxEndDate: string = '';
+  rows: any;
+  selectedDate = '';
 
   ngOnInit(): void {
     this.taskForm = this.formBuilder.group({
       items: this.formBuilder.array([this.createRow()]),
     });
 
-    this.minDate = new Date().toISOString().split('T')[0];
+    //initialize min and max dates to be used with date range
+    this.minStartDate = new Date().toISOString().split('T')[0];
     let nextYear = new Date();
     nextYear.setFullYear(nextYear.getFullYear() + 1);
-    this.maxDate = nextYear.toISOString().split('T')[0];
-    console.log('Min date ', this.minDate);
-    console.log('Max year ', this.maxDate);
+    this.maxStartDate = nextYear.toISOString().split('T')[0];
+
+    console.log('min date ', this.minStartDate);
+  }
+
+  onDateChange($event: any) {
+    this.selectedDate = $event.target.value;
+    let nextYear = new Date(this.selectedDate);
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    this.maxStartDate = nextYear.toISOString().split('T')[0];
   }
 
   get itemsArray(): FormArray {
@@ -83,18 +95,20 @@ export class DailyTasksComponent implements OnInit {
     return fg;
   }
 
+  //add a new formgroup to the form array
   addRow() {
     this.itemsArray.push(this.createRow());
-    console.log(this.values);
+    this.rows = [...this.itemsArray.controls];
   }
 
   removeRow(index: number) {
     this.itemsArray.removeAt(index);
+    this.rows = [...this.itemsArray.controls];
     console.log(this.itemsArray);
   }
 
+  //clears the form array
   deleteAll() {
-    //clear the form array
     this.taskForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
     });
@@ -174,7 +188,8 @@ export class DailyTasksComponent implements OnInit {
     let listOfTasks: TaskDto[] = [];
     //add date range for the tasks
     //add email for logged in user and day id
-    let email = localStorage.getItem('email') ?? ''
+    let email = localStorage.getItem('email') ?? ''; //email being sent with quotes
+    console.log('Email ', email);
     formArray.value.forEach((element: any) => {
       let taskDto = {
         id: element.id,
@@ -195,11 +210,11 @@ export class DailyTasksComponent implements OnInit {
 
       if (anyDuplicateNames) {
         this.toastService.error('Duplicate task names not allowed ', '');
-        throw new Error('Duplicate names not allowed')
-      } 
-      if(!email){
+        throw new Error('Duplicate names not allowed');
+      }
+      if (!email) {
         this.toastService.error('Please log in ', '');
-        throw new Error('Username missing')
+        throw new Error('Username missing');
       }
 
       console.log(element);
@@ -216,7 +231,7 @@ export class DailyTasksComponent implements OnInit {
     return this.dateRangeForm.get('endDate');
   }
 
-  buildDailyTaskDto(tasks : TaskDto[]): DailyTaskDto {
+  buildDailyTaskDto(tasks: TaskDto[]): DailyTaskDto {
     let dailyTasks: DailyTaskDto;
     let sDate = '';
     let eDate = '';
@@ -241,7 +256,7 @@ export class DailyTasksComponent implements OnInit {
         ),
         tasks: tasks,
       };
-
+      console.log('task dto ', dailyTasks);
       return dailyTasks;
     } else {
       throw new Error(' Start and end date required');

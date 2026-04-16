@@ -6,14 +6,13 @@ add the set days button -->
 <form class="daily-tasks-container" [formGroup]="taskForm">
   Select a date range
 <div class="date-container" [formGroup]="dateRangeForm">
-
   <div class="date-item">
     <label for="startDate">Start date :</label>
-    <input type="date" name="startDate" formControlName="startDate" [min]="minDate"/>
+    <input type="date" name="startDate" formControlName="startDate" [min]="minStartDate" [max]="maxStartDate" (change)="onDateChange($event)"/>
   </div>
   <div class="date-item">
     <label for="endDate">End date :</label>
-    <input type="date" name="endDate" formControlName="endDate" max="maxDate"/>
+    <input type="date" name="endDate" formControlName="endDate" [min]="selectedDate" [max]="maxEndDate"/>
   </div>
 </div>
     <div class="button-container">
@@ -21,7 +20,7 @@ add the set days button -->
     <span class="ep--circle-plus btnAddDay" (click)="addRow()"></span>
   </div>
 
- <p-table  [value]="itemsArray.controls" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
+ <p-table  [value]="rows" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
       styleClass="p-datatable-gridlines p-datatable-striped" [paginator]="true" [rows]="10"
       [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
       <ng-template pTemplate="header" >
