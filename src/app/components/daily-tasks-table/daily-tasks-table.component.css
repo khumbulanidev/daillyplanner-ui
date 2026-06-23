@@ -29,10 +29,8 @@ input{
 .saveBtn{
     background-color:  blue;
     color: white;
-    height: 2em;
+    height: 1.5em;
     border-radius: 1em;
-    border:none;
-    min-width: 8em;
 }
 
 .saveBtn:hover{
@@ -40,42 +38,4 @@ input{
     color: white;
     height: 2em;
     border-radius: 1em;
-   
-}
-
-.button-container{
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    gap: 2em;
-}
-
-.deleteBtn{
-    height: 2em;
-    background-color: red;
-    border-radius: 1.5em;
-    border: none;
-    color: white;
-    padding: .5em;
-    width: 8em;
-}
-
-
-.date-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 2em;
-    margin-top: 1em;
-}
-
-.date-item{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.error{
-    color:red;
 }

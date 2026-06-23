@@ -1,1 +1,76 @@
-<p>daily-tasks works!</p>
+<!-- create a container that will hold buttons and table 
+add the table 
+add the add button 
+add the set days button -->
+
+
+<form class="daily-tasks-container" [formGroup]="taskForm">
+@if(errorMessage){
+<div class="error">
+  {{errorMessage}}
+</div>
+}
+
+  Select a date range to add the same tasks for that range :
+<div class="date-container" [formGroup]="dateRangeForm">
+  <div class="date-item">
+    <label for="startDate">Start date :</label>
+    <input type="date" name="startDate" formControlName="startDate" [min]="minStartDate" [max]="maxStartDate" (change)="onDateChange($event)"/>
+  </div>
+  <div class="date-item">
+    <label for="endDate">End date :</label>
+    <input type="date" name="endDate" formControlName="endDate" [min]="selectedDate" [max]="maxEndDate"/>
+  </div>
+</div>
+    <div class="button-container">
+
+    <span class="ep--circle-plus btnAddDay" (click)="addRow()"></span>
+  </div>
+
+ <p-table  [value]="rows" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
+      styleClass="p-datatable-gridlines p-datatable-striped" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
+      <ng-template pTemplate="header" >
+        <tr>
+          <th><input type="checkbox" name="selectAll"  (change)="onAllCheckboxChange($event)"
+              [checked]="selectAllCheckBox" /></th>
+          <th pSortableColumn="id" style="width:5%">Id <p-sortIcon field="id" /></th>
+          <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
+          <th pSortableColumn="comments" style="width:40%">Comments<p-sortIcon field="comments" /></th>
+          <th style="width:7%">Start time</th>
+          <th style="width:8%">End time</th>
+          <th pSortableColumn="isDone" style="width:5%">Done</th>
+          <!-- <th>Save</th> -->
+          <th>Delete</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task let-rowIndex="rowIndex">
+        <tr  [formGroup]="task">
+          <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked" formControlName="checkbox"
+              (change)="onSingleCheckboxChange($event, task.value.id, rowIndex)" /></td>
+          <td><input  type="text" formControlName="id"/>  </td>
+          <td><input  type="text" formControlName="name" /></td>
+          <td><input  type="text" formControlName="comments" /></td>
+          <td><input  type="time" formControlName="startTime" /></td>
+          <td><input  type="time" formControlName="endTime" /></td>
+          <td ><input  type="text"  value="{{task.value.done}}" formControlName="done"/></td>
+          <td class="center icons"><i class="fa-solid fa-trash delete" (click)="removeRow(rowIndex, task.value.id)"></i> </td>
+        </tr>
+      </ng-template>
+    </p-table>
+<div class="button-container">
+ @if(isACheckboxChecked && tasksToSave.length > 0){
+    <div class="deleteBtnContainer">
+       <button class="saveBtn" (click)="saveTasks()">Set days</button></div>
+    }
+
+    @if(allCheckboxesChecked || isACheckboxChecked){
+    <div class="deleteBtnContainer">
+       <button class="deleteBtn" (click)="deleteAll()">Delete All</button></div>
+    }
+
+    <div class="deleteBtnContainer">
+       <button class="saveBtn" (click)="saveTasks()">Save</button></div>
+</div>
+    
+  </form>
