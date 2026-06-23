@@ -67,7 +67,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
             'refTok',
             JSON.stringify(response?.data?.refreshToken?.refreshToken)
           );
-          localStorage.setItem('email', JSON.stringify(response.data.email));
+          localStorage.setItem('email', response.data.email);
           //this.router.navigateByUrl('/today')
           let date = new Date(response.data.tokenExpirationDate);
           let today = new Date();
