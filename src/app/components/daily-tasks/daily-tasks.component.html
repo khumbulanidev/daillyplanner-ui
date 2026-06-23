@@ -3,8 +3,15 @@ add the table
 add the add button 
 add the set days button -->
 
+
 <form class="daily-tasks-container" [formGroup]="taskForm">
-  Select a date range
+@if(errorMessage){
+<div class="error">
+  {{errorMessage}}
+</div>
+}
+
+  Select a date range to add the same tasks for that range :
 <div class="date-container" [formGroup]="dateRangeForm">
   <div class="date-item">
     <label for="startDate">Start date :</label>
@@ -39,15 +46,15 @@ add the set days button -->
       </ng-template>
       <ng-template pTemplate="body" let-task let-rowIndex="rowIndex">
         <tr  [formGroup]="task">
-          <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked"
-              (change)="onSingleCheckboxChange($event, task.id)" /></td>
+          <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked" formControlName="checkbox"
+              (change)="onSingleCheckboxChange($event, task.value.id, rowIndex)" /></td>
           <td><input  type="text" formControlName="id"/>  </td>
           <td><input  type="text" formControlName="name" /></td>
-          <td><input  type="time" formControlName="comments" /></td>
+          <td><input  type="text" formControlName="comments" /></td>
           <td><input  type="time" formControlName="startTime" /></td>
           <td><input  type="time" formControlName="endTime" /></td>
-          <td ><input  type="text"  value="{{task.done}}" formControlName="done"/></td>
-          <td class="center icons"><i class="fa-solid fa-trash delete" (click)="removeRow(rowIndex)"></i> </td>
+          <td ><input  type="text"  value="{{task.value.done}}" formControlName="done"/></td>
+          <td class="center icons"><i class="fa-solid fa-trash delete" (click)="removeRow(rowIndex, task.value.id)"></i> </td>
         </tr>
       </ng-template>
     </p-table>
@@ -57,7 +64,7 @@ add the set days button -->
        <button class="saveBtn" (click)="saveTasks()">Set days</button></div>
     }
 
-    @if(allCheckboxesChecked){
+    @if(allCheckboxesChecked || isACheckboxChecked){
     <div class="deleteBtnContainer">
        <button class="deleteBtn" (click)="deleteAll()">Delete All</button></div>
     }
