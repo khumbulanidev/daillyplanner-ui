@@ -15,14 +15,8 @@ import { Router } from '@angular/router';
 import { TaskService } from '../../services/task-service/task.service';
 import { DailyTaskDto } from '../../dto/DailyTaskDto';
 import { JsonPipe } from '@angular/common';
-import { ThisReceiver } from '@angular/compiler';
 
-//TODO number items in itemsArray.controls not being detected hence table is not paginating or showing more than 10 items
-//TODO get start and end date
-//TODO when a single checkbox is checked you should add that task to a list of items to save
-//once saved remove the items from the form array and be left with remaining unsaved items
-// go with two form arrays one for all the tasks in the table and another one for tasks to save/ checked
-//if there is a checkbox checked delete all button should show and delete the checked items
+
 @Component({
   selector: 'app-daily-tasks',
   standalone: true,
