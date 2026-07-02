@@ -10,7 +10,7 @@ export interface TaskDto {
   date: any,
   dayId: number,
   email: string,
-  startTime?:number,
+  startTime?: number,
   endTime?: number 
 }
 

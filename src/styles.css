@@ -282,3 +282,17 @@ app-construction{
   
   min-height: inherit;
 }
+
+app-daily-tasks{
+  display: flex;
+  min-height:  inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+app-daily-tasks-table{
+  display: flex;
+  min-height:  inherit;
+  justify-content: center;
+  align-items: center;
+}
