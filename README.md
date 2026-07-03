@@ -1,5 +1,7 @@
 # Dailyplanner
 
+This application enables users to track their daily tasks making it easy to be able see the tasks which have been completed hence improving productivity.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
 
 ## Development server
