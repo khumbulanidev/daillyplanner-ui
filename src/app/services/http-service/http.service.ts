@@ -4,14 +4,12 @@ import { DayDto } from '../../models/DayDto';
 import { Observable } from 'rxjs';
 import { LoggerService } from '../logger/logger.service';
 import { TaskDto } from '../../models/TaskDto';
+import { BASE_URL, DAY_API, TASK_URL } from '../../constants/DailyPlannerConstants';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
-
-   url : string ='http://localhost:9200/api/v1/days';
-   tasksUrl : string= 'http://localhost:9200/api/v1/tasks';
+export class DayService {
 
   //services
   http = inject(HttpClient);
@@ -20,17 +18,17 @@ export class HttpService {
   constructor() { }
   //pass in date and 
   getTasksForToday(): Observable<DayDto[]>{
-    return this.http.get<DayDto[]>(this.tasksUrl);
+    return this.http.get<DayDto[]>(BASE_URL + TASK_URL);
   }
   getDays(): Observable<DayDto[]>{
-    return this.http.get<DayDto[]>(this.url);
+    return this.http.get<DayDto[]>(BASE_URL + DAY_API);
   }
   saveDay(day : DayDto){
     this.logger.log(day);
-    return this.http.post(this.url+"/save",day);
+    return this.http.post(BASE_URL + DAY_API +"/save",day);
   }
   deleteDay(id:number) {
-    return this.http.delete(this.url+"/delete/"+id);
+    return this.http.delete(BASE_URL + DAY_API +"/delete/"+id);
   }
 
 

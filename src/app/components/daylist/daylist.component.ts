@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { DayDto } from '../../models/DayDto';
 import { DayListItem } from '../../models/DayListItem';
-import { HttpService } from '../../services/http-service/http.service';
+import { DayService } from '../../services/http-service/http.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { PageReloadService } from '../../services/reload-service/page-reload.service';
 import { ToastComponent } from '../../toast/toast.component';
@@ -35,7 +35,7 @@ import { PopupModalComponent } from '../popup-modal/popup-modal.component';
   ],
 })
 export class DaylistComponent implements OnInit, AfterViewInit {
-  httpService = inject(HttpService);
+  httpService = inject(DayService);
   logger = inject(LoggerService);
   router = inject(Router);
   pageReloadService = inject(PageReloadService);

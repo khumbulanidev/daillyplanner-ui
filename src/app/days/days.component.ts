@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpService } from '../services/http-service/http.service';
+import { DayService } from '../services/http-service/http.service';
 import { LoggerService } from '../services/logger/logger.service';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -42,7 +42,7 @@ export class DaysComponent {
   isGreen: boolean = true;
   toastService = inject(ToastrService);
   router = inject(Router);
-  httpService = inject(HttpService);
+  httpService = inject(DayService);
   logger = inject(LoggerService);
   pageReloadService = inject(PageReloadService);
 

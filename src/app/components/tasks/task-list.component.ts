@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 
-import { HttpService } from '../../services/http-service/http.service';
+import { DayService } from '../../services/http-service/http.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { PageReloadService } from '../../services/reload-service/page-reload.service';
 import { TableModule } from 'primeng/table';
@@ -28,7 +28,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   styleUrl: './task-list.component.css',
 })
 export class TaskListComponent implements OnInit {
-  httpService = inject(HttpService);
+  httpService = inject(DayService);
   toastService = inject(ToastrService);
   logger = inject(LoggerService);
   router = inject(Router);

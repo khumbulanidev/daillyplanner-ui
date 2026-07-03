@@ -1,6 +1,6 @@
 
 import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../services/http-service/http.service';
+import { DayService } from '../../services/http-service/http.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { ToastModule } from 'primeng/toast';
 import {  MessageService } from 'primeng/api';
@@ -17,7 +17,7 @@ export class PopupModalComponent {
 
   popupModal:any;
   popupContainer:any;
-  httpService = inject(HttpService)
+  httpService = inject(DayService)
   logger = inject(LoggerService)
   messageService = inject(MessageService)
 

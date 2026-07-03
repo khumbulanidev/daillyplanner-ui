@@ -17,7 +17,7 @@ export const ERROR_IN_SAVING_TASK ='Add Task : Error inside save task : ';
 export const CONFIRM_DELETE = 'Are you sure you want to delete this item ?'
 
 //URLs
-export const BASE_URL = 'http://localhost:9200/';
+export const BASE_URL = 'http://192.168.1.23:9200/';
 export const TASK_URL = 'api/v1/tasks';
 export const LOGIN_API = 'api/v1/users/login';
 export const LOGOUT_API = 'api/v1/users/logout';

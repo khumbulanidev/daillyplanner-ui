@@ -1,7 +1,7 @@
 .dashboard-container{
     display : flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     width: 80%;
     margin: 1em;
@@ -15,15 +15,17 @@
     gap : 1em;
     margin: 1em;
     place-items: center center;
-    grid-template-columns: 25% 25%  25%  25% ;
-    min-height: inherit;
+    grid-template-columns: 25% 25%  25% 25%  ;
+    min-height: 300px;
 }
 
 .dashboard-header{
     display: flex;
     margin-top: 1em;
     justify-content: center;
+    align-items: center;
     width: 100%;
+    min-height: 100px;
 }
 
 @media only screen  and (max-width: 600px){
