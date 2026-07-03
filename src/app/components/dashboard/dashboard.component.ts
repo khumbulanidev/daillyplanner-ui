@@ -55,11 +55,18 @@ export class DashboardComponent implements OnInit {
     let dateString =
       today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear();
     this.dayListService.setPreviousDateSubject(dateString);
-    if (link == 'date') {
-      link = link + '/' + dateString;
-    }
-    if (link == '' || link == 'search') {
-      link = 'construction';
+
+    switch (link) {
+      case 'date':
+        link = link + '/' + dateString;
+        break;
+      case '':
+      case 'search':
+        link = 'construction';
+        break;
+      case 'add-task':
+        link = 'add-task/0';
+        break;
     }
     this.router.navigateByUrl(link);
   }
