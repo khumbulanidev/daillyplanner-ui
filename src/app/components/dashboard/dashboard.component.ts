@@ -16,6 +16,7 @@ import { DaylistService } from '../../services/daylist-service/daylist.service';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
+
   authService = inject(AuthenticationService);
   userService = inject(UserService);
   dashboardService = inject(DashboardService);
@@ -57,6 +58,9 @@ export class DashboardComponent implements OnInit {
     this.dayListService.setPreviousDateSubject(dateString);
 
     switch (link) {
+      case 'tasks':
+        link = 'date' + '/' + dateString;
+        break;
       case 'date':
         link = link + '/' + dateString;
         break;

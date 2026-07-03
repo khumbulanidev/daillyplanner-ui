@@ -296,3 +296,10 @@ app-daily-tasks-table{
   justify-content: center;
   align-items: center;
 }
+
+
+app-reports{
+  display: flex;
+  min-height: inherit;
+  width: 100%;
+}
