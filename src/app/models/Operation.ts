@@ -3,5 +3,6 @@ export interface Operation{
     operation : string,
     isActive : boolean,
     link : string,
-    position : number
+    position : number,
+    admin : boolean
 }

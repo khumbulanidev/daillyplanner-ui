@@ -14,6 +14,8 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ConstructionComponent } from './components/construction/construction.component';
 import { DailyTasksComponent } from './components/daily-tasks/daily-tasks.component';
 import { DailyTasksTableComponent } from './components/daily-tasks-table/daily-tasks-table.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { UserManagementComponent } from './components/admin-dashboard/user-management/user-management.component';
 
 export const routes: Routes = [
     
@@ -32,6 +34,10 @@ export const routes: Routes = [
 {path : "reports" , component : ReportsComponent},
 {path : "construction" , component : ConstructionComponent},
 {path : "daily-tasks", component : DailyTasksComponent},
+{path : "admin" , component : AdminDashboardComponent},
+{path : "user-management", component : UserManagementComponent},
+{path : "day-management", component : DaylistComponent},
+{path : "task-management", component : ConstructionComponent},
 
 {path : "" , component: LoginComponent}
 

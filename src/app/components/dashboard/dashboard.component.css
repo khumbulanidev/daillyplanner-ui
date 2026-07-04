@@ -9,6 +9,17 @@
 }
 
 
+
+
+.dashboard-header{
+    display: flex;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100px;
+}
+
 .card-container{
     display : grid;
     width: 80%;
@@ -19,14 +30,6 @@
     min-height: 300px;
 }
 
-.dashboard-header{
-    display: flex;
-    margin-top: 1em;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 100px;
-}
 
 @media only screen  and (max-width: 600px){
   .card-container{

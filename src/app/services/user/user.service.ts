@@ -5,6 +5,7 @@ import { UserDto } from '../../dto/user-dto';
 import {
   BASE_URL,
   USER_API,
+  USER_SIGN_UP_URL,
 } from '../../constants/DailyPlannerConstants';
 import { ApiResponseDto } from '../../dto/ApiResponseDto';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -24,7 +25,7 @@ export class UserService {
 
   
   signUp(user: UserDto): Observable<ApiResponseDto> {
-    return this.http.post<ApiResponseDto>(BASE_URL + USER_API, user);
+    return this.http.post<ApiResponseDto>(BASE_URL + USER_SIGN_UP_URL, user);
   }
 
 
@@ -37,5 +38,10 @@ export class UserService {
   }
   setTokenRefreshed(isTokenRefreshRequestSent : boolean){
     this.$isRefreshRequestSent.next(isTokenRefreshRequestSent);
+  }
+
+  getUsers():Observable<UserDto[]>{
+    //TODO check if user is admin if not throw exception
+   return this.http.get<UserDto[]>(BASE_URL +   USER_API);
   }
 }

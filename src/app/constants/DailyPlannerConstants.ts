@@ -15,13 +15,15 @@ export const TASK_SAVED_SUCCESSFULLY = 'Task saved successfully';
 export const TASK_UPDATED_SUCCESSFULLY = 'Task updated successfully';
 export const ERROR_IN_SAVING_TASK ='Add Task : Error inside save task : ';
 export const CONFIRM_DELETE = 'Are you sure you want to delete this item ?'
+export const ERROR_RETRIEVING_USERS = 'Error occurred retrieving all users : ';
 
 //URLs
 export const BASE_URL = 'http://192.168.1.23:9200/';
 export const TASK_URL = 'api/v1/tasks';
 export const LOGIN_API = 'api/v1/users/login';
 export const LOGOUT_API = 'api/v1/users/logout';
-export const USER_API = 'api/v1/users/sign-up';
+export const USER_SIGN_UP_URL = 'api/v1/users/sign-up';
+export const USER_API = 'api/v1/users';
 export const REFRESH_TOKEN = 'api/v1/users/refresh-token';
 export const DAY_API  = 'api/v1/days';
 export const OPERATION_URL = 'api/v1/operations'
@@ -29,6 +31,7 @@ export const MISSING_EMAIL_OR_TOKEN_MESSAGE = "Missing email or refresh token wh
 export const SESSION_EXPIRED = "'Your session expired continue ? ";
 export const ERROR_SENDING_REFRESH_REQUEST = 'Error occured sending the refresh request';
 export const UNSET_TIME = '--:-- --';
+
 
 
  
