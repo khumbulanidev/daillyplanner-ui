@@ -44,4 +44,8 @@ export class UserService {
     //TODO check if user is admin if not throw exception
    return this.http.get<UserDto[]>(BASE_URL +   USER_API);
   }
+
+  getUserById(email : string):Observable<UserDto>{
+   return this.http.post<UserDto>(BASE_URL + USER_API  + '/get', {"email" : email} );
+  }
 }

@@ -1,0 +1,74 @@
+.user-view-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: inherit;
+    width: 100%;
+}
+
+form{
+    width: 50%;
+    height: 50%;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap: 2em;
+}
+
+button{
+    height: 2em;
+    min-width: 100px;
+    border: none;
+    border-radius: 2em;
+}
+
+label{
+    width: 20%;
+}
+
+input{
+    width: 70%;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    border-radius: 2em;
+    height: 2em;
+    border : 1px solid grey;
+}
+
+.input-container{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.backBtn{
+    background-color: #0d6efd;
+    color : white;
+    height: 2em;
+}
+
+.saveBtn{
+    background-color: #198754;
+    color: white;
+
+}
+
+.saveBtn:hover{
+    background-color: #198754;
+    color: white;
+    height: 2.5em;
+
+}
+
+.backBtn:hover{
+    background-color: #0d6efd;
+    color: white;
+    height: 2.5em;
+
+}
+

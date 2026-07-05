@@ -1,0 +1,36 @@
+<div class="user-view-container">
+    <form [formGroup]="userForm" >
+
+        <div class="input-container">
+            <label for="email">Email :</label>
+            <input type="email" name="email" formControlName = "email" />
+        </div>
+
+        <div class="input-container">
+            <label for="firstname">Firstname :</label>
+            <input type="text" name="firstname" formControlName = "firstname" />
+        </div>
+
+         <div class="input-container">
+            <label for="lastname">Lastname :</label>
+            <input type="text" name="lastname" formControlName = "lastname" />
+        </div>
+
+         <div class="input-container">
+            <label for="phone">Phone :</label>
+            <input type="text" name="phone" formControlName = "phone" />
+        </div>
+
+         <div class="input-container">
+            <label for="password">Password :</label>
+            <input type="password" name="password" formControlName = "password" />
+        </div>
+
+         
+
+    </form>
+
+<div class="button-container">
+     <button class="backBtn" (click)="back()">Back</button> <button class="saveBtn" (click)="saveUser()">Save</button>
+</div>
+</div>
