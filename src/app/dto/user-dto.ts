@@ -3,5 +3,6 @@ export interface UserDto{
     lastname : string,
     phone : string,
     password : string,
-    email : string
+    email : string,
+    roles? : []
 }

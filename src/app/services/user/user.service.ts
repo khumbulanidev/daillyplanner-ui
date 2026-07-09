@@ -15,6 +15,7 @@ import { User } from '../../models/user';
   providedIn: 'root',
 })
 export class UserService {
+ 
   http = inject(HttpClient);
   authenticationService = inject(AuthenticationService);
 
@@ -47,5 +48,9 @@ export class UserService {
 
   getUserById(email : string):Observable<UserDto>{
    return this.http.post<UserDto>(BASE_URL + USER_API  + '/get', {"email" : email} );
+  }
+
+   update(user: UserDto) {
+    return this.http.post<UserDto>(BASE_URL + USER_API + '/update', user );
   }
 }

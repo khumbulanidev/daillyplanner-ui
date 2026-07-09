@@ -26,6 +26,7 @@ export const USER_SIGN_UP_URL = 'api/v1/users/sign-up';
 export const USER_API = 'api/v1/users';
 export const REFRESH_TOKEN = 'api/v1/users/refresh-token';
 export const DAY_API  = 'api/v1/days';
+export const ROLE_API = 'api/v1/roles';
 export const OPERATION_URL = 'api/v1/operations'
 export const MISSING_EMAIL_OR_TOKEN_MESSAGE = "Missing email or refresh token whilst trying to refresh toke";
 export const SESSION_EXPIRED = "'Your session expired continue ? ";
