@@ -1,4 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,6 +20,7 @@ import { Location } from '@angular/common';
 import { error } from 'console';
 import { Role } from '../../models/role';
 import { RoleService } from '../../services/role.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-view',
@@ -22,18 +30,12 @@ import { RoleService } from '../../services/role.service';
   styleUrl: './user-view.component.css',
 })
 export class UserViewComponent implements OnInit {
-  openRoles() {
-    console.log('button for roles clicked');
-
-    const popup = document.getElementById('role-popup-window');
-    popup?.classList.toggle('show');
-  }
-
   userService = inject(UserService);
   router = inject(Router);
   user: UserDto;
   location = inject(Location);
   roleService = inject(RoleService);
+  toastService = inject(ToastrService);
 
   userForm: FormGroup = new FormGroup({
     firstname: new FormControl('', Validators.required),
@@ -60,17 +62,15 @@ export class UserViewComponent implements OnInit {
 
     if (state) {
       this.setUser(state);
+      this.user = this.getUserFromState(state);
     }
   }
 
   ngOnInit(): void {
-    //set the user in the form
-    //get roles
-
     this.roleService.getAll().subscribe({
       next: (response) => {
         this.roles = response;
-        this.rolesToSave = new Set(this.roles);
+        this.rolesToSave = new Set(this.user.roles);
       },
       error: (error) => {
         console.error('Error occurred retrieving roes ', error.message);
@@ -85,27 +85,44 @@ export class UserViewComponent implements OnInit {
       phone: state['phone'],
       password: '',
       email: state['email'],
-      roles: [],
+      roles: state['roles'],
     });
   }
 
+  getUserFromState(state: any): UserDto {
+    return {
+      firstname: state['firstname'],
+      lastname: state['lastname'],
+      phone: state['phone'],
+      password: '',
+      email: state['email'],
+      roles: state['roles'],
+    };
+  }
+
+  /**Navigates to previous page */
   back() {
     this.location.back();
   }
 
   updateUser() {
-    //check if user is valid
     if (this.userForm.valid) {
-      //extract user from form and save
       this.userService
         .update(this.extractUserFromForm(this.userForm))
         .subscribe({
-          next: (response) => {},
+          next: (response) => {
+            console.log('after saving : ', response);
+            this.toastService.success(
+              'User updated : '
+            );
+            this.back()
+          },
           error: (error) => {
             console.error(
               'Error occurred updating changes for user',
               error.message,
             );
+            this.toastService.error('Error occured  : ', error.message);
           },
         });
     }
@@ -118,30 +135,34 @@ export class UserViewComponent implements OnInit {
       email: form.value.email,
       phone: form.value.phone,
       password: form.value.password,
-      roles: form.value.roles,
+      roles: [...this.rolesToSave],
     };
     return user;
   }
-  //check or uncheck checkbox based on
-  checkboxChange($event: any, name: string) {
-    let isCheckboxChecked = false;
+
+  /**
+   * Event handler for checkboxes changes
+   * @param $event
+   * @param role
+   */
+  checkboxChange($event: any, role: Role) {
     if ($event.target && $event.target.checked) {
-      isCheckboxChecked = true;
-      let role = { roleId: 0, name: name };
       this.rolesToSave.add(role);
     } else {
-      isCheckboxChecked = false;
-      let role = this.rolesToSave.entries;
-
-      for (const rol of this.rolesToSave) {
-        if (rol.name == name) {
-          this.rolesToSave.delete(rol);
+      for (const role of this.rolesToSave) {
+        if (role.name == role.name) {
+          this.rolesToSave.delete(role);
         }
       }
     }
-
-    //add role to role array
   }
-  //TODO
-  //add an option to edit the roles eg checkboxes that have all the roles possible in the system or and drop down with checkboxes
+
+  /** For checking role checkboxes that a user has*/
+  checkRole(role: string): boolean {
+    if (this.user.roles) {
+      return this.user.roles.map((item) => item.name).includes(role);
+    } else {
+      return false;
+    }
+  }
 }

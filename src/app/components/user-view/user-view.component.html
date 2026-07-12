@@ -34,11 +34,11 @@
             <!-- add a contwiner to hold the list of roles with checkboxes on left -->
             <div class="dropdown">
 
-            <div class="message-container">Select roles  <div class="drop-down-icon" (click)="openRoles()">&#8964;</div></div>
-            <div class="dropdown-content">
+            <div class="message-container" >Hover to select roles   <span class="cuida--dropdown-outline "></span><div class="drop-down-icon" ></div></div>
+            <div #dropdown class="dropdown-content">
                 @for(role of roles; track role.roleId ){
                 <div class="option-container">
-                    <input type="checkbox" id="roleName" checked="false" (change)="checkboxChange($event, role.name)" />
+                    <input type="checkbox" id="roleName" (change)="checkboxChange($event, role)"  class="role-checkbox" [checked]="checkRole(role.name)" />
                     {{role.name}}
                 </div>
                 }
