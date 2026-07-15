@@ -21,6 +21,7 @@ import { error } from 'console';
 import { Role } from '../../models/role';
 import { RoleService } from '../../services/role.service';
 import { ToastrService } from 'ngx-toastr';
+import { PASSWORD_REQUIREMENT } from '../../constants/DailyPlannerConstants';
 
 @Component({
   selector: 'app-user-view',
@@ -36,6 +37,9 @@ export class UserViewComponent implements OnInit {
   location = inject(Location);
   roleService = inject(RoleService);
   toastService = inject(ToastrService);
+  isPasswordVisible = false;
+  inputType: string = 'password';
+  passwordError = PASSWORD_REQUIREMENT;
 
   userForm: FormGroup = new FormGroup({
     firstname: new FormControl('', Validators.required),
@@ -164,5 +168,19 @@ export class UserViewComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  togglePassword() {
+    if (this.isPasswordVisible) {
+      this.inputType = 'password';
+      this.isPasswordVisible = false;
+    } else {
+      this.inputType = 'text';
+      this.isPasswordVisible = true;
+    }
+  }
+
+   get password() {
+    return this.userForm.get('password');
   }
 }

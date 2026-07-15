@@ -6,89 +6,96 @@ import { UserService } from '../../../services/user/user.service';
 import { ERROR_RETRIEVING_USERS } from '../../../constants/DailyPlannerConstants';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { state } from '@angular/animations';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
   imports: [ReactiveFormsModule, TableModule],
   templateUrl: './user-management.component.html',
-  styleUrl: './user-management.component.css'
+  styleUrl: './user-management.component.css',
 })
-export class UserManagementComponent implements OnInit{
+export class UserManagementComponent implements OnInit {
+  userManagementForm: any;
+  taskForm!: FormGroup<any>;
+  errorMessage: any;
+  dateRangeForm!: FormGroup<any>;
+  minStartDate: any;
+  maxStartDate: any;
+  selectedDate: any;
+  maxEndDate: any;
+  users: UserDto[] = [];
+  selectAllCheckBox: any;
+  allCheckboxesChecked: any;
+  isACheckboxChecked: any;
+  tasksToSave: any;
+  userService = inject(UserService);
+  toastService = inject(ToastrService);
+  router = inject(Router);
+  location = inject(Location);
 
-userManagementForm: any;
-taskForm!: FormGroup<any>;
-errorMessage: any;
-dateRangeForm!: FormGroup<any>;
-minStartDate: any;
-maxStartDate: any;
-selectedDate: any;
-maxEndDate: any;
-users: UserDto[] = [];
-selectAllCheckBox: any;
-allCheckboxesChecked: any;
-isACheckboxChecked: any;
-tasksToSave: any;
-userService = inject(UserService);
-toastService = inject(ToastrService);
-router = inject(Router)
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe({
+      next: (response) => {
+        this.users = response;
+      },
+      error: (error) => {
+        console.log(ERROR_RETRIEVING_USERS, error);
+        this.toastService.error(ERROR_RETRIEVING_USERS, 'See logs for details');
+      },
+    });
+  }
 
-ngOnInit(): void {
- this.userService.getUsers().subscribe({
-next : response =>{
-this.users = response;
-},
-error : error =>{
-  console.log(ERROR_RETRIEVING_USERS , error);
-  this.toastService.error(ERROR_RETRIEVING_USERS, "See logs for details");
+  onDateChange($event: Event) {}
+
+  addRow() {
+//open signup page
+this.router.navigateByUrl('/sign-up');
+//return to admin user management
+
+  }
+
+  onAllCheckboxChange($event: Event) {}
+  onSingleCheckboxChange($event: Event, arg1: any, _t41: any) {}
+  removeRow(email: string) {
+    // show popup for user to confirm delete
+    this.userService.delete(email).subscribe({
+      next: (response) => {
+        this.toastService.success(
+          'User deleted successfully : ',
+          response.email,
+        );
+        this.location.back();
+      },
+      error: (error) => {
+        this.toastService.error(
+          'Error occurred while deleting user  : ',
+          error.message,
+        );
+        console.log('Error occurred deleting user', error);
+      },
+    });
+  }
+
+  /**
+   *
+   * @param email
+   */
+  viewUser(user: UserDto) {
+    this.router.navigate(['/user'], { state: user });
+  }
+
+  //get all users from the db --DONE
+
+  //admin making changes cannot delete his account but can make other changes
+
+  //add a table to the ui to display the list of users
+
+  //add eye icon for view
+
+  //create a page to edit user opened from view icon
+
+  //delete icon opens delete popup and prompts user to enter a pin to delete
 }
+//delete by id is deleting all entries in Database.
 
-
- });
-}
-onDateChange($event: Event) {
-
-}
-addRow() {
-
-}
-onAllCheckboxChange($event: Event) {
-
-}
-onSingleCheckboxChange($event: Event,arg1: any,_t41: any) {
-
-}
-removeRow(_t41: any,arg1: any) {
-
-}
-saveTasks() {
-
-}
-deleteAll() {
-
-}
-
-
-/**
- * 
- * @param email 
- */
-viewUser(user: UserDto) {
-this.router.navigate(['/user'], {state : user});
-
-}
-
-//get all users from the db --DONE
-
-//admin making changes cannot delete his account but can make other changes
-
-//add a table to the ui to display the list of users
-
-//add eye icon for view 
-
-//create a page to edit user opened from view icon
-
-//delete icon opens delete popup and prompts user to enter a pin to delete
-
-}

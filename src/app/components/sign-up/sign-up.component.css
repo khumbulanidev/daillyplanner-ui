@@ -25,8 +25,8 @@ input{
     padding :1em;
 }
 
-.signUpBtn{
-    width: 20%;
+.signUpBtn, .backBtn{
+    width: 15%;
     border-radius: 1em;
     height: 2em;
     background-color: blue;
@@ -34,9 +34,11 @@ input{
     border: 1px solid grey;
 }
 
-.signUpBtn:hover{
+.signUpBtn:hover, .backBtn:hover{
     background-color: green;
 }
+
+
 
 .error{
     color: red;
@@ -55,7 +57,6 @@ input{
     display: flex;
     width: 5%;
    
-    
 }
 .password-input{
       border: none;
@@ -109,4 +110,12 @@ input{
     display: block;
     width: 80%;
     border-radius: 1em;
+  }
+
+  .btn-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1em;
   }

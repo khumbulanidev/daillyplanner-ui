@@ -21,10 +21,28 @@
             <input type="text" id="phone" formControlName = "phone" />
         </div>
 
-         <div class="input-container">
+         <!-- <div class="input-container">
             <label for="password">Password :</label>
             <input type="password" id="password" formControlName = "password" />
-        </div>
+        </div> -->
+
+             <div class="input-container">
+        <label for="password">Password : </label>
+        <div class="password-container"> 
+          <input [type]="inputType" id="password" formControlName="password" placeholder="password" class="password-input" />
+            @if(!isPasswordVisible){
+            <span class="mdi-light--eye eye" (click)="togglePassword()"></span>
+            }
+            @else{
+            <span class="mdi-light--eye-off eye" (click)="togglePassword()"></span>
+            }
+           
+            </div>
+             @if(password?.invalid && (password?.touched || password?.dirty)){
+            <div class="error">{{passwordError}}</div>
+            }
+        
+    </div>
         <!-- add lock/unlock button
         add disable/enable button -->
      

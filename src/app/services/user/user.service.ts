@@ -53,4 +53,8 @@ export class UserService {
    update(user: UserDto) {
     return this.http.post<UserDto>(BASE_URL + USER_API + '/update', user );
   }
+
+  delete(email : string):Observable<UserDto>{
+    return this.http.delete<UserDto>(BASE_URL + USER_API + '/delete', {body:  email});
+  }
 }

@@ -31,7 +31,7 @@ label{
     width: 20%;
 }
 
-input, .role-container, details,  .dropdown {
+input, .role-container, details,  .dropdown, .password-container {
     width: 70%;
     margin-bottom: 1em;
     margin-left: 1em;
@@ -155,5 +155,25 @@ align-items: center;
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
+}
+
+.password-container > input{
+    width: 90% !important;
+    height : 2em;
+    margin : 0px;
+    border: none;
+}
+
+
+.password-container{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+
+.password-container> span{
+    margin : auto;
+    margin-top: 0;
 }
 
