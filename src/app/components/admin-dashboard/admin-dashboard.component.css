@@ -28,5 +28,11 @@
     margin: 1em;
     place-items: center center;
     grid-template-columns: 25% 25%  25% 25%  ;
-    min-height: 150px;
+    grid-template-rows:   auto;
+}
+
+
+app-card{
+    min-height: 150px !important;
+    max-height: 300px !important;
 }

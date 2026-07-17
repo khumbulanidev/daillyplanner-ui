@@ -19,14 +19,14 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.dashBoardService.getOperations().subscribe({
       next: (response) => {
-        this.cardDataList = response.filter(a => a.admin)
-          .map((a) => {
+        this.cardDataList = response.filter(responseItem => responseItem.admin)
+          .map((item) => {
             return {
               heading: '',
-              body: a.operation,
+              body: item.operation,
               footer: '',
-              link: a.link,
-              position: a.position,
+              link: item.link,
+              position: item.position,
             };
           })
           .sort((x, y) => x.position - y.position);
@@ -35,14 +35,8 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  //operations that are on cards will come from the database
-  //use operations service
+  
  openLink(link: string) {
     this.router.navigateByUrl(link);
   }
-
-  //TODO
-  //Add operations for administrator to user operations
-  //add field for whether it is an admin operation or not --DONE
-  //edit sql script to add admin operations  --DONE
 }
