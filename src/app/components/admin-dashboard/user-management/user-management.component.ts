@@ -85,17 +85,10 @@ this.router.navigateByUrl('/sign-up');
     this.router.navigate(['/user'], { state: user });
   }
 
-  //get all users from the db --DONE
+  loggedInUser():string| null{
+    let email = localStorage.getItem("email");
+    return email;
+  }
 
-  //admin making changes cannot delete his account but can make other changes
-
-  //add a table to the ui to display the list of users
-
-  //add eye icon for view
-
-  //create a page to edit user opened from view icon
-
-  //delete icon opens delete popup and prompts user to enter a pin to delete
 }
-//delete by id is deleting all entries in Database.
 
