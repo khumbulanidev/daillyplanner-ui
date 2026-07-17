@@ -1,15 +1,11 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   inject,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -17,7 +13,6 @@ import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
 import { UserDto } from '../../dto/user-dto';
 import { Location } from '@angular/common';
-import { error } from 'console';
 import { Role } from '../../models/role';
 import { RoleService } from '../../services/role.service';
 import { ToastrService } from 'ngx-toastr';
@@ -31,15 +26,18 @@ import { PASSWORD_REQUIREMENT } from '../../constants/DailyPlannerConstants';
   styleUrl: './user-view.component.css',
 })
 export class UserViewComponent implements OnInit {
+
   userService = inject(UserService);
   router = inject(Router);
-  user: UserDto;
   location = inject(Location);
   roleService = inject(RoleService);
   toastService = inject(ToastrService);
+  roles: Role[] = [];
+  rolesToSave: Set<Role> = new Set();
   isPasswordVisible = false;
   inputType: string = 'password';
   passwordError = PASSWORD_REQUIREMENT;
+  user: UserDto;
 
   userForm: FormGroup = new FormGroup({
     firstname: new FormControl('', Validators.required),
@@ -49,8 +47,7 @@ export class UserViewComponent implements OnInit {
     email: new FormControl('', [Validators.required]),
     roles: new FormControl('Select a role'),
   });
-  roles: Role[] = [];
-  rolesToSave: Set<Role> = new Set();
+  
 
   constructor() {
     this.user = {
@@ -145,7 +142,7 @@ export class UserViewComponent implements OnInit {
   }
 
   /**
-   * Event handler for checkboxes changes
+   * Event handler for checkboxes 
    * @param $event
    * @param role
    */
@@ -153,8 +150,8 @@ export class UserViewComponent implements OnInit {
     if ($event.target && $event.target.checked) {
       this.rolesToSave.add(role);
     } else {
-      for (const role of this.rolesToSave) {
-        if (role.name == role.name) {
+      for (const roleToCheck of this.rolesToSave) {
+        if (roleToCheck.name == role.name) {
           this.rolesToSave.delete(role);
         }
       }
