@@ -16,21 +16,17 @@
     [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
     <ng-template pTemplate="header">
       <tr>
-        <th><input type="checkbox" name="selectAll" (change)="onAllCheckboxChange($event)"
-            [checked]="selectAllCheckBox" /></th>
         <th pSortableColumn="email" style="width:25%">Email<p-sortIcon field="email" /></th>
         <th pSortableColumn="firstname" style="width:15%">firstname <p-sortIcon field="firstname" /></th>
         <th pSortableColumn="lastname" style="width:15%">Lastname <p-sortIcon field="lastname" /></th>
         <th pSortableColumn="phone" style="width:15%">Phone<p-sortIcon field="phone" /></th>
         <th style="width:10%">View</th>
-        <!-- <th>Save</th> -->
         <th style="width:10%">Delete</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
       <tr>
-        <td><input type="checkbox" name="taskCheckbox" [checked]="allCheckboxesChecked"
-            (change)="onSingleCheckboxChange($event, user.value.id, rowIndex)" /></td>
+       
         <td>{{user.email}} </td>
         <td>{{user.firstname}}</td>
         <td>{{user.lastname}}</td>
@@ -44,3 +40,5 @@
     </ng-template>
   </p-table>
 </div>
+
+<app-popup-modal (hideModal)="closeModal($event)" (deleteEvent)="deleteUser($event)" [message]="deleteMsg" [data]="data" #popupModal [ngClass]="showModal  ? 'showPopupModal': 'hidePopupModal'"></app-popup-modal>

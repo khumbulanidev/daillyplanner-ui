@@ -25,12 +25,12 @@ export class PopupModalComponent {
 @Input()
 message:string='';
 @Input()
-id!:number;
+data!:any;
 
 @Output()
 hideModal= new EventEmitter<string>();
 @Output()
-deleteEvent = new EventEmitter<number[]>();
+deleteEvent = new EventEmitter<any>();
 
 deletedDate:any;
 
@@ -49,9 +49,13 @@ deleteDate(id:number) {
     this.hideModal.emit(msg);
   }
 
-  deleteItem(ids:number[]){
+  deleteItem(ids:any){
     this.deleteEvent.emit(ids);
     this.closePopup("Deleted");
 
   }
+
+
+  //when user clicks on delete button the popup window opens
+  //when user confirms delete event emitted to parent container to delete with id to delete
 }

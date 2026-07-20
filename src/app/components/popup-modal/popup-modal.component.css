@@ -30,6 +30,7 @@
   height: 80%;
   width: 100%;
 }
+
 .okBtn{
 min-width: 20%;
 min-height: 40%;
@@ -38,6 +39,7 @@ color: white;
 border-radius: 1.5em;
 border: none;
 }
+
 .cancelBtn{
     min-width: 20%;
     min-height: 40%;
@@ -51,10 +53,12 @@ border: none;
     background-color: #dc3545;
     color: white;
 }
+
 .cancelBtn:hover{
     background-color: #198754;
     color: white;
 }
+
 .closeBtn{
     display: flex;
     justify-content: flex-end;
@@ -63,7 +67,6 @@ border: none;
     margin-right: 10px;
     margin-top: 5px;
 }
-
 
   .showPopupModal{
     display: flex;
