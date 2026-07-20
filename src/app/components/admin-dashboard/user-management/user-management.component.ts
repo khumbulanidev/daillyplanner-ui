@@ -6,14 +6,14 @@ import { UserService } from '../../../services/user/user.service';
 import { DELETE_ITEM, ERROR_RETRIEVING_USERS } from '../../../constants/DailyPlannerConstants';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { Location, NgClass } from '@angular/common';
+import { Location, CommonModule } from '@angular/common';
 import { PopupModalComponent } from "../../popup-modal/popup-modal.component";
 
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [ReactiveFormsModule, TableModule, PopupModalComponent, NgClass],
+  imports: [CommonModule, ReactiveFormsModule, TableModule, PopupModalComponent],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css',
 })
@@ -94,8 +94,6 @@ export class UserManagementComponent implements OnInit {
           'User deleted successfully : ',
           response.email,
         );
-        //this.location.back(); 
-        //reload the array that populates the table
          this.userService.getUsers().subscribe({
       next: (response) => {
         this.users = response;
