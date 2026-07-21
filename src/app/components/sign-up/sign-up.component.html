@@ -1,10 +1,10 @@
 <form class="sign-up-container" [formGroup]="signUpForm" (ngSubmit)="signUp()">
     @if(signUpForm.invalid){
-        <div class="main-error">{{errorMessage}}</div>
-        }
+    <div class="main-error">{{errorMessage}}</div>
+    }
     <div class="input-group">
         <label for="firstname">Firstname : </label>
-        <input type="text" formControlName="firstname"/>
+        <input type="text" formControlName="firstname" />
         @if(firstname?.invalid && (firstname?.touched || firstname?.dirty)){
         <div class="error">Firstname is required</div>
         }
@@ -12,11 +12,11 @@
 
     <div class="input-group">
         <label for="lastname">Lastname : </label>
-        <input type="text" formControlName="lastname"/>
+        <input type="text" formControlName="lastname" />
         @if(lastname?.invalid && (lastname?.touched || lastname?.dirty)){
         <div class="error">Lastname is required</div>
         }
-        
+
     </div>
 
     <div class="input-group">
@@ -24,32 +24,36 @@
         <input type="tel" placeholder="optional" formControlName="phone" />
     </div>
 
-     <div class="input-group">
+    <div class="input-group">
         <label for="email">Email : </label>
-        <input type="email" placeholder="test@hotmail.com" formControlName="email"/>
+        <input type="email" placeholder="test@hotmail.com" formControlName="email" />
         @if(email?.invalid && (email?.touched || email?.dirty)){
-            {{email?.invalid && (email?.touched || email?.dirty)}}
+        {{email?.invalid && (email?.touched || email?.dirty)}}
         <div class="error">Email is required</div>
         }
-        
+
     </div>
 
     <div class="input-group">
         <label for="password">Password : </label>
-        <div class="password-container"> 
-          <input [type]="inputType"  formControlName="password" placeholder="password" class="password-input" />
+        <div class="password-container">
+            <input [type]="inputType" formControlName="password" placeholder="password" class="password-input" />
             @if(!isPasswordVisible){
             <span class="mdi-light--eye eye" (click)="togglePassword()"></span>
             }
             @else{
             <span class="mdi-light--eye-off eye" (click)="togglePassword()"></span>
             }
-           
-            </div>
-             @if(password?.invalid && (password?.touched || password?.dirty)){
-            <div class="error">{{passwordError}}</div>
-            }
-            {{password?.invalid}}
+
+        </div>
+        @if(password?.invalid && (password?.touched || password?.dirty)){
+        <div class="error">{{passwordError}}</div>
+        }
+        {{password?.invalid}}
     </div>
-    <button type="submit" class="signUpBtn" >Sign up</button>
+    <div class="btn-container">
+        <button type="button" class="backBtn" (click)="back()">Cancel</button>
+        <button type="submit" class="signUpBtn">Sign up</button>
+    </div>
+
 </form>

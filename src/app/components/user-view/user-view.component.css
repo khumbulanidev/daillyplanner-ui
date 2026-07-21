@@ -1,0 +1,179 @@
+.user-view-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: inherit;
+    width: 100%;
+}
+
+form{
+    width: 50%;
+    height: 50%;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap: 2em;
+}
+
+button{
+    height: 2em;
+    min-width: 100px;
+    border: none;
+    border-radius: 2em;
+}
+
+label{
+    width: 20%;
+}
+
+input, .role-container, details,  .dropdown, .password-container {
+    width: 70%;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    border-radius: 2em;
+    height: 2em;
+    border : 1px solid grey;
+}
+
+.input-container{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.backBtn{
+    background-color: #0d6efd;
+    color : white;
+    height: 2em;
+}
+
+.saveBtn{
+    background-color: #198754;
+    color: white;
+
+}
+
+.saveBtn:hover{
+    background-color: #198754;
+    color: white;
+    height: 2.5em;
+
+}
+
+.backBtn:hover{
+    background-color: #0d6efd;
+    color: white;
+    height: 2.5em;
+
+}
+
+.option-container{
+    display : flex;
+    gap :1em;
+}
+
+.message-container{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.drop-down-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drop-down-container{
+    position: relative;
+    display: flex;
+}
+
+
+
+
+.role-container-show{
+    display: flex;
+    background-color: black;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 1px;
+}
+
+.mdi--arrow-up-drop-circle-outline {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 22a10 10 0 0 0 10-10A10 10 0 0 0 12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10m0-2a8 8 0 0 1-8-8a8 8 0 0 1 8-8a8 8 0 0 1 8 8a8 8 0 0 1-8 8m5-6l-5-5l-5 5z'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+
+.cuida--dropdown-outline {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M19.778 12a7.778 7.778 0 1 0-15.556 0a7.778 7.778 0 0 0 15.556 0m-5.23-2.452a1.11 1.11 0 1 1 1.57 1.57l-3.332 3.334a1.11 1.11 0 0 1-1.572 0L7.881 11.12l-.076-.085a1.11 1.11 0 0 1 1.563-1.562l.084.076L12 12.095zM22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.password-container > input{
+    width: 90% !important;
+    height : 2em;
+    margin : 0px;
+    border: none;
+}
+
+
+.password-container{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+
+.password-container> span{
+    margin : auto;
+    margin-top: 0;
+}
+

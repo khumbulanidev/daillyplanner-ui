@@ -1,0 +1,76 @@
+<div class="user-view-container">
+    <form [formGroup]="userForm" >
+
+        <div class="input-container">
+            <label for="email">Email :</label>
+            <input type="email" id="email" formControlName = "email" />
+        </div>
+
+        <div class="input-container">
+            <label for="firstname">Firstname :</label>
+            <input type="text" id="firstname" formControlName = "firstname" />
+        </div>
+
+         <div class="input-container">
+            <label for="lastname">Lastname :</label>
+            <input type="text" id="lastname" formControlName = "lastname" />
+        </div>
+
+         <div class="input-container">
+            <label for="phone">Phone :</label>
+            <input type="text" id="phone" formControlName = "phone" />
+        </div>
+
+         <!-- <div class="input-container">
+            <label for="password">Password :</label>
+            <input type="password" id="password" formControlName = "password" />
+        </div> -->
+
+             <div class="input-container">
+        <label for="password">Password : </label>
+        <div class="password-container"> 
+          <input [type]="inputType" id="password" formControlName="password" placeholder="password" class="password-input" />
+            @if(!isPasswordVisible){
+            <span class="mdi-light--eye eye" (click)="togglePassword()"></span>
+            }
+            @else{
+            <span class="mdi-light--eye-off eye" (click)="togglePassword()"></span>
+            }
+           
+            </div>
+             @if(password?.invalid && (password?.touched || password?.dirty)){
+            <div class="error">{{passwordError}}</div>
+            }
+        
+    </div>
+        <!-- add lock/unlock button
+        add disable/enable button -->
+     
+
+         <div class="input-container">
+            <label for="roles">Roles :</label>
+            <!-- add a contwiner to hold the list of roles with checkboxes on left -->
+            <div class="dropdown">
+
+            <div class="message-container" >Hover to select roles   <span class="cuida--dropdown-outline "></span><div class="drop-down-icon" ></div></div>
+            <div #dropdown class="dropdown-content">
+                @for(role of roles; track role.roleId ){
+                <div class="option-container">
+                    <input type="checkbox" id="roleName" (change)="checkboxChange($event, role)"  class="role-checkbox" [checked]="checkRole(role.name)" />
+                    {{role.name}}
+                </div>
+                }
+                </div>
+       
+                </div> 
+            
+        </div>
+    
+         
+
+    </form>
+
+<div class="button-container">
+     <button class="backBtn" (click)="back()">Back</button> <button class="saveBtn" (click)="updateUser()">Save</button>
+</div>
+</div>

@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.dashboardService.getOperations().subscribe({
       next: (response) => {
-        this.cardDataList = response
+        this.cardDataList = response.filter(a => !a.admin)
           .map((a) => {
             return {
               heading: '',

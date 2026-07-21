@@ -5,7 +5,7 @@ import {
   LOGIN_API,
   BASE_URL,
   REFRESH_TOKEN,
-  USER_API,
+  USER_SIGN_UP_URL,
   LOGOUT_API,
 } from '../../constants/DailyPlannerConstants';
 import { LoginDto } from '../../dto/LoginDto';

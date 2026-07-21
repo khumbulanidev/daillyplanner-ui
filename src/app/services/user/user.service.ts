@@ -5,6 +5,7 @@ import { UserDto } from '../../dto/user-dto';
 import {
   BASE_URL,
   USER_API,
+  USER_SIGN_UP_URL,
 } from '../../constants/DailyPlannerConstants';
 import { ApiResponseDto } from '../../dto/ApiResponseDto';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -14,6 +15,7 @@ import { User } from '../../models/user';
   providedIn: 'root',
 })
 export class UserService {
+ 
   http = inject(HttpClient);
   authenticationService = inject(AuthenticationService);
 
@@ -24,7 +26,7 @@ export class UserService {
 
   
   signUp(user: UserDto): Observable<ApiResponseDto> {
-    return this.http.post<ApiResponseDto>(BASE_URL + USER_API, user);
+    return this.http.post<ApiResponseDto>(BASE_URL + USER_SIGN_UP_URL, user);
   }
 
 
@@ -37,5 +39,22 @@ export class UserService {
   }
   setTokenRefreshed(isTokenRefreshRequestSent : boolean){
     this.$isRefreshRequestSent.next(isTokenRefreshRequestSent);
+  }
+
+  getUsers():Observable<UserDto[]>{
+    //TODO check if user is admin if not throw exception
+   return this.http.get<UserDto[]>(BASE_URL +   USER_API);
+  }
+
+  getUserById(email : string):Observable<UserDto>{
+   return this.http.post<UserDto>(BASE_URL + USER_API  + '/get', {"email" : email} );
+  }
+
+   update(user: UserDto) {
+    return this.http.post<UserDto>(BASE_URL + USER_API + '/update', user );
+  }
+
+  delete(email : string):Observable<UserDto>{
+    return this.http.delete<UserDto>(BASE_URL + USER_API + '/delete', {body:  email});
   }
 }
