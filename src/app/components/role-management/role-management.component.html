@@ -4,24 +4,26 @@
     [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="email" style="width:25%">Id<p-sortIcon field="id" /></th>
-        <th pSortableColumn="firstname" style="width:15%">Name <p-sortIcon field="name" /></th>
-        <th pSortableColumn="lastname" style="width:15%">Active <p-sortIcon field="active" /></th>
+        <th pSortableColumn="roleId" style="width:25%">Id<p-sortIcon field="id" /></th>
+        <th pSortableColumn="name" style="width:15%">Name <p-sortIcon field="name" /></th>
+        <th pSortableColumn="active" style="width:15%">Active <p-sortIcon field="active" /></th>
         <th style="width:10%">View</th>
         <th style="width:10%">Delete</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-role let-rowIndex="rowIndex">
       <tr>
-        <td>{{role.id}} </td>
+        <td>{{role.roleId}} </td>
         <td>{{role.name}}</td>
         <td>{{role.active}}</td>
         <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewUser(role)"></i></td>
-        <td class="center icons"><i class="fa-solid fa-trash delete" (click)="removeRow(role.id)"></i> </td>
+        <td class="center icons"><i class="fa-solid fa-trash delete" (click)="removeRow(role.roleId)"></i> </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
+
+<app-popup-modal (hideModal)="closeModal($event)" (deleteEvent)="deleteItem($event)" [message]="deleteMsg" [data]="data" #popupModal [class]="showModal  ? 'showPopupModal': 'hidePopupModal'"></app-popup-modal>
 
 <!-- create a table that will get all roles from DB  -->
  <!-- each role should be able to view delete and also add role -->
