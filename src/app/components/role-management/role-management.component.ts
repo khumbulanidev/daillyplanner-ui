@@ -1,22 +1,35 @@
-import { Component } from '@angular/core';
-import {  FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Component, inject, OnInit } from '@angular/core';
+import { TableModule } from "primeng/table";
+import { Role } from '../../models/role';
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-role-management',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ TableModule],
   templateUrl: './role-management.component.html',
   styleUrl: './role-management.component.css'
 })
-export class RoleManagementComponent {
+export class RoleManagementComponent implements OnInit {
+
+//services
+roleService = inject(RoleService)
+roles: any;
+
+removeRow(id: number) {
+
+}
+viewUser(role: Role) {
+
+}
   
-roleForm: FormGroup;
+
 
 
 constructor(){
-  this.roleForm = new FormGroup({
-    name : new FormControl('', [Validators.minLength(3), Validators.required])
-  });
+ 
 }
+  ngOnInit(): void {
+  }
 
 }

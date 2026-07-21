@@ -17,6 +17,7 @@ import { DailyTasksTableComponent } from './components/daily-tasks-table/daily-t
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { UserManagementComponent } from './components/admin-dashboard/user-management/user-management.component';
 import { UserViewComponent } from './components/user-view/user-view.component';
+import { RoleManagementComponent } from './components/role-management/role-management.component';
 
 export const routes: Routes = [
     
@@ -40,7 +41,7 @@ export const routes: Routes = [
 {path : "day-management", component : DaylistComponent},
 {path : "task-management", component : ConstructionComponent},
 {path : "user", component : UserViewComponent},
-
+{path : "role-management", component : RoleManagementComponent},
 {path : "" , component: LoginComponent}
 
 ];

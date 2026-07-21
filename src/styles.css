@@ -394,3 +394,11 @@ app-user-view{
 
     z-index: 10000;
  }
+
+
+ app-role-management{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: inherit;
+ }
