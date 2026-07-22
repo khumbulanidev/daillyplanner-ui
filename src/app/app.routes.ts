@@ -13,11 +13,11 @@ import { CalendarContainerComponent } from './components/calendar-container/cale
 import { ReportsComponent } from './components/reports/reports.component';
 import { ConstructionComponent } from './components/construction/construction.component';
 import { DailyTasksComponent } from './components/daily-tasks/daily-tasks.component';
-import { DailyTasksTableComponent } from './components/daily-tasks-table/daily-tasks-table.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { UserManagementComponent } from './components/admin-dashboard/user-management/user-management.component';
 import { UserViewComponent } from './components/user-view/user-view.component';
 import { RoleManagementComponent } from './components/role-management/role-management.component';
+import { RoleComponent } from './components/role/role.component';
 
 export const routes: Routes = [
     
@@ -42,6 +42,7 @@ export const routes: Routes = [
 {path : "task-management", component : ConstructionComponent},
 {path : "user", component : UserViewComponent},
 {path : "role-management", component : RoleManagementComponent},
+{path : "role", component : RoleComponent},
 {path : "" , component: LoginComponent}
 
 ];
