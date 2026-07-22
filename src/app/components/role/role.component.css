@@ -1,0 +1,60 @@
+.role-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: inherit;
+    width: 100%;
+
+}
+
+label{
+    width: 30%;
+}
+
+input{
+    height: 2em;
+    border-radius: 1em;
+    width: 70%;
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+.input-group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-height: 50%;
+}
+.button-container{
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 1em;
+}
+button{
+    width: 20%;
+    height: 2em;
+    border-radius: 1em ;
+}
+
+.btn-cancel{
+    background-color: blue;
+    color: white;
+}
+
+.btn-save{
+    background-color: green;
+    color: white;
+}

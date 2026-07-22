@@ -203,6 +203,15 @@ p-table {
   overflow: auto;
 }
 
+.input-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
 app-image-example {
   min-height: 86vh;
 }
@@ -396,7 +405,7 @@ app-user-view{
  }
 
 
- app-role-management{
+ app-role-management,  app-role{
   display: flex;
   justify-content: center;
   align-items: center;
