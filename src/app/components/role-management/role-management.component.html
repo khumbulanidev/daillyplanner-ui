@@ -25,7 +25,7 @@
       <tr>
         <td>{{role.roleId}} </td>
         <td>{{role.name}}</td>
-        <td>{{role.active}}</td>
+        <td>{{role.active ? 'Yes' : 'No'}}</td>
         <td class="center icons"><i class="fa-regular fa-eye view" (click)="viewRole(role)"></i></td>
         <td class="center icons"><i class="fa-solid fa-trash delete" (click)="removeRole(role.roleId)"></i> </td>
       </tr>
