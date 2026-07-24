@@ -5,6 +5,7 @@ import { RoleService } from '../../services/role.service';
 import { PopupModalComponent } from "../popup-modal/popup-modal.component";
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { SAVE_SUCCESSFULL } from '../../constants/DailyPlannerConstants';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class RoleManagementComponent implements OnInit {
 
 
 
+
+
 //services
 roleService = inject(RoleService);
 toastService = inject(ToastrService);
@@ -26,6 +29,7 @@ roles: any;
 deleteMsg: string = '';
 data: any;
 showModal: boolean =false;
+errorMessage: any;
 
 removeRow(id: number) {
   this.data = id;
@@ -72,4 +76,11 @@ constructor(){
     })
   }
 
+  addRole() {
+  this.router.navigate(['/role'], {state : {insert : true}})
 }
+
+
+}
+
+ 

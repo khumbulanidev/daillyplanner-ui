@@ -1,4 +1,14 @@
 <div class="rm-container">
+    @if(errorMessage){
+  <div class="error">
+    {{errorMessage}}
+  </div>
+  }
+
+  <div class="button-container">
+
+    <span class="ep--circle-plus btnAddDay" (click)="addRole()"></span>
+  </div>
     <p-table [value]="roles" [tableStyle]="{ 'min-width': '70vw', 'max-width':'80vw' }"
     styleClass="p-datatable-gridlines p-datatable-striped" [paginator]="true" [rows]="10"
     [rowsPerPageOptions]="[10, 20, 50, 100]" class="prime-table">
@@ -24,8 +34,3 @@
 </div>
 
 <app-popup-modal (hideModal)="closeModal($event)" (deleteEvent)="deleteItem($event)" [message]="deleteMsg" [data]="data" #popupModal [class]="showModal  ? 'showPopupModal': 'hidePopupModal'"></app-popup-modal>
-
-<!-- create a table that will get all roles from DB  -->
- <!-- each role should be able to view delete and also add role -->
-  <!-- should be able to select multiple roles and delete. Role should not be deleted when it is in use -->
-   <!-- have active roles and inactive roles that can be changed from this page -->

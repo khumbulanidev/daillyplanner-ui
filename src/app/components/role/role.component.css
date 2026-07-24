@@ -12,7 +12,7 @@ label{
     width: 30%;
 }
 
-input{
+input, select{
     height: 2em;
     border-radius: 1em;
     width: 70%;

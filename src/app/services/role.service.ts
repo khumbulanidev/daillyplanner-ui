@@ -8,22 +8,11 @@ import { BASE_URL, ROLE_API } from '../constants/DailyPlannerConstants';
   providedIn: 'root'
 })
 export class RoleService {
-
+  
   httpClient = inject(HttpClient);
 
-  constructor() { }
-
-  //create a role
-
-  //delete a role 
-
-  //update a role
-
-
-  //get all roles
   getAll():Observable<Role[]>{
     return this.httpClient.get<Role[]>(BASE_URL + ROLE_API);
-
   }
 
   get(id : number): Observable<Role>{
@@ -34,11 +23,7 @@ export class RoleService {
     return this.httpClient.delete<Role>(BASE_URL + ROLE_API + `/delete/{id}`)
   }
 
-
   save(role : Role):Observable<Role>{
-    return this.httpClient.post<Role>(BASE_URL + ROLE_API, role);
+    return this.httpClient.post<Role>(BASE_URL + ROLE_API + '/save', role);
   }
-
-
-  //get a role by id
 }
