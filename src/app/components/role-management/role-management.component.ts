@@ -31,17 +31,14 @@ data: any;
 showModal: boolean =false;
 errorMessage: any;
 
-removeRow(id: number) {
+removeRole(id: number) {
   this.data = id;
   this.showModal = true;
   this.deleteItem(id)
 
 }
 
-viewUser(role: Role) {
-  if(!role.active){
-role.active = true;
-  }
+viewRole(role: Role) {
  this.router.navigate(['/role'], { state: role });
 }
   

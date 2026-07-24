@@ -63,7 +63,7 @@ export class RoleComponent {
     this.roleForm.setValue({
       id: state['roleId'],
       name: state['name'],
-      active: state['active'],
+      active: state['active']  ? 'Yes' : 'No',
     });
   }
 
