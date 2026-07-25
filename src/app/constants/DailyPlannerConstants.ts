@@ -4,6 +4,7 @@ export const SUCCESS = 'success';
 export const MESSAGE_CONTENT = 'Message Content';
 export const DANGER= 'danger';
 export const DELETE_ITEM = 'Are you sure you want to delete this item ?';
+export const SAVE_SUCCESSFULL = 'Save completed successfully : '
 
 //Error messages
 export const ERROR_MESSAGE ='Error occured :';
