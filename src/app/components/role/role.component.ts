@@ -38,6 +38,7 @@ export class RoleComponent {
   role: Role;
   isReadOnly: boolean = true;
   insert: boolean = false;
+  buttonText: string = 'Save';
 
   constructor() {
     this.role = {
@@ -53,6 +54,7 @@ export class RoleComponent {
       } else {
         this.setRole(state);
         this.role = this.getRoleFromState(state);
+        this.buttonText = 'Update';
       }
     } else {
       this.isReadOnly = false;
@@ -89,11 +91,21 @@ export class RoleComponent {
     return active == 'Yes';
   }
 
-  save() {
-    if (this.roleForm.valid) {
-      //extract role
-      this.role = { roleId: 0, name: this.name, active: this.active };
+    get roleId() {
+    return this.roleForm.get('id')?.value;
+     
+  }
 
+  save() {
+    
+    if (this.roleForm.valid) {
+      let id = 0;
+       if (this.roleId) {
+          id = Number(this.roleId);
+       }
+
+      
+      this.role = { roleId: id, name: this.name, active: this.active };
       this.roleService.save(this.role).subscribe({
         next: (response) => {
           this.toast.success(SAVE_SUCCESSFULL, JSON.stringify(response.name));
