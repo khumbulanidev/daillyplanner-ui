@@ -59,4 +59,8 @@ export class TaskService {
     const options =  {body : taskIds};
     return this.http.delete<TaskDto[]>(url, options);
   }
+
+  getTasksForWeek(date : string, email : string):Observable<Map<string,TaskDto[]>>{
+   return this.http.get<Map<string,TaskDto[]>>(BASE_URL + TASK_URL + `/week/${email}/${date}`);
+  }
 }
