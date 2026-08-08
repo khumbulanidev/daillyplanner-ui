@@ -1,6 +1,11 @@
-<div class="reports-container">
+<div class="reports-container">   
     <div class="bc-container">
+        This week's breakdown 
         <p-chart type="bar" [data]="data" [options]="options" class="chart" />
     </div>
 
+    <div class="bc-container">
+        This month 
+        <p-chart type="line" [data]="dataForLineGraph" [options]="options" class="chart" />
+    </div>
 </div>

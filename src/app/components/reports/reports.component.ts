@@ -11,16 +11,17 @@ import { TaskDto } from '../../models/TaskDto';
   styleUrl: './reports.component.css',
 })
 export class ReportsComponent implements OnInit {
-
   //Services
   taskService = inject(TaskService);
 
   data: any;
+  dataForLineGraph: any;
   options: any;
   documentStyle = getComputedStyle(document.documentElement);
+  completedTasks: Map<number, TaskDto[]> = new Map<number, TaskDto[]>();
+  incompleteTasks: Map<number, TaskDto[]> = new Map<number, TaskDto[]>();
 
   ngOnInit(): void {
-
     let date = new Date();
     let formattedDate =
       date.getMonth() + 1 + '-' + date.getDate() + '-' + date.getFullYear();
@@ -44,10 +45,44 @@ export class ReportsComponent implements OnInit {
           console.log(error.message);
         },
       });
+
+    let currentDate = new Date();
+    this.taskService
+      .getCompletedDataForMonth({
+        email: localStorage.getItem('email') ?? '',
+        month: currentDate.getMonth() + 1,
+        year: currentDate.getFullYear(),
+      })
+      .subscribe({
+        next: (response) => {
+          this.completedTasks = response;
+          this.populateMonthGraph(this.completedTasks, this.incompleteTasks);
+          console.log('Completed tasks ', response);
+        },
+        error: (error) => {
+          console.log('Error occurred ', error.message);
+        },
+      });
+
+    this.taskService
+      .getIncompletedDataForMonth({
+        email: localStorage.getItem('email') ?? '',
+        month: currentDate.getMonth() + 1,
+        year: currentDate.getFullYear(),
+      })
+      .subscribe({
+        next: (response) => {
+          this.incompleteTasks = response;
+          this.populateMonthGraph(this.completedTasks, this.incompleteTasks);
+          console.log('Completed tasks ', response);
+        },
+        error: (error) => {
+          console.log('Error occurred ', error.message);
+        },
+      });
   }
 
   populateGraph(allTasks: Map<string, TaskDto[]>) {
-
     let mondayTasks;
     let tuesdayTasks;
     let wednesdayTasks;
@@ -71,7 +106,7 @@ export class ReportsComponent implements OnInit {
         case 'Thursday':
           thursdayTasks = tasks;
           break;
-        case 'Frdiay':
+        case 'Friday':
           fridayTasks = tasks;
           break;
         case 'Saturday':
@@ -85,9 +120,7 @@ export class ReportsComponent implements OnInit {
       }
     }
 
-  
     this.data = {
-
       labels: [
         'Monday',
         'Tuesday',
@@ -97,7 +130,7 @@ export class ReportsComponent implements OnInit {
         'Saturday',
         'Sunday',
       ],
-      
+
       datasets: [
         {
           label: 'Completed',
@@ -112,7 +145,7 @@ export class ReportsComponent implements OnInit {
             this.getCompletedTasks(fridayTasks)?.length,
             this.getCompletedTasks(saturdayTasks)?.length,
             this.getCompletedTasks(sundayTasks)?.length,
-          ], 
+          ],
         },
         {
           label: 'Incomplete',
@@ -126,6 +159,65 @@ export class ReportsComponent implements OnInit {
             this.getIncompleteTasks(fridayTasks)?.length,
             this.getIncompleteTasks(saturdayTasks)?.length,
             this.getIncompleteTasks(sundayTasks)?.length,
+          ],
+        },
+      ],
+    };
+  }
+
+  populateMonthGraph(
+    completeTaskMap: Map<number, TaskDto[]>,
+    inCompleteTaskMap: Map<number, TaskDto[]>,
+  ) {
+    let completeTasks: Array<TaskDto[]> = [];
+    let incompleteTasks: Array<TaskDto[]> = [];
+    console.log('Tasks for month : ', typeof completeTaskMap);
+    for (const [key, value] of Object.entries(completeTaskMap)) {
+      completeTasks.push(value);
+      console.log(`${key}: `, value);
+    }
+
+    for (const [key, value] of Object.entries(inCompleteTaskMap)) {
+      incompleteTasks.push(value);
+      console.log(`${key}: `, value);
+    }
+
+    this.dataForLineGraph = {
+      labels: [
+        'Week one',
+        'Week two',
+        'Week three',
+        'Week four',
+        'Week five',
+        'Week six',
+      ],
+
+      datasets: [
+        {
+          label: 'Completed',
+          backgroundColor: this.documentStyle.getPropertyValue('--blue-500'),
+          borderColor: this.documentStyle.getPropertyValue('--blue-500'),
+
+          data: [
+            completeTasks.at(0)?.length,
+            completeTasks.at(1)?.length,
+            completeTasks.at(2)?.length,
+            completeTasks.at(3)?.length,
+            completeTasks.at(4)?.length,
+            completeTasks.at(5)?.length,
+          ],
+        },
+        {
+          label: 'Incomplete',
+          backgroundColor: this.documentStyle.getPropertyValue('--red-500'),
+          borderColor: this.documentStyle.getPropertyValue('--pink-500'),
+          data: [
+            incompleteTasks.at(0)?.length,
+            incompleteTasks.at(1)?.length,
+            incompleteTasks.at(2)?.length,
+            incompleteTasks.at(3)?.length,
+            incompleteTasks.at(4)?.length,
+            incompleteTasks.at(5)?.length,
           ],
         },
       ],
@@ -150,4 +242,5 @@ export class ReportsComponent implements OnInit {
     let dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
     return dayOfWeek;
   }
+
 }

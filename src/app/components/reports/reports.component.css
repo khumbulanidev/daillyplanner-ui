@@ -1,20 +1,20 @@
-
-
-.reports-container{
+.reports-container {
     display: grid;
     min-height: inherit;
-    width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
+    margin: auto;
 }
 
-.bc-container{
+.bc-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.chart{
-width: 100%;
-min-height: 50%;
+.chart {
+    width: 100%;
+    min-height: 50%;
 }
