@@ -2,24 +2,53 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { TaskService } from '../../services/task-service/task.service';
 import { TaskDto } from '../../models/TaskDto';
+import { Month } from '../../models/month';
+import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports: [ChartModule],
+  imports: [ChartModule, FormsModule],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.css',
 })
 export class ReportsComponent implements OnInit {
   //Services
   taskService = inject(TaskService);
+  toast = inject(ToastrService);
 
   data: any;
   dataForLineGraph: any;
   options: any;
+  months: Month[] = [
+    { id: 1, name: 'January' },
+    { id: 2, name: 'February' },
+    { id: 3, name: 'March' },
+    { id: 4, name: 'April' },
+    { id: 5, name: 'May' },
+    { id: 6, name: 'June' },
+    { id: 7, name: 'July' },
+    { id: 8, name: 'August' },
+    { id: 9, name: 'September' },
+    { id: 10, name: 'October' },
+    { id: 11, name: 'November' },
+    { id: 12, name: 'December' },
+  ];
+  years: any;
+  selectedMonth: string = '';
+  selectedYear: string = '';
   documentStyle = getComputedStyle(document.documentElement);
   completedTasks: Map<number, TaskDto[]> = new Map<number, TaskDto[]>();
   incompleteTasks: Map<number, TaskDto[]> = new Map<number, TaskDto[]>();
+
+  constructor() {
+    let currentYear = new Date().getFullYear();
+    this.years = [];
+    for (let year = currentYear - 5; year <= currentYear; year++) {
+      this.years = [...this.years, year];
+    }
+  }
 
   ngOnInit(): void {
     let date = new Date();
@@ -47,39 +76,11 @@ export class ReportsComponent implements OnInit {
       });
 
     let currentDate = new Date();
-    this.taskService
-      .getCompletedDataForMonth({
-        email: localStorage.getItem('email') ?? '',
-        month: currentDate.getMonth() + 1,
-        year: currentDate.getFullYear(),
-      })
-      .subscribe({
-        next: (response) => {
-          this.completedTasks = response;
-          this.populateMonthGraph(this.completedTasks, this.incompleteTasks);
-          console.log('Completed tasks ', response);
-        },
-        error: (error) => {
-          console.log('Error occurred ', error.message);
-        },
-      });
+    this.selectedMonth = currentDate.getMonth() + 1 + '';
+    this.selectedYear = currentDate.getFullYear() + '';
 
-    this.taskService
-      .getIncompletedDataForMonth({
-        email: localStorage.getItem('email') ?? '',
-        month: currentDate.getMonth() + 1,
-        year: currentDate.getFullYear(),
-      })
-      .subscribe({
-        next: (response) => {
-          this.incompleteTasks = response;
-          this.populateMonthGraph(this.completedTasks, this.incompleteTasks);
-          console.log('Completed tasks ', response);
-        },
-        error: (error) => {
-          console.log('Error occurred ', error.message);
-        },
-      });
+    this.getCompletedTasksForLineGraph();
+    this.getInCompleteTasksForLineGraph();
   }
 
   populateGraph(allTasks: Map<string, TaskDto[]>) {
@@ -232,6 +233,51 @@ export class ReportsComponent implements OnInit {
     return tasks?.filter((task) => !task.done);
   }
 
+  getCompletedTasksForLineGraph() {
+    if (this.selectedMonth && this.selectedYear) {
+      this.taskService
+        .getCompletedDataForMonth({
+          email: localStorage.getItem('email') ?? '',
+          // month: currentDate.getMonth() + 1,
+          // year: currentDate.getFullYear(),
+          month: Number(this.selectedMonth),
+          year: Number(this.selectedYear),
+        })
+        .subscribe({
+          next: (response) => {
+            this.completedTasks = response;
+            this.populateMonthGraph(this.completedTasks, this.incompleteTasks);
+            console.log('Completed tasks ', response);
+          },
+          error: (error) => {
+            console.log('Error occurred ', error.message);
+          },
+        });
+    } else {
+      this.toast.error('Select month and year');
+    }
+  }
+
+  getInCompleteTasksForLineGraph() {
+    this.taskService
+      .getIncompletedDataForMonth({
+        email: localStorage.getItem('email') ?? '',
+        month: Number(this.selectedMonth),
+        year: Number(this.selectedYear),
+        //year: currentDate.getFullYear(),
+      })
+      .subscribe({
+        next: (response) => {
+          this.incompleteTasks = response;
+          this.populateMonthGraph(this.completedTasks, this.incompleteTasks);
+          console.log('Completed tasks ', response);
+        },
+        error: (error) => {
+          console.log('Error occurred ', error.message);
+        },
+      });
+  }
+
   getDayFromDate(dateString: string): string {
     let dateStringArray = dateString.split('-');
     let date = new Date(
@@ -243,4 +289,15 @@ export class ReportsComponent implements OnInit {
     return dayOfWeek;
   }
 
+  updateGraph() {
+    this.getCompletedTasksForLineGraph();
+    this.getInCompleteTasksForLineGraph();
+  }
+
+  onMonthChange($event: Event) {
+    this.updateGraph();
+  }
+  onYearChange($event: Event) {
+    this.updateGraph();
+  }
 }

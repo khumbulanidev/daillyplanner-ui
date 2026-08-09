@@ -1,20 +1,48 @@
 .reports-container {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     min-height: inherit;
-    width: 80%;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    margin: auto;
+    width: 100%;
 }
 
 .bc-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    border: 1px solid grey;
 }
 
 .chart {
     width: 100%;
     min-height: 50%;
 }
+
+.drop-down{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top:  1em;
+    min-height: 20%;
+}
+
+.chart-container{
+    display: grid;
+    min-height: 80%;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    margin: auto;
+    
+}
+
+
+ select{
+    border-radius: 1em;
+    height: 2em;
+    margin-left: 1em;
+    text-align: center;
+    min-width: 20%;
+}
+
