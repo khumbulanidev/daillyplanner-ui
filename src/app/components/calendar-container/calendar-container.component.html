@@ -3,7 +3,7 @@
             <label for="month">
                 Select month
             </label>
-            <select name="month" #month (change)="onMonthChange(month.value)">
+            <select name="month" id="month" #month (change)="onMonthChange(month.value)">
                 @for(month of months; track $index){
                 <option>
                     {{month}}
@@ -13,10 +13,10 @@
         </div>
 
         <div class="drop-down-item">
-            <label for="month">
+            <label for="year">
                 Select year
             </label>
-            <select name="year" #year (change)="onYearChange(year.value)" >
+            <select name="year" id="year" #year (change)="onYearChange(year.value)" >
                 @for(year of years; track $index){
                 <option>
                     {{year}}
