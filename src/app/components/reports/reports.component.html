@@ -1,3 +1,37 @@
 <div class="reports-container">
-Under construction
+
+    <div class="chart-container">
+
+        <div class="bc-container">
+            Today's breakdown
+            <p-chart type="pie" [data]="dataForPieChart" [options]="options" class="chart" />
+        </div>
+        <div class="bc-container">
+            This week's breakdown
+            <p-chart type="bar" [data]="data" [options]="options" class="chart" />
+        </div>
+
+        <div class="bc-container">
+            <div class="drop-down">
+                <label for="month">Month </label>
+                <select name="month" id="month" [(ngModel)]="selectedMonth" (change)="onMonthChange($event)">
+                    <option disabled>Select a month</option>
+                    @for(month of months; track month.id){
+                    <option [value]="month.id">{{month.name}}</option>
+                    }
+
+                </select>
+                <label for="year">Year</label>
+                <select name="year" id="year" [(ngModel)]="selectedYear" (change)="onYearChange($event)">
+                    <option disabled>Select a year</option>
+                    @for(year of years; track year){
+                    <option [value]="year">{{year}}</option>
+                    }
+                </select>
+            </div>
+            This month
+            <p-chart type="line" [data]="dataForLineGraph" [options]="options" class="chart" />
+        </div>
+    </div>
+
 </div>

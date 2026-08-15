@@ -4,17 +4,13 @@ import { Observable } from 'rxjs';
 import { TaskDto } from '../../models/TaskDto';
 import { LoggerService } from '../logger/logger.service';
 import { BASE_URL, TASK_URL } from '../../constants/DailyPlannerConstants';
-import { Task } from '../../models/task';
-import { TableBody } from 'primeng/table';
 import { DailyTaskDto } from '../../dto/DailyTaskDto';
+import { TaskMapDto } from '../../models/TaskMapDto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-
-  
- 
   http = inject(HttpClient);
   logger = inject(LoggerService);
   constructor() {}
@@ -23,40 +19,68 @@ export class TaskService {
     return this.http.get<TaskDto[]>(BASE_URL + TASK_URL + '/' + dayId);
   }
 
-   getTaskById(taskId: number): Observable<TaskDto> {
+  getTaskById(taskId: number): Observable<TaskDto> {
     return this.http.get<TaskDto>(BASE_URL + TASK_URL + '/task/' + taskId);
   }
 
-  getTasksForToday(date : string): Observable<TaskDto[]> {
+  getTasksForToday(date: string): Observable<TaskDto[]> {
     let day = new Date(date);
     return this.http.get<TaskDto[]>(BASE_URL + TASK_URL + `/today/${date}`);
   }
 
-  getTasksForTodayByEmail(date : string, email: string): Observable<TaskDto[]> {
+  getTasksForTodayByEmail(date: string, email: string): Observable<TaskDto[]> {
     let day = new Date(date);
-    return this.http.get<TaskDto[]>(BASE_URL + TASK_URL + `/today/${email}/${date}`);
+    return this.http.get<TaskDto[]>(
+      BASE_URL + TASK_URL + `/today/${email}/${date}`,
+    );
   }
 
-  saveTask(taskDto: TaskDto):Observable<TaskDto> {
+  saveTask(taskDto: TaskDto): Observable<TaskDto> {
     return this.http.post<TaskDto>(BASE_URL + TASK_URL + '/save', taskDto);
   }
 
-  saveAll(dailyTasksDto: DailyTaskDto):Observable<DailyTaskDto> {
-    return this.http.post<DailyTaskDto>(BASE_URL + TASK_URL + '/save-all', dailyTasksDto);
+  saveAll(dailyTasksDto: DailyTaskDto): Observable<DailyTaskDto> {
+    return this.http.post<DailyTaskDto>(
+      BASE_URL + TASK_URL + '/save-all',
+      dailyTasksDto,
+    );
   }
 
   updateTask(taskDto: TaskDto): Observable<TaskDto> {
-     return this.http.put<TaskDto>(BASE_URL + TASK_URL +'/update', taskDto);
+    return this.http.put<TaskDto>(BASE_URL + TASK_URL + '/update', taskDto);
   }
 
-   deleteById(taskId: number):Observable<TaskDto> {
-    return this.http.delete<TaskDto>(BASE_URL + TASK_URL + '/delete/'+taskId);
+  deleteById(taskId: number): Observable<TaskDto> {
+    return this.http.delete<TaskDto>(BASE_URL + TASK_URL + '/delete/' + taskId);
   }
 
-  deleteTasks(taskList : TaskDto[]):Observable<TaskDto[]> {
-    let taskIds = taskList.map(a => a.id);
+  deleteTasks(taskList: TaskDto[]): Observable<TaskDto[]> {
+    let taskIds = taskList.map((a) => a.id);
     let url = BASE_URL + TASK_URL + '/delete-tasks';
-    const options =  {body : taskIds};
+    const options = { body: taskIds };
     return this.http.delete<TaskDto[]>(url, options);
+  }
+
+  getTasksForWeek(
+    date: string,
+    email: string,
+  ): Observable<Map<string, TaskDto[]>> {
+    return this.http.get<Map<string, TaskDto[]>>(
+      BASE_URL + TASK_URL + `/week/${email}/${date}`,
+    );
+  }
+
+  getCompletedDataForMonth(taskmapDto : TaskMapDto): Observable<Map<number, TaskDto[]>> {
+    return this.http.post<Map<number, TaskDto[]>>(
+      BASE_URL + TASK_URL + `/complete`, taskmapDto
+    );
+  }
+
+  //grouped by months incomplete counts
+  getIncompletedDataForMonth(taskmapDto : TaskMapDto): Observable<Map<number, TaskDto[]>> {
+    //
+   return this.http.post<Map<number, TaskDto[]>>(
+      BASE_URL + TASK_URL + `/incomplete`, taskmapDto
+    );
   }
 }
