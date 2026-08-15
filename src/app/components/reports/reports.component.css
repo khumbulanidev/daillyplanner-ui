@@ -10,7 +10,6 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    border: 1px solid grey;
 }
 
 .chart {
@@ -31,7 +30,7 @@
     display: grid;
     min-height: 80%;
     width: 80%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     margin: auto;
     

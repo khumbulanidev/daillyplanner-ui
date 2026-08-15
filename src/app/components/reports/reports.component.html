@@ -1,6 +1,11 @@
 <div class="reports-container">
 
     <div class="chart-container">
+
+        <div class="bc-container">
+            Today's breakdown
+            <p-chart type="pie" [data]="dataForPieChart" [options]="options" class="chart" />
+        </div>
         <div class="bc-container">
             This week's breakdown
             <p-chart type="bar" [data]="data" [options]="options" class="chart" />
